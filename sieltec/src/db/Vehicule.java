@@ -1,4 +1,4 @@
-package com.sieltec.db;
+package db;
 
 public class Vehicule {
 	private double id;

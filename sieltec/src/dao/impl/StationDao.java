@@ -8,7 +8,7 @@ import javax.faces.bean.ManagedBean;
 
 import org.joda.time.DateTime;
 
-import com.sieltec.db.ElementProgramme;
+import db.ElementProgramme;
 import com.sieltec.demo.PathFinder;
 
 import dao.IStationDao;

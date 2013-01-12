@@ -1,4 +1,4 @@
-package com.sieltec.db;
+package db;
 
 import org.joda.time.DateTime;
 

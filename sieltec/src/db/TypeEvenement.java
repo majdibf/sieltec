@@ -1,15 +1,14 @@
-package com.sieltec.db;
+package db;
 
-public class Ligne {
-
+public class TypeEvenement {
 	private double id;
-	private String nom;
+	private String libelle;
 	private int version;
 
-	public Ligne(double id, String nom, int version) {
+	public TypeEvenement(double id, String libelle, int version) {
 		super();
 		this.id = id;
-		this.nom = nom;
+		this.libelle = libelle;
 		this.version = version;
 	}
 
@@ -21,12 +20,12 @@ public class Ligne {
 		this.id = id;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getLibelle() {
+		return libelle;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
 	}
 
 	public int getVersion() {

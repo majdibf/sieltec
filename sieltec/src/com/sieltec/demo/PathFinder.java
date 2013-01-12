@@ -1,23 +1,20 @@
 package com.sieltec.demo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 
-import com.sieltec.db.ElementParcours;
-import com.sieltec.db.ElementProgramme;
-import com.sieltec.db.Ligne;
-import com.sieltec.db.Parcours;
-import com.sieltec.db.Programme;
-import com.sieltec.db.Station;
+import db.ElementParcours;
+import db.ElementProgramme;
+import db.Ligne;
+import db.Parcours;
+import db.Programme;
+import db.Station;
 
 public class PathFinder {
 	private  double id = 1;

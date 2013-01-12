@@ -14,8 +14,8 @@ public class ItineraireBean {
 
 	//input
 	private String id;
-	private String startStation;
-	private String endStation;
+	private String startStation = "3";
+	private String endStation = "24";
 	private String[] stationNames = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"};
 
 	//output
