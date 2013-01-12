@@ -1,0 +1,737 @@
+<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN' 'http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' >
+<head>
+<title>Database documentation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF8"/>
+<style type='text/css'>
+	 #dbs {font-family:Tahoma,Dialog,Sans-Serif;font-size:12px;background:#fff;width:80%;border-collapse:collapse;text-align:left;margin:20px;}
+	 #dbs thead{background:#ddd;}
+	 #dbs th{font-size:12px;font-weight:bold;color:#333;border-bottom:2px solid #333;padding:7px 8px;}
+	 #dbs td{border-bottom:1px solid #ccc;color:#333;padding:5px 8px;white-space: pre;}
+	 td.subpart{background:#ddd}
+	 #dbs tbody tr:hover td{color:#000;background:#fffcea;}
+</style>
+</head>
+
+<body>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'   width='1022' height='820' viewbox='0 0 1022 820' >
+<style type='text/css'>
+  text                { text-rendering: optimizeLegibility; fill:#000000; font-family: Candara, Dialog, Arial; font-size:12px; }
+  text.fk             { fill:#8b0882; }
+  text.pk             { fill:#130a98; }
+  text.colType        { fill:#a9bdc6; }
+  text.tableTitle     { fill:#000000; }
+  path                { stroke:#817255; stroke-width:1.5; fill:none; }
+  rect.grp            { opacity:0.5; stroke:#c2ab83; stroke-width:1; }
+  rect.table          { fill:#ffffff; stroke:#9ea1a4; stroke-width:0.5; filter:url(#shadow); }
+  line.table          { stroke:#9ea1a4; stroke-width:0.3; }
+  rect.callout        { fill:url(#calloutGradient); stroke:#aea913; stroke-width:0.5; }
+  path.callout        { fill:#f4f1a4; stroke:#aea913; stroke-width:0.5; }
+</style>
+<defs>
+  <pattern id='layoutGradient' patternUnits='userSpaceOnUse' x='0' y='0' width='10' height='10' viewBox='0 0 10 10'>
+    <rect x='0' y='0' width='10' height='10' style='fill:#f7f7f0;' />
+    <line x1='5' y1='10' x2='5' y2='0' style='stroke:#949494;stroke-width:0.5;stroke-dasharray:1,9;'  />
+  </pattern>
+  <radialGradient id='layoutGradientOld' cx='20%' cy='20%' r='25%' fx='10%' fy='0%'>
+	   <stop offset='0%' stop-color='#ffffff' />
+    <stop offset='100%' stop-color='#efefef' />
+  </radialGradient>
+  <linearGradient id='tableHeaderGradient' x1='0%' y1='0%' x2='0%' y2='100%' >
+          <stop offset='0%' stop-color='#f6fafc' stop-opacity='1'/> 
+          <stop offset='50%' stop-color='#e1ebfa' stop-opacity='1'/> 
+          <stop offset='51%' stop-color='#bdd4f1' stop-opacity='1'/> 
+          <stop offset='100%' stop-color='#d6e2f9' stop-opacity='1' /> 
+   </linearGradient>
+  <radialGradient id='calloutGradient' cx='20%' cy='20%' r='100%' fx='10%' fy='10%'>
+	   <stop offset='0%' stop-color='#ffffff' />
+    <stop offset='100%' stop-color='#f4f1a4' />
+  </radialGradient>
+  <filter id='shadow' width='150%' height='150%'> 
+    <feGaussianBlur in='SourceAlpha' stdDeviation='2' result='image1' /> 
+    <feOffset in='image1' result='image2' dx='2' dy='2' />
+    <feComposite in='SourceGraphic' in2='image2' operator='over' /> 
+  </filter>
+  <filter id='emboss'> 
+    <feGaussianBlur in='SourceAlpha' stdDeviation='2' result='blur'/> 
+    <feSpecularLighting in='blur' surfaceScale='-3' style='lighting-color:white' 
+      specularConstant='1' specularExponent='16' result='spec' kernelUnitLength='1' >
+      <feDistantLight azimuth='45' elevation='45' />
+    </feSpecularLighting> 
+    <feComposite in='spec' in2='SourceGraphic' operator='in' result='specOut'/> 
+    <feComposite in='SourceGraphic' in2='specOut' operator='arithmetic' k1='0' k2='1' k3='1' k4='0' result='litPaint'/>  
+  </filter>
+  <filter id='embossAndShadow' filterUnits='userSpaceOnUse' x='0' y='0' width='400' height='120'> 
+     <feGaussianBlur in='SourceAlpha' stdDeviation='3' result='blur'/> 
+     <feOffset in='blur' dx='4' dy='4' result='offsetBlur'/> 
+     <feSpecularLighting in='blur' surfaceScale='5' specularConstant='.75' specularExponent='20' lighting-color='#bbbbbb' result='specOut'>
+        <fePointLight x='-5000' y='-10000' z='20000'/>  
+     </feSpecularLighting> 
+     <feComposite in='specOut' in2='SourceAlpha' operator='in' result='specOut'/> 
+     <feComposite in='SourceGraphic' in2='specOut' operator='arithmetic' k1='0' k2='1' k3='1' k4='0' result='litPaint'/>  
+     <feMerge> 
+         <feMergeNode in='offsetBlur'/> 
+         <feMergeNode in='litPaint'/> 
+     </feMerge> 
+  </filter> 
+  <radialGradient id='legendGradient' fx='5%' fy='5%' r='75%' spreadMethod='pad'>
+          <stop offset='0%' stop-color='#cfd7f6' stop-opacity='1'/> 
+          <stop offset='100%' stop-color='#919dd0' stop-opacity='1' /> 
+   </radialGradient>
+  <pattern id='hintPointerSV' patternUnits='userSpaceOnUse' x='0' y='0' width='14' height='14' viewBox='0 0 14 14' >
+      <path d='M 0,0 Q 7,7,0,13 Q 13,7,13,0' class='callout' />
+  </pattern>
+  <pattern id='hintPointerSE' patternUnits='userSpaceOnUse' x='0' y='0' width='14' height='14' viewBox='0 0 14 14' >
+      <path d='M 0,0 Q 3,7,13,13 Q 7,7,13,0' class='callout' />
+  </pattern>
+  <pattern id='hintPointerNV' patternUnits='userSpaceOnUse' x='0' y='0' width='14' height='14' viewBox='0 0 14 14' >
+      <path d='M 0,13 Q 7,7,0,0 Q 13,7,13,13' class='callout' />
+  </pattern>
+  <pattern id='hintPointerNE' patternUnits='userSpaceOnUse' x='0' y='0' width='14' height='14' viewBox='0 0 14 14' >
+      <path d='M 0,13 Q 3,7,13,0 Q 7,7,13,13' class='callout' />
+  </pattern>
+  <symbol id='pk' overflow='visible' >
+    <g transform='scale(0.85)'>
+     <path style='fill:#e9ad16;stroke:#9c4f15;stroke-width:0.7;stroke-linecap:round;stroke-linejoin:round;filter:url(#emboss);'
+        d='M 9.3678877,3.5695485 C 9.1030218,3.2729386 9.0796382,2.7628519 9.3396185,2.4517097 9.5449651,2.1956495 9.9040386,2.0980533 10.199638,2.2169415 10.533525,2.3415459 10.775153,2.706942 10.750675,3.0842709 10.737029,3.3980003 10.541153,3.699122 10.258248,3.8066067 9.966649,3.9250429 9.6169668,3.8418805 9.4008073,3.6062324 9.3894892,3.5943518 9.3785264,3.582104 9.3678886,3.5695487 z M 11.226617,6.9916004 C 11.888137,6.3548946 12.293488,5.4172188 12.311087,4.442353 12.378144,2.7379364 11.248678,1.0541269 9.7322318,0.44767357 8.3887112,-0.1280313 6.7865012,0.26822889 5.8918395,1.4007929 5.080823,2.3839145 4.9336815,3.8452096 5.3635544,5.101615 L 4.3670905,5.315913 C 4.0664984,5.3682645 4.0967703,5.6316724 4.2574957,5.8208829 L 4.9124,6.5655244 4.1543436,7.2512357 3.2136002,7.2163506 3.1674775,8.5586827 2.0406832,8.5086512 1.5965306,8.9299953 1.5471661,10.179833 0.75616674,10.195223 0.2112857,10.758575 0.15354288,11.735988 0.07199052,12.765553 c 0.36440953,0.238225 0.79006967,0.195492 1.44938278,-0.02675 L 6.3033562,8.1282037 6.8217102,8.6765688 C 6.9985465,8.8799427 7.3003699,8.7497574 7.358381,8.5016252 L 7.4938877,7.5084164 c 0.8537488,0.3985387 1.8303125,0.4711541 2.6851793,0.1427713 0.393927,-0.1407258 0.746858,-0.3701772 1.04755,-0.6595873 z'/>
+     <path d='M 6.8014948,6.3102123 0.15369063,13.024481 0.21560535,12.141962 6.0062342,6.2683782 z'
+        style='fill:#ffe5a5;fill-opacity:1;stroke:#854e31;stroke-width:0.09912433;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:3.00300009'/>
+    </g>
+  </symbol>
+  <symbol id='unq' overflow='visible' >
+    <g transform='scale(0.85)'>
+      <rect style='fill:#e07554;stroke:#7e4d31;stroke-width:0.71934468;stroke-linecap:round;stroke-linejoin:round;'
+         width='2.29' height='8.43' x='7.48' y='-0.76' ry='1.14' transform='matrix(0.701,0.713,-0.727,0.685,0,0)' />
+      <path style='fill:#ffffe2;stroke:#313131;stroke-width:0.8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;'
+         d='m 26.04,8.64 a 4.13,4.13 0 1 1 -8.26,0 4.13,4.13 0 1 1 8.26,0 z'
+         transform='matrix(1.025,0,0,0.987,-14.690,-3.862)' />
+      <text x='5.4' y='6.6' style='font-size:8px;fill:#7c0909;'>1</text>
+    </g>
+  </symbol>
+  <symbol id='idx' overflow='visible' >
+    <g transform='scale(0.85)'>
+      <rect style='fill:#e07554;stroke:#7e4d31;stroke-width:0.71934468;stroke-linecap:round;stroke-linejoin:round;'
+         width='2.29' height='8.43' x='7.48' y='-0.76' ry='1.14' transform='matrix(0.701,0.713,-0.727,0.685,0,0)' />
+      <path style='fill:#ffffe2;stroke:#313131;stroke-width:0.8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;'
+         d='m 26.04,8.64 a 4.13,4.13 0 1 1 -8.26,0 4.13,4.13 0 1 1 8.26,0 z'
+         transform='matrix(1.025,0,0,0.987,-14.690,-3.862)' />
+    </g>
+  </symbol>
+  <symbol id='fk' overflow='visible' >
+    <path style='fill:#946d00;stroke:#5c2352;stroke-width:0.46;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+    d='M 12.48,0.33 7.07,0.89 9.067,2.974 0.329,11.731 1.073,12.597 9.811,3.841 11.77,5.78 z' />
+  </symbol>
+  <symbol id='ref' overflow='visible' >
+  <path style='fill:#1877c8;stroke:#29365f;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+          d='M 0.10,12.70 5.31,12.15 3.40,10.06 11.82,1.32 11.11,0.45 2.68,9.19 0.80,7.24 z'/>
+  </symbol>
+  <marker id='arrow' viewBox='0 0 7 7' refX='0' refY='3' markerUnits='strokeWidth' markerWidth='7' markerHeight='7' orient='auto'>
+    <path d='M 0,0 L 7, 3 L 0,7 z' style='fill:#776c57; stroke-width:0px;' />
+  </marker>
+  <marker id='foot' viewBox='0 0 7 7' refX='7' refY='3' markerUnits='strokeWidth' markerWidth='7' markerHeight='7' orient='auto'>
+    <path d='M 0,3 L 14, 3 z' style='stroke:#776c57;' />
+  </marker>
+</defs>
+
+<!-- ============= Desktop ============= -->
+<rect x='1' y='1' width='1020' height='818' rx='7' ry='7' style='fill:url(#layoutGradient); stroke:#104576; stroke-width:0.5;' />
+
+<!-- ============= Legend ============= -->
+<g transform='translate(10,10)'>
+  <rect x='10' y='10' width='320' height='80' rx='6' ry='6' style='fill:url(#legendGradient);filter:url(#embossAndShadow);'/> 
+  <text x='20' y='30'><tspan style='fill:gray;'>Project</tspan> SIELTEC</text> 
+  <text x='20' y='44'><tspan style='fill:gray;'>Layout</tspan> SIELTEC</text> 
+  <text x='20' y='58'><tspan style='fill:gray;'>Build with DbSchema</tspan></text> 
+  <text x='20' y='76'><tspan style='fill:gray;'>Tip: column and table comments are available as tooltips</tspan></text> 
+  <a xlink:href='http://www.dbschema.com' title='Visit http://www.dbschema.com'> 
+  </a>
+
+</g>
+
+<g transform='translate(0,120)'>
+<path transform='translate(7,0)' marker-start='url(#foot)' marker-end='url(#arrow)'    title='FK_PARCOURS__LIGNE PARCOURS to LIGNE ( ID_LIGNE -> ID )' d='M 210 56 L 140,56'  />
+
+<text x='166' y='52' transform='rotate(0 166,52)' title='FK_PARCOURS__LIGNE PARCOURS to LIGNE ( ID_LIGNE -> ID )'>ID_LIGNE</text><path transform='translate(7,0)' marker-start='url(#foot)' marker-end='url(#arrow)'    title='FK_ELEMENT_PARCOURS__PARCOURS ELEMENT_PARCOURS to PARCOURS ( ID_PARCOURS -> ID )' d='M 560 56 L 322,56'  />
+
+<text x='489' y='52' transform='rotate(0 489,52)' title='FK_ELEMENT_PARCOURS__PARCOURS ELEMENT_PARCOURS to PARCOURS ( ID_PARCOURS -> ID )'>ID_PARCOURS</text><path transform='translate(7,0)' marker-start='url(#foot)' marker-end='url(#arrow)'    title='FK_ELEMENT_PARCOURS__STATION_DEP ELEMENT_PARCOURS to STATION ( ID_STATION_DEP -> ID )' d='M 714 56 L 854,56'  />
+
+<text x='723' y='52' transform='rotate(0 723,52)' title='FK_ELEMENT_PARCOURS__STATION_DEP ELEMENT_PARCOURS to STATION ( ID_STATION_DEP -> ID )'>ID_STATION_DEP</text><path transform='translate(7,0)' marker-start='url(#foot)' marker-end='url(#arrow)'    title='FK_ELEMENT_PARCOURS__STATION_ARR ELEMENT_PARCOURS to STATION ( ID_STATION_ARR -> ID )' d='M 714 70 L 854,70'  />
+
+<text x='723' y='66' transform='rotate(0 723,66)' title='FK_ELEMENT_PARCOURS__STATION_ARR ELEMENT_PARCOURS to STATION ( ID_STATION_ARR -> ID )'>ID_STATION_ARR</text><path transform='translate(7,0)' marker-start='url(#foot)' marker-end='url(#arrow)'    title='FK_PROGRAMME__VEHICULE PROGRAMME to VEHICULE ( ID_VEHICULE -> ID )' d='M 476 420 L 539,420 Q 546,420 546,427 L 546,504'  />
+
+<text x='485' y='416' transform='rotate(0 485,416)' title='FK_PROGRAMME__VEHICULE PROGRAMME to VEHICULE ( ID_VEHICULE -> ID )'>ID_VEHICULE</text><path transform='translate(7,0)' marker-start='url(#foot)' marker-end='url(#arrow)'    title='FK_PROGRAMME__CONDUCTEUR PROGRAMME to CONDUCTEUR ( ID_CONDUCTEUR -> ID )' d='M 308 406 L 273,406 Q 266,406 266,413 L 266,490'  />
+
+<text x='221' y='402' transform='rotate(0 221,402)' title='FK_PROGRAMME__CONDUCTEUR PROGRAMME to CONDUCTEUR ( ID_CONDUCTEUR -> ID )'>ID_CONDUCTEUR</text><path transform='translate(7,0)' marker-start='url(#foot)' marker-end='url(#arrow)'  style='stroke-dasharray:4,2;'  title='FK_PROGRAMME__PARCOURS PROGRAMME to PARCOURS ( ID_PARCOURS -> ID )' d='M 336 294 L 336,133 Q 336,126 329,126 L 322,126'  />
+
+<text x='339' y='290' transform='rotate(270 339,290)' title='FK_PROGRAMME__PARCOURS PROGRAMME to PARCOURS ( ID_PARCOURS -> ID )'>ID_PARCOURS</text><path transform='translate(7,0)' marker-start='url(#foot)' marker-end='url(#arrow)'    title='FK_DETAIL_TOURNEE_REALISEE__TOURNEE_PROGRAMMEE EVENEMENT to PROGRAMME ( ID_PROGRAMME -> ID )' d='M 686 378 L 476,378'  />
+
+<text x='603' y='374' transform='rotate(0 603,374)' title='FK_DETAIL_TOURNEE_REALISEE__TOURNEE_PROGRAMMEE EVENEMENT to PROGRAMME ( ID_PROGRAMME -> ID )'>ID_PROGRAMME</text><path transform='translate(7,0)' marker-start='url(#foot)' marker-end='url(#arrow)'    title='FK_DETAIL_TOURNEE_REALISEE__TYPE_DETAIL_TOURNEE EVENEMENT to TYPE_EVENEMENT ( ID_TYPE_EVENEMENT -> ID )' d='M 770 504 L 770,560'  />
+
+<text x='779' y='506' transform='rotate(90 779,506)' title='FK_DETAIL_TOURNEE_REALISEE__TYPE_DETAIL_TOURNEE EVENEMENT to TYPE_EVENEMENT ( ID_TYPE_EVENEMENT -> ID )'>ID_TYPE_EVENEMENT</text><path transform='translate(7,0)' marker-start='url(#foot)' marker-end='url(#arrow)'    title='FK_EVENEMENT__STATION EVENEMENT to STATION ( ID_STATION -> ID )' d='M 840 364 L 840,147 Q 840,140 847,140 L 854,140'  />
+
+<text x='843' y='360' transform='rotate(270 843,360)' title='FK_EVENEMENT__STATION EVENEMENT to STATION ( ID_STATION -> ID )'>ID_STATION</text><!-- ============= Table 'PARCOURS' ============= -->
+<rect class='table' x='224' y='35' width='98' height='98' rx='7' ry='7' />
+<path d='M 224.50 56.00 L 224.50 42.50 Q 224.50 35.50 231.50 35.50 L 314.50 35.50 Q 321.50 35.50 321.50 42.50 L 321.50 56.00 L224.50 56.00 ' style='fill:url(#tableHeaderGradient); stroke:none;' />
+<line class='table' x1='224' y1='56' x2='322' y2='56'/>
+<a xlink:href='#PARCOURS' title='SIELTEC.PARCOURS' ><text x='244' y='49' class='tableTitle'>PARCOURS</text></a>
+  <a xlink:href='#ID' title='Primary Key  ( ID ) '><use id='pk' x='226' y='68' xlink:href='#pk'/></a>
+<a xlink:href='#ID' title='BIGINT not null '><text x='241' y='77' class='pk'>ID</text></a>
+<a xlink:href='#ID' title='Referred by ELEMENT_PARCOURS ( ID_PARCOURS -> ID ) Referred by PROGRAMME ( ID_PARCOURS -> ID ) '><use id='ref' x='308' y='66' xlink:href='#ref'/></a>
+  <a xlink:href='#NOM' title='VARCHAR&#040; 100 &#041; not null '><text x='241' y='91' >NOM</text></a>
+  <a xlink:href='#ID_LIGNE' title='Index  ( ID_LIGNE ) '><use id='idx' x='226' y='96' xlink:href='#idx'/></a>
+<a xlink:href='#ID_LIGNE' title='BIGINT not null '><text x='241' y='105' class='fk'>ID_LIGNE</text></a>
+<a xlink:href='#ID_LIGNE' title='References LIGNE ( ID_LIGNE -> ID ) '><use id='fk' x='308' y='94' xlink:href='#fk'/></a>
+  <a xlink:href='#VERSION' title='INT default 0 '><text x='241' y='119' >VERSION</text></a>
+
+<!-- ============= Table 'ELEMENT_PARCOURS' ============= -->
+<rect class='table' x='574' y='35' width='140' height='140' rx='7' ry='7' />
+<path d='M 574.50 56.00 L 574.50 42.50 Q 574.50 35.50 581.50 35.50 L 706.50 35.50 Q 713.50 35.50 713.50 42.50 L 713.50 56.00 L574.50 56.00 ' style='fill:url(#tableHeaderGradient); stroke:none;' />
+<line class='table' x1='574' y1='56' x2='714' y2='56'/>
+<a xlink:href='#ELEMENT_PARCOURS' title='SIELTEC.ELEMENT_PARCOURS' ><text x='588' y='49' class='tableTitle'>ELEMENT_PARCOURS</text></a>
+  <a xlink:href='#ID' title='Primary Key  ( ID ) '><use id='pk' x='576' y='68' xlink:href='#pk'/></a>
+<a xlink:href='#ID' title='BIGINT not null '><text x='591' y='77' class='pk'>ID</text></a>
+  <a xlink:href='#ID_PARCOURS' title='Index  ( ID_PARCOURS ) '><use id='idx' x='576' y='82' xlink:href='#idx'/></a>
+<a xlink:href='#ID_PARCOURS' title='BIGINT not null '><text x='591' y='91' class='fk'>ID_PARCOURS</text></a>
+<a xlink:href='#ID_PARCOURS' title='References PARCOURS ( ID_PARCOURS -> ID ) '><use id='fk' x='700' y='80' xlink:href='#fk'/></a>
+  <a xlink:href='#ID_STATION_DEP' title='Index  ( ID_STATION_DEP ) '><use id='idx' x='576' y='96' xlink:href='#idx'/></a>
+<a xlink:href='#ID_STATION_DEP' title='BIGINT not null '><text x='591' y='105' class='fk'>ID_STATION_DEP</text></a>
+<a xlink:href='#ID_STATION_DEP' title='References STATION ( ID_STATION_DEP -> ID ) '><use id='fk' x='700' y='94' xlink:href='#fk'/></a>
+  <a xlink:href='#ID_STATION_ARR' title='Index  ( ID_STATION_ARR ) '><use id='idx' x='576' y='110' xlink:href='#idx'/></a>
+<a xlink:href='#ID_STATION_ARR' title='BIGINT not null '><text x='591' y='119' class='fk'>ID_STATION_ARR</text></a>
+<a xlink:href='#ID_STATION_ARR' title='References STATION ( ID_STATION_ARR -> ID ) '><use id='fk' x='700' y='108' xlink:href='#fk'/></a>
+  <a xlink:href='#DUREE' title='TIME not null Durée inter&#045;station de l&#039;élément de parcours'><text x='591' y='133' >DUREE</text></a>
+  <a xlink:href='#DUREE_ARRET' title='TIME not null Durée de l&#039;arrêt à la station d&#039;arrivé de l&#039;élément de parcours'><text x='591' y='147' >DUREE_ARRET</text></a>
+  <a xlink:href='#VERSION' title='INT default 0 '><text x='591' y='161' >VERSION</text></a>
+
+<!-- ============= Table 'LIGNE' ============= -->
+<rect class='table' x='42' y='35' width='98' height='84' rx='7' ry='7' />
+<path d='M 42.50 56.00 L 42.50 42.50 Q 42.50 35.50 49.50 35.50 L 132.50 35.50 Q 139.50 35.50 139.50 42.50 L 139.50 56.00 L42.50 56.00 ' style='fill:url(#tableHeaderGradient); stroke:none;' />
+<line class='table' x1='42' y1='56' x2='140' y2='56'/>
+<a xlink:href='#LIGNE' title='SIELTEC.LIGNE' ><text x='76' y='49' class='tableTitle'>LIGNE</text></a>
+  <a xlink:href='#ID' title='Primary Key  ( ID ) '><use id='pk' x='44' y='68' xlink:href='#pk'/></a>
+<a xlink:href='#ID' title='BIGINT not null '><text x='59' y='77' class='pk'>ID</text></a>
+<a xlink:href='#ID' title='Referred by PARCOURS ( ID_LIGNE -> ID ) '><use id='ref' x='126' y='66' xlink:href='#ref'/></a>
+  <a xlink:href='#NOM' title='VARCHAR&#040; 100 &#041; not null nom de la station'><text x='59' y='91' >NOM</text></a>
+  <a xlink:href='#VERSION' title='INT default 0 '><text x='59' y='105' >VERSION</text></a>
+
+<!-- ============= Table 'PROGRAMME' ============= -->
+<rect class='table' x='322' y='301' width='154' height='126' rx='7' ry='7' />
+<path d='M 322.50 322.00 L 322.50 308.50 Q 322.50 301.50 329.50 301.50 L 468.50 301.50 Q 475.50 301.50 475.50 308.50 L 475.50 322.00 L322.50 322.00 ' style='fill:url(#tableHeaderGradient); stroke:none;' />
+<line class='table' x1='322' y1='322' x2='476' y2='322'/>
+<a xlink:href='#PROGRAMME' title='SIELTEC.PROGRAMME' ><text x='364' y='315' class='tableTitle'>PROGRAMME</text></a>
+  <a xlink:href='#ID' title='Primary Key  ( ID ) '><use id='pk' x='324' y='334' xlink:href='#pk'/></a>
+<a xlink:href='#ID' title='BIGINT not null '><text x='339' y='343' class='pk'>ID</text></a>
+<a xlink:href='#ID' title='Referred by EVENEMENT ( ID_PROGRAMME -> ID ) '><use id='ref' x='462' y='332' xlink:href='#ref'/></a>
+  <a xlink:href='#DATE_HEURE_DEBUT' title='TIMESTAMP not null '><text x='339' y='357' >DATE_HEURE_DEBUT</text></a>
+  <a xlink:href='#ID_PARCOURS' title='Index  ( ID_PARCOURS ) '><use id='idx' x='324' y='362' xlink:href='#idx'/></a>
+<a xlink:href='#ID_PARCOURS' title='BIGINT '><text x='339' y='371' class='fk'>ID_PARCOURS</text></a>
+<a xlink:href='#ID_PARCOURS' title='References PARCOURS ( ID_PARCOURS -> ID ) '><use id='fk' x='462' y='360' xlink:href='#fk'/></a>
+  <a xlink:href='#ID_VEHICULE' title='Index  ( ID_VEHICULE ) '><use id='idx' x='324' y='376' xlink:href='#idx'/></a>
+<a xlink:href='#ID_VEHICULE' title='BIGINT not null '><text x='339' y='385' class='fk'>ID_VEHICULE</text></a>
+<a xlink:href='#ID_VEHICULE' title='References VEHICULE ( ID_VEHICULE -> ID ) '><use id='fk' x='462' y='374' xlink:href='#fk'/></a>
+  <a xlink:href='#ID_CONDUCTEUR' title='Index  ( ID_CONDUCTEUR ) '><use id='idx' x='324' y='390' xlink:href='#idx'/></a>
+<a xlink:href='#ID_CONDUCTEUR' title='BIGINT not null '><text x='339' y='399' class='fk'>ID_CONDUCTEUR</text></a>
+<a xlink:href='#ID_CONDUCTEUR' title='References CONDUCTEUR ( ID_CONDUCTEUR -> ID ) '><use id='fk' x='462' y='388' xlink:href='#fk'/></a>
+  <a xlink:href='#VERSION' title='INT default 0 '><text x='339' y='413' >VERSION</text></a>
+
+<!-- ============= Table 'EVENEMENT' ============= -->
+<rect class='table' x='700' y='371' width='154' height='126' rx='7' ry='7' />
+<path d='M 700.50 392.00 L 700.50 378.50 Q 700.50 371.50 707.50 371.50 L 846.50 371.50 Q 853.50 371.50 853.50 378.50 L 853.50 392.00 L700.50 392.00 ' style='fill:url(#tableHeaderGradient); stroke:none;' />
+<line class='table' x1='700' y1='392' x2='854' y2='392'/>
+<a xlink:href='#EVENEMENT' title='SIELTEC.EVENEMENT' ><text x='745' y='385' class='tableTitle'>EVENEMENT</text></a>
+  <a xlink:href='#ID' title='Primary Key  ( ID ) '><use id='pk' x='702' y='404' xlink:href='#pk'/></a>
+<a xlink:href='#ID' title='BIGINT not null '><text x='717' y='413' class='pk'>ID</text></a>
+  <a xlink:href='#ID_PROGRAMME' title='Index  ( ID_PROGRAMME ) '><use id='idx' x='702' y='418' xlink:href='#idx'/></a>
+<a xlink:href='#ID_PROGRAMME' title='BIGINT not null '><text x='717' y='427' class='fk'>ID_PROGRAMME</text></a>
+<a xlink:href='#ID_PROGRAMME' title='References PROGRAMME ( ID_PROGRAMME -> ID ) '><use id='fk' x='840' y='416' xlink:href='#fk'/></a>
+  <a xlink:href='#ID_STATION' title='Index  ( ID_STATION ) '><use id='idx' x='702' y='432' xlink:href='#idx'/></a>
+<a xlink:href='#ID_STATION' title='BIGINT not null '><text x='717' y='441' class='fk'>ID_STATION</text></a>
+<a xlink:href='#ID_STATION' title='References STATION ( ID_STATION -> ID ) '><use id='fk' x='840' y='430' xlink:href='#fk'/></a>
+  <a xlink:href='#ID_TYPE_EVENEMENT' title='Index  ( ID_TYPE_EVENEMENT ) '><use id='idx' x='702' y='446' xlink:href='#idx'/></a>
+<a xlink:href='#ID_TYPE_EVENEMENT' title='BIGINT not null '><text x='717' y='455' class='fk'>ID_TYPE_EVENEMENT</text></a>
+<a xlink:href='#ID_TYPE_EVENEMENT' title='References TYPE_EVENEMENT ( ID_TYPE_EVENEMENT -> ID ) '><use id='fk' x='840' y='444' xlink:href='#fk'/></a>
+  <a xlink:href='#DATE_HEURE' title='TIMESTAMP not null '><text x='717' y='469' >DATE_HEURE</text></a>
+  <a xlink:href='#VERSION' title='INT default 0 '><text x='717' y='483' >VERSION</text></a>
+
+<!-- ============= Table 'CONDUCTEUR' ============= -->
+<rect class='table' x='182' y='497' width='98' height='112' rx='7' ry='7' />
+<path d='M 182.50 518.00 L 182.50 504.50 Q 182.50 497.50 189.50 497.50 L 272.50 497.50 Q 279.50 497.50 279.50 504.50 L 279.50 518.00 L182.50 518.00 ' style='fill:url(#tableHeaderGradient); stroke:none;' />
+<line class='table' x1='182' y1='518' x2='280' y2='518'/>
+<a xlink:href='#CONDUCTEUR' title='SIELTEC.CONDUCTEUR' ><text x='194' y='511' class='tableTitle'>CONDUCTEUR</text></a>
+  <a xlink:href='#ID' title='Primary Key  ( ID ) '><use id='pk' x='184' y='530' xlink:href='#pk'/></a>
+<a xlink:href='#ID' title='BIGINT not null '><text x='199' y='539' class='pk'>ID</text></a>
+<a xlink:href='#ID' title='Referred by PROGRAMME ( ID_CONDUCTEUR -> ID ) '><use id='ref' x='266' y='528' xlink:href='#ref'/></a>
+  <a xlink:href='#NOM' title='VARCHAR&#040; 50 &#041; not null '><text x='199' y='553' >NOM</text></a>
+  <a xlink:href='#PRENOM' title='VARCHAR&#040; 50 &#041; not null '><text x='199' y='567' >PRENOM</text></a>
+  <a xlink:href='#CONTACT' title='VARCHAR&#040; 20 &#041; not null '><text x='199' y='581' >CONTACT</text></a>
+  <a xlink:href='#VERSION' title='INT default 0 '><text x='199' y='595' >VERSION</text></a>
+
+<!-- ============= Table 'VEHICULE' ============= -->
+<rect class='table' x='532' y='511' width='140' height='84' rx='7' ry='7' />
+<path d='M 532.50 532.00 L 532.50 518.50 Q 532.50 511.50 539.50 511.50 L 664.50 511.50 Q 671.50 511.50 671.50 518.50 L 671.50 532.00 L532.50 532.00 ' style='fill:url(#tableHeaderGradient); stroke:none;' />
+<line class='table' x1='532' y1='532' x2='672' y2='532'/>
+<a xlink:href='#VEHICULE' title='SIELTEC.VEHICULE' ><text x='576' y='525' class='tableTitle'>VEHICULE</text></a>
+  <a xlink:href='#ID' title='Primary Key  ( ID ) '><use id='pk' x='534' y='544' xlink:href='#pk'/></a>
+<a xlink:href='#ID' title='BIGINT not null '><text x='549' y='553' class='pk'>ID</text></a>
+<a xlink:href='#ID' title='Referred by PROGRAMME ( ID_VEHICULE -> ID ) '><use id='ref' x='658' y='542' xlink:href='#ref'/></a>
+  <a xlink:href='#IMMATRICULATION' title='VARCHAR&#040; 20 &#041; not null '><text x='549' y='567' >IMMATRICULATION</text></a>
+  <a xlink:href='#VERSION' title='INT default 0 '><text x='549' y='581' >VERSION</text></a>
+
+<!-- ============= Table 'TYPE_EVENEMENT' ============= -->
+<rect class='table' x='756' y='567' width='112' height='84' rx='7' ry='7' />
+<path d='M 756.50 588.00 L 756.50 574.50 Q 756.50 567.50 763.50 567.50 L 860.50 567.50 Q 867.50 567.50 867.50 574.50 L 867.50 588.00 L756.50 588.00 ' style='fill:url(#tableHeaderGradient); stroke:none;' />
+<line class='table' x1='756' y1='588' x2='868' y2='588'/>
+<a xlink:href='#TYPE_EVENEMENT' title='SIELTEC.TYPE_EVENEMENT' ><text x='764' y='581' class='tableTitle'>TYPE_EVENEMENT</text></a>
+  <a xlink:href='#ID' title='Primary Key  ( ID ) '><use id='pk' x='758' y='600' xlink:href='#pk'/></a>
+<a xlink:href='#ID' title='BIGINT not null '><text x='773' y='609' class='pk'>ID</text></a>
+<a xlink:href='#ID' title='Referred by EVENEMENT ( ID_TYPE_EVENEMENT -> ID ) '><use id='ref' x='854' y='598' xlink:href='#ref'/></a>
+  <a xlink:href='#LIBELLE' title='VARCHAR&#040; 10 &#041; not null arrivée à la station ou départ de la station'><text x='773' y='623' >LIBELLE</text></a>
+  <a xlink:href='#VERSION' title='INT default 0 '><text x='773' y='637' >VERSION</text></a>
+
+<!-- ============= Table 'STATION' ============= -->
+<rect class='table' x='868' y='49' width='112' height='112' rx='7' ry='7' />
+<path d='M 868.50 70.00 L 868.50 56.50 Q 868.50 49.50 875.50 49.50 L 972.50 49.50 Q 979.50 49.50 979.50 56.50 L 979.50 70.00 L868.50 70.00 ' style='fill:url(#tableHeaderGradient); stroke:none;' />
+<line class='table' x1='868' y1='70' x2='980' y2='70'/>
+<a xlink:href='#STATION' title='SIELTEC.STATION' ><text x='902' y='63' class='tableTitle'>STATION</text></a>
+  <a xlink:href='#ID' title='Primary Key  ( ID ) '><use id='pk' x='870' y='82' xlink:href='#pk'/></a>
+<a xlink:href='#ID' title='BIGINT not null '><text x='885' y='91' class='pk'>ID</text></a>
+<a xlink:href='#ID' title='Referred by ELEMENT_PARCOURS ( ID_STATION_DEP -> ID ) Referred by ELEMENT_PARCOURS ( ID_STATION_ARR -> ID ) Referred by EVENEMENT ( ID_STATION -> ID ) '><use id='ref' x='966' y='80' xlink:href='#ref'/></a>
+  <a xlink:href='#NOM' title='VARCHAR&#040; 100 &#041; not null '><text x='885' y='105' >NOM</text></a>
+  <a xlink:href='#LONGITUDE' title='VARCHAR&#040; 30 &#041; not null '><text x='885' y='119' >LONGITUDE</text></a>
+  <a xlink:href='#LATITUDE' title='VARCHAR&#040; 30 &#041; not null '><text x='885' y='133' >LATITUDE</text></a>
+  <a xlink:href='#VERSION' title='INT default 0 '><text x='885' y='147' >VERSION</text></a>
+
+</g></svg>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='CONDUCTEUR'>CONDUCTEUR</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td><a name='ID'>ID</a></td>
+		<td width='40%'> BIGINT  NOT NULL AUTOINCREMENT  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='NOM'>NOM</a></td>
+		<td width='40%'> VARCHAR&#040; 50 &#041;  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='PRENOM'>PRENOM</a></td>
+		<td width='40%'> VARCHAR&#040; 50 &#041;  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='CONTACT'>CONTACT</a></td>
+		<td width='40%'> VARCHAR&#040; 20 &#041;  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='VERSION'>VERSION</a></td>
+		<td width='40%'> INT   DEFO 0 </td>
+		<td width='99%'>  </td>
+	</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+	<tr>		<td>PK&#095;CONDUCTEUR primary key</td>
+		<td> ON ID</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='ELEMENT_PARCOURS'>ELEMENT_PARCOURS</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td><a name='ID'>ID</a></td>
+		<td width='40%'> BIGINT  NOT NULL AUTOINCREMENT  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='ID_PARCOURS'>ID&#095;PARCOURS</a></td>
+		<td width='40%'> BIGINT  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='ID_STATION_DEP'>ID&#095;STATION&#095;DEP</a></td>
+		<td width='40%'> BIGINT  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='ID_STATION_ARR'>ID&#095;STATION&#095;ARR</a></td>
+		<td width='40%'> BIGINT  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='DUREE'>DUREE</a></td>
+		<td width='40%'> TIME  NOT NULL  </td>
+		<td width='99%'> Durée inter&#045;station de l&#039;élément de parcours </td>
+	</tr>
+	<tr>
+		<td><a name='DUREE_ARRET'>DUREE&#095;ARRET</a></td>
+		<td width='40%'> TIME  NOT NULL  </td>
+		<td width='99%'> Durée de l&#039;arrêt à la station d&#039;arrivé de l&#039;élément de parcours </td>
+	</tr>
+	<tr>
+		<td><a name='VERSION'>VERSION</a></td>
+		<td width='40%'> INT   DEFO 0 </td>
+		<td width='99%'>  </td>
+	</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+	<tr>		<td>PK&#095;ELEMENT&#095;TRAJET primary key</td>
+		<td> ON ID</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>IDX&#095;ELEMENT&#095;TRAJET </td>
+		<td> ON ID&#095;PARCOURS</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>IDX&#095;ELEMENT&#095;TRAJET&#095;0 </td>
+		<td> ON ID&#095;STATION&#095;DEP</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>IDX&#095;ARRET </td>
+		<td> ON ID&#095;STATION&#095;ARR</td>
+		<td>  </td>
+	</tr>
+<tr><td colspan='3' class='subpart'><b>Foreign Keys</b></td></tr>
+	<tr>
+		<td>FK_ELEMENT_PARCOURS__PARCOURS</td>
+		<td > ( ID&#095;PARCOURS ) ref <a href='#PARCOURS'>PARCOURS</a> (ID) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>FK_ELEMENT_PARCOURS__STATION_DEP</td>
+		<td > ( ID&#095;STATION&#095;DEP ) ref <a href='#STATION'>STATION</a> (ID) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>FK_ELEMENT_PARCOURS__STATION_ARR</td>
+		<td > ( ID&#095;STATION&#095;ARR ) ref <a href='#STATION'>STATION</a> (ID) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='EVENEMENT'>EVENEMENT</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td><a name='ID'>ID</a></td>
+		<td width='40%'> BIGINT  NOT NULL AUTOINCREMENT  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='ID_PROGRAMME'>ID&#095;PROGRAMME</a></td>
+		<td width='40%'> BIGINT  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='ID_STATION'>ID&#095;STATION</a></td>
+		<td width='40%'> BIGINT  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='ID_TYPE_EVENEMENT'>ID&#095;TYPE&#095;EVENEMENT</a></td>
+		<td width='40%'> BIGINT  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='DATE_HEURE'>DATE&#095;HEURE</a></td>
+		<td width='40%'> TIMESTAMP  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='VERSION'>VERSION</a></td>
+		<td width='40%'> INT   DEFO 0 </td>
+		<td width='99%'>  </td>
+	</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+	<tr>		<td>PK&#095;SUIVI&#095;TOURNEE primary key</td>
+		<td> ON ID</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>IDX&#095;SUIVI&#095;TOURNEE </td>
+		<td> ON ID&#095;PROGRAMME</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>IDX&#095;DETAIL&#095;TOURNEE&#095;REALISEE </td>
+		<td> ON ID&#095;STATION</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>IDX&#095;DETAIL&#095;TOURNEE&#095;REALISEE&#095;0 </td>
+		<td> ON ID&#095;TYPE&#095;EVENEMENT</td>
+		<td>  </td>
+	</tr>
+<tr><td colspan='3' class='subpart'><b>Foreign Keys</b></td></tr>
+	<tr>
+		<td>FK_DETAIL_TOURNEE_REALISEE__TOURNEE_PROGRAMMEE</td>
+		<td > ( ID&#095;PROGRAMME ) ref <a href='#PROGRAMME'>PROGRAMME</a> (ID) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>FK_DETAIL_TOURNEE_REALISEE__TYPE_DETAIL_TOURNEE</td>
+		<td > ( ID&#095;TYPE&#095;EVENEMENT ) ref <a href='#TYPE&#095;EVENEMENT'>TYPE&#095;EVENEMENT</a> (ID) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>FK_EVENEMENT__STATION</td>
+		<td > ( ID&#095;STATION ) ref <a href='#STATION'>STATION</a> (ID) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='LIGNE'>LIGNE</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td><a name='ID'>ID</a></td>
+		<td width='40%'> BIGINT  NOT NULL AUTOINCREMENT  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='NOM'>NOM</a></td>
+		<td width='40%'> VARCHAR&#040; 100 &#041;  NOT NULL  </td>
+		<td width='99%'> nom de la station </td>
+	</tr>
+	<tr>
+		<td><a name='VERSION'>VERSION</a></td>
+		<td width='40%'> INT   DEFO 0 </td>
+		<td width='99%'>  </td>
+	</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+	<tr>		<td>PK&#095;LIGNE primary key</td>
+		<td> ON ID</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='PARCOURS'>PARCOURS</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td><a name='ID'>ID</a></td>
+		<td width='40%'> BIGINT  NOT NULL AUTOINCREMENT  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='NOM'>NOM</a></td>
+		<td width='40%'> VARCHAR&#040; 100 &#041;  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='ID_LIGNE'>ID&#095;LIGNE</a></td>
+		<td width='40%'> BIGINT  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='VERSION'>VERSION</a></td>
+		<td width='40%'> INT   DEFO 0 </td>
+		<td width='99%'>  </td>
+	</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+	<tr>		<td>PK&#095;TRAJET primary key</td>
+		<td> ON ID</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>IDX&#095;TRAJET </td>
+		<td> ON ID&#095;LIGNE</td>
+		<td>  </td>
+	</tr>
+<tr><td colspan='3' class='subpart'><b>Foreign Keys</b></td></tr>
+	<tr>
+		<td>FK_PARCOURS__LIGNE</td>
+		<td > ( ID&#095;LIGNE ) ref <a href='#LIGNE'>LIGNE</a> (ID) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='PROGRAMME'>PROGRAMME</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td><a name='ID'>ID</a></td>
+		<td width='40%'> BIGINT  NOT NULL AUTOINCREMENT  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='DATE_HEURE_DEBUT'>DATE&#095;HEURE&#095;DEBUT</a></td>
+		<td width='40%'> TIMESTAMP  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='ID_PARCOURS'>ID&#095;PARCOURS</a></td>
+		<td width='40%'> BIGINT   </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='ID_VEHICULE'>ID&#095;VEHICULE</a></td>
+		<td width='40%'> BIGINT  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='ID_CONDUCTEUR'>ID&#095;CONDUCTEUR</a></td>
+		<td width='40%'> BIGINT  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='VERSION'>VERSION</a></td>
+		<td width='40%'> INT   DEFO 0 </td>
+		<td width='99%'>  </td>
+	</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+	<tr>		<td>PK&#095;PARCOURS primary key</td>
+		<td> ON ID</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>IDX&#095;PARCOURS </td>
+		<td> ON ID&#095;PARCOURS</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>IDX&#095;PARCOURS&#095;0 </td>
+		<td> ON ID&#095;VEHICULE</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>IDX&#095;PARCOURS&#095;1 </td>
+		<td> ON ID&#095;CONDUCTEUR</td>
+		<td>  </td>
+	</tr>
+<tr><td colspan='3' class='subpart'><b>Foreign Keys</b></td></tr>
+	<tr>
+		<td>FK_PROGRAMME__VEHICULE</td>
+		<td > ( ID&#095;VEHICULE ) ref <a href='#VEHICULE'>VEHICULE</a> (ID) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>FK_PROGRAMME__CONDUCTEUR</td>
+		<td > ( ID&#095;CONDUCTEUR ) ref <a href='#CONDUCTEUR'>CONDUCTEUR</a> (ID) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>FK_PROGRAMME__PARCOURS</td>
+		<td > ( ID&#095;PARCOURS ) ref <a href='#PARCOURS'>PARCOURS</a> (ID) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='STATION'>STATION</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td><a name='ID'>ID</a></td>
+		<td width='40%'> BIGINT  NOT NULL AUTOINCREMENT  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='NOM'>NOM</a></td>
+		<td width='40%'> VARCHAR&#040; 100 &#041;  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='LONGITUDE'>LONGITUDE</a></td>
+		<td width='40%'> VARCHAR&#040; 30 &#041;  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='LATITUDE'>LATITUDE</a></td>
+		<td width='40%'> VARCHAR&#040; 30 &#041;  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='VERSION'>VERSION</a></td>
+		<td width='40%'> INT   DEFO 0 </td>
+		<td width='99%'>  </td>
+	</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+	<tr>		<td>PK&#095;STATION primary key</td>
+		<td> ON ID</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='TYPE_EVENEMENT'>TYPE_EVENEMENT</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td><a name='ID'>ID</a></td>
+		<td width='40%'> BIGINT  NOT NULL AUTOINCREMENT  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='LIBELLE'>LIBELLE</a></td>
+		<td width='40%'> VARCHAR&#040; 10 &#041;  NOT NULL  </td>
+		<td width='99%'> arrivée à la station ou départ de la station </td>
+	</tr>
+	<tr>
+		<td><a name='VERSION'>VERSION</a></td>
+		<td width='40%'> INT   DEFO 0 </td>
+		<td width='99%'>  </td>
+	</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+	<tr>		<td>PK&#095;TYPE&#095;DETAIL&#095;TOURNEE primary key</td>
+		<td> ON ID</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='VEHICULE'>VEHICULE</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td><a name='ID'>ID</a></td>
+		<td width='40%'> BIGINT  NOT NULL AUTOINCREMENT  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='IMMATRICULATION'>IMMATRICULATION</a></td>
+		<td width='40%'> VARCHAR&#040; 20 &#041;  NOT NULL  </td>
+		<td width='99%'>  </td>
+	</tr>
+	<tr>
+		<td><a name='VERSION'>VERSION</a></td>
+		<td width='40%'> INT   DEFO 0 </td>
+		<td width='99%'>  </td>
+	</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+	<tr>		<td>PK&#095;VEHICULE primary key</td>
+		<td> ON ID</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</body></html>
