@@ -1,8 +1,10 @@
 package dao;
 
+import db.Station;
+
 public interface IStationDao {
 	
 	
-	public String findPath(String startStation, String endStation);
+	public double insert(Station station);
 	
 }
