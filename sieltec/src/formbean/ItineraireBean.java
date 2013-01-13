@@ -1,9 +1,16 @@
 package formbean;
 
+import java.util.List;
+
 import javax.faces.bean.*;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+
+import org.joda.time.DateTime;
+
+import db.ElementProgramme;
+import db.Station;
 
 import service.IManagementService;
 
@@ -19,7 +26,7 @@ public class ItineraireBean {
 	private String[] stationNames = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"};
 
 	//output
-	private String itineraire;
+	private List<ElementProgramme> itineraire;
 	
 	public ItineraireBean() {
 		super();
@@ -69,18 +76,19 @@ public class ItineraireBean {
 		this.stationNames = stationNames;
 	}
 
-	public String getItineraire() {
-		return itineraire;
-	}
-
-	public void setItineraire(String itineraire) {
-		this.itineraire = itineraire;
-	}
 
 	public String search() {
 		
-		this.itineraire = managementService.findPath(startStation, endStation);
+		this.itineraire = managementService.findPath(startStation, endStation, new DateTime(2013, 01, 05, 07, 52));
 		return "itineraire";
+	}
+
+	public List<ElementProgramme> getItineraire() {
+		return itineraire;
+	}
+
+	public void setItineraire(List<ElementProgramme> itineraire) {
+		this.itineraire = itineraire;
 	}
 	
 	
