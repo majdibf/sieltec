@@ -56,9 +56,6 @@ public class ManagementService implements IManagementService, Serializable {
 
 	@Override
 	public List<ElementProgramme> findPath(String startStation, String endStation, DateTime dateHeurDepart) {
-//		String result = "";
-//		PathFinder finder = new PathFinder();
-//		List<ElementProgramme> bestPath = finder.findBestPath(dbLoader.getStations().get(Integer.parseInt(startStation)), dbLoader.getStations().get(Integer.parseInt(endStation)), new DateTime(2013, 01, 05, 07, 52), dbLoader.getElementsProgramme());
 		
 		List<ElementProgramme> result = new ArrayList<ElementProgramme>();
 		
@@ -87,9 +84,11 @@ public class ManagementService implements IManagementService, Serializable {
 		
 			Station minStation = getMinStation(initialStationsMap);
 			DateTime minTime = initialStationsMap.get(minStation);
+			
 			finalStationsMap.put(minStation, minTime);
 			initialStationsMap.remove(minStation);
-			candidats = getCandidats(minStation, dateHeurDepart, elementsProgramme);
+			
+			candidats = getCandidats(minStation, minTime, elementsProgramme);
 			updateVoisins(candidats, initialStationsMap, stationsPredecessorsMap);
 			
 		}
