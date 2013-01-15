@@ -1,6 +1,8 @@
 package dao.impl;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +44,14 @@ public class StationDao implements IStationDao, Serializable {
 
 	@Override
 	public List<Station> findAll() {
-		// TODO remplacer par le code d'ccès à la base de données
-		return dbLoader.getStations();
+		try {
+			Connection ds = dbLoader.getDs().getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	return null;
 	}
 
 	public DBLoader getDbLoader() {

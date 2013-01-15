@@ -11,11 +11,13 @@ import java.util.Set;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.sql.DataSource;
 
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.mchange.v2.c3p0.DataSources;
 
 import db.ElementParcours;
 import db.ElementProgramme;
@@ -35,6 +37,7 @@ public class DBLoader {
 	private  List<ElementParcours> elementsParcours = new ArrayList<ElementParcours>();
 	private  List<Programme> programmes = new ArrayList<Programme>();
 	private  List<ElementProgramme> elementsProgramme = new ArrayList<ElementProgramme>();
+	private DataSource ds = null;
 
 	public DBLoader() {
 		super();
@@ -102,21 +105,13 @@ public class DBLoader {
 	private void init(){
 		
 		
-			ComboPooledDataSource cpds = new ComboPooledDataSource();
+		
 		try {
-			cpds.setDriverClass( "org.apache.derby.jdbc.ClientDriver" );            
-			cpds.setJdbcUrl( "jdbc:derby://localhost:1527/sieltecdb" );
-			cpds.setUser("sieltec");                                  
-			cpds.setPassword("sieltec");                                  
-				
-			// the settings below are optional -- c3p0 can work with defaults
-			cpds.setMinPoolSize(5);                                     
-			cpds.setAcquireIncrement(5);
-			cpds.setMaxPoolSize(20);
-			
-			
+			Class.forName("org.apache.derby.jdbc.ClientDriver");
+			DataSource unpooled = DataSources.unpooledDataSource("jdbc:derby://localhost:1527/sieltecdb","sieltec","sieltec");
+			DataSource pooled = DataSources.pooledDataSource( unpooled );		
 			String query = "select * from station";
-			Connection conn = cpds.getConnection();
+			Connection conn = pooled.getConnection();
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			
@@ -131,8 +126,7 @@ public class DBLoader {
 			System.out.println("Problème d'initialisation du pool de connexion : " + e);
 			e.printStackTrace();
 		}
-			
-				
+		
 		
 		//initialisation des stations
 		stations.add(null);
@@ -305,99 +299,16 @@ public class DBLoader {
 		
 		return result;
 	}
-	
-	public List<ElementProgramme> findBestPath(Station staDep, Station staArr, DateTime dateHeurDepart, List<ElementProgramme> elementsProgramme){
-		List<ElementProgramme> result = new ArrayList<ElementProgramme>();
-		
-		Map<Station, DateTime> initialStationsMap = new HashMap<Station, DateTime>();
-		Map<Station, DateTime> finalStationsMap = new HashMap<Station, DateTime>();
-		Map<Station, ElementProgramme> stationsPredecessorsMap = new HashMap<Station, ElementProgramme>();
-		
-		for(Station station : stations){
-			if(station == null){
-				continue;
-			}
-			if(station.getId() == staDep.getId()){
-				initialStationsMap.put(station, dateHeurDepart);
-			} else {
-				initialStationsMap.put(station, dateHeurDepart.plus(Minutes.MAX_VALUE));
-			}
-		}
-		
-		List<ElementProgramme> candidats = null;
-		while(!initialStationsMap.isEmpty()){
-		
-			Station minStation = getMinStation(initialStationsMap);
-			DateTime minTime = initialStationsMap.get(minStation);
-			finalStationsMap.put(minStation, minTime);
-			initialStationsMap.remove(minStation);
-			candidats = getCandidats(minStation, dateHeurDepart, elementsProgramme);
-			updateVoisins(candidats, initialStationsMap, stationsPredecessorsMap);
-			
-		}
-		
-		Station sta = staArr;
-		boolean stop = false;
-		while(!stop && !sta.equals(staDep)){
-			ElementProgramme element = stationsPredecessorsMap.get(sta);
-			if(element != null){
-				result.add(0,element);
-				sta = element.getStationDep();
-			} else {
-				stop = true;
-			}
-		}
 
-		System.out.println(finalStationsMap.get(staArr));
-		return result;
-	}
-	
-	
-	private static void updateVoisins(List<ElementProgramme> candidats, Map<Station, DateTime> stationsMap, Map<Station, ElementProgramme> stationsPredecessorsMap){
-		
-		for(ElementProgramme element : candidats){
-			
-			Station stationArr = element.getStationArr();
-			DateTime dateHeureArr = element.getDateHeureArrivee();
-			DateTime oldDateTime = stationsMap.get(stationArr);
-			if(oldDateTime != null && dateHeureArr.isBefore(oldDateTime)){
-				stationsMap.put(stationArr, dateHeureArr);
-				stationsPredecessorsMap.put(stationArr, element);
-			}
-			
-		}
-		
-	}
-	
-	private static Station getMinStation(Map<Station, DateTime> map){
-		Station result = null;
-		DateTime min = null;
-		Set<Station> stations = map.keySet();
-		
-		for(Station station : stations){
-			DateTime time = map.get(station);
-			if(min == null || time.isBefore(min)){
-				result = station;
-				min = time;
-			}
-		}
-		
-		
-		return result;
-	}
-	
-	private static List<ElementProgramme> getCandidats(Station station, DateTime dateHeure, List<ElementProgramme> elementsProgramme){
-		
-		List<ElementProgramme> resultat = new ArrayList<ElementProgramme>(); 
-		
-		for(ElementProgramme element : elementsProgramme){
-			if(element.getStationDep().getId() == station.getId() && element.getDateHeureDepart().isAfter(dateHeure)){
-				resultat.add(element);
-			}
-		}
-		
-		return resultat;
+	public DataSource getDs() {
+		return ds;
 	}
 
+	public void setDs(DataSource ds) {
+		this.ds = ds;
+	}
+
+
+	
 	
 }
