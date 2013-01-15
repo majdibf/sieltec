@@ -109,9 +109,9 @@ public class DBLoader {
 		try {
 			Class.forName("org.apache.derby.jdbc.ClientDriver");
 			DataSource unpooled = DataSources.unpooledDataSource("jdbc:derby://localhost:1527/sieltecdb","sieltec","sieltec");
-			DataSource pooled = DataSources.pooledDataSource( unpooled );		
+			ds = DataSources.pooledDataSource( unpooled );		
 			String query = "select * from station";
-			Connection conn = pooled.getConnection();
+			Connection conn = ds.getConnection();
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			
@@ -120,11 +120,12 @@ public class DBLoader {
 				System.out.println(id + " " + rs.getString("nom"));
 			}
 			
-			
+			conn.close();
 		} catch (Exception e) {
 			
 			System.out.println("Problème d'initialisation du pool de connexion : " + e);
 			e.printStackTrace();
+		} finally {
 		}
 		
 		
