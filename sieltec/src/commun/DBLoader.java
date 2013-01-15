@@ -1,5 +1,8 @@
 package commun;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +14,8 @@ import javax.faces.bean.ManagedBean;
 
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import db.ElementParcours;
 import db.ElementProgramme;
@@ -95,6 +100,39 @@ public class DBLoader {
 
 
 	private void init(){
+		
+		
+			ComboPooledDataSource cpds = new ComboPooledDataSource();
+		try {
+			cpds.setDriverClass( "org.apache.derby.jdbc.ClientDriver" );            
+			cpds.setJdbcUrl( "jdbc:derby://localhost:1527/sieltecdb" );
+			cpds.setUser("sieltec");                                  
+			cpds.setPassword("sieltec");                                  
+				
+			// the settings below are optional -- c3p0 can work with defaults
+			cpds.setMinPoolSize(5);                                     
+			cpds.setAcquireIncrement(5);
+			cpds.setMaxPoolSize(20);
+			
+			
+			String query = "select * from station";
+			Connection conn = cpds.getConnection();
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			
+			while (rs.next()) {
+				double id = rs.getDouble("id");
+				System.out.println(id + " " + rs.getString("nom"));
+			}
+			
+			
+		} catch (Exception e) {
+			
+			System.out.println("Problème d'initialisation du pool de connexion : " + e);
+			e.printStackTrace();
+		}
+			
+				
 		
 		//initialisation des stations
 		stations.add(null);
