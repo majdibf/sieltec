@@ -18,6 +18,7 @@ import org.joda.time.Minutes;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.mchange.v2.c3p0.DataSources;
+import com.mchange.v2.c3p0.PoolBackedDataSource;
 
 import db.ElementParcours;
 import db.ElementProgramme;
@@ -120,7 +121,10 @@ public class DBLoader {
 				System.out.println(id + " " + rs.getString("nom"));
 			}
 			
+			System.out.println(((PoolBackedDataSource)ds).getNumIdleConnections());
 			conn.close();
+			System.out.println(((PoolBackedDataSource)ds).getNumIdleConnections());
+			
 		} catch (Exception e) {
 			
 			System.out.println("Problème d'initialisation du pool de connexion : " + e);
