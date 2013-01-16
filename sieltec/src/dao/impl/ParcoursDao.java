@@ -1,6 +1,5 @@
 package dao.impl;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,69 +11,70 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
-import com.sun.xml.internal.bind.v2.TODO;
+import org.joda.time.Minutes;
+
+import com.sun.xml.internal.ws.api.PropertySet.Property;
 
 import commun.DBLoader;
 
-import dao.IStationDao;
+import dao.IParcoursDao;
+import db.ElementParcours;
+import db.Ligne;
+import db.Parcours;
 import db.Station;
 
-@ManagedBean(name = "stationDao", eager = true)
+@ManagedBean(name = "parcoursDao", eager = true)
 @ApplicationScoped
-public class StationDao implements IStationDao, Serializable {
+public class ParcoursDao implements IParcoursDao {
 
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
 
-	public StationDao() {
-		super();
-		System.out.println("ManagementService instanciated");
-	}
-
 	@Override
-	public double insert(Station station) {
-		// TODO Auto-generated method stub
-		return 5;
-	}
-
-	@Override
-	public double delete(Station station) {
+	public double insert(Parcours parcours) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<Station> findAll() {
+	public double delete(Parcours parcours) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-		List<Station> stations = new ArrayList<Station>();
+	@Override
+	public List<Parcours> findAll() {
+		List<Parcours> parcours = new ArrayList<Parcours>();
 
 		try {
 			Connection ds = dbLoader.getDs().getConnection();
 			Statement statement = ds.createStatement();
 
-			String query = "select * from station";
-
+			String query = "select * from parcours";
 			ResultSet rs = statement.executeQuery(query);
 
-			Station s;
+			Parcours p;
 
 			while (rs.next()) {
+
 				int id = rs.getInt("id");
 				String nom = rs.getString("nom");
-				String longitude = rs.getString("longitude");
-				String latitude = rs.getString("latitude");
+				Ligne ligne = null;
+				List<ElementParcours> elementsParcours = null;
 				int version = rs.getInt("version");
-				s = new Station(id, nom, longitude, latitude, version);
-				stations.add(s);
+				p = new Parcours(id, nom, ligne, version);
+
+				parcours.add(p);
+
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error+this.getClass().getName());
+			System.out.println(error + this.getClass().getName());
 		}
 
-		return stations;
+		return parcours;
 	}
 
 	public DBLoader getDbLoader() {
@@ -84,5 +84,4 @@ public class StationDao implements IStationDao, Serializable {
 	public void setDbLoader(DBLoader dbLoader) {
 		this.dbLoader = dbLoader;
 	}
-
 }

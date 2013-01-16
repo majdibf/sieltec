@@ -114,16 +114,6 @@ public class DBLoader {
 			String query = "select * from station";
 			Connection conn = ds.getConnection();
 			System.out.println(((PoolBackedDataSource)ds).getNumIdleConnections());
-			 conn = ds.getConnection();
-				System.out.println(((PoolBackedDataSource)ds).getNumIdleConnections());
-			 conn = ds.getConnection();
-				System.out.println(((PoolBackedDataSource)ds).getNumIdleConnections());
-			 conn = ds.getConnection();
-				System.out.println(((PoolBackedDataSource)ds).getNumIdleConnections());
-			 conn = ds.getConnection();
-				System.out.println(((PoolBackedDataSource)ds).getNumIdleConnections());
-			 conn = ds.getConnection();
-				System.out.println(((PoolBackedDataSource)ds).getNumIdleConnections());
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			

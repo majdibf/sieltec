@@ -8,6 +8,7 @@ public class Parcours {
 	private String nom;
 	private Ligne ligne;
 	private List<ElementParcours> elementsParcours;
+	private int version;
 
 	public Parcours(double id, String nom, Ligne ligne, int version) {
 		super();
@@ -17,8 +18,6 @@ public class Parcours {
 		this.version = version;
 		elementsParcours = new ArrayList<ElementParcours>();
 	}
-
-	private int version;
 
 	public double getId() {
 		return id;
@@ -56,5 +55,4 @@ public class Parcours {
 		return elementsParcours;
 	}
 
-	
 }

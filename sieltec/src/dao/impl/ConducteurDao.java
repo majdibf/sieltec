@@ -1,6 +1,5 @@
 package dao.impl;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,69 +11,61 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 import commun.DBLoader;
 
-import dao.IStationDao;
-import db.Station;
+import dao.IConducteurDao;
+import db.Conducteur;
 
-@ManagedBean(name = "stationDao", eager = true)
+@ManagedBean(name = "conducteurDao", eager = true)
 @ApplicationScoped
-public class StationDao implements IStationDao, Serializable {
+public class ConducteurDao implements IConducteurDao {
 
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
 
-	public StationDao() {
-		super();
-		System.out.println("ManagementService instanciated");
-	}
-
 	@Override
-	public double insert(Station station) {
-		// TODO Auto-generated method stub
-		return 5;
-	}
-
-	@Override
-	public double delete(Station station) {
+	public double insert(Conducteur conducteur) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<Station> findAll() {
+	public double delete(Conducteur station) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-		List<Station> stations = new ArrayList<Station>();
-
+	@Override
+	public List<Conducteur> findAll() {
+		List<Conducteur> conducteurs = new ArrayList<Conducteur>();
 		try {
 			Connection ds = dbLoader.getDs().getConnection();
 			Statement statement = ds.createStatement();
 
-			String query = "select * from station";
+			String query = "select * from conducteur";
 
 			ResultSet rs = statement.executeQuery(query);
 
-			Station s;
+			Conducteur c;
 
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String nom = rs.getString("nom");
-				String longitude = rs.getString("longitude");
-				String latitude = rs.getString("latitude");
+				String prenom = rs.getString("prenom");
+				String contact = rs.getString("contact");
+
 				int version = rs.getInt("version");
-				s = new Station(id, nom, longitude, latitude, version);
-				stations.add(s);
+				c = new Conducteur(id, nom, prenom, contact, version);
+				conducteurs.add(c);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error+this.getClass().getName());
+			System.out.println(error + this.getClass().getName());
 		}
 
-		return stations;
+		return conducteurs;
 	}
 
 	public DBLoader getDbLoader() {

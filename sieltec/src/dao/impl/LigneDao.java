@@ -1,6 +1,5 @@
 package dao.impl;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,71 +11,61 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 import commun.DBLoader;
 
-import dao.IStationDao;
-import db.Station;
+import dao.ILigneDao;
+import db.Ligne;
 
-@ManagedBean(name = "stationDao", eager = true)
+@ManagedBean(name = "LigneDao", eager = true)
 @ApplicationScoped
-public class StationDao implements IStationDao, Serializable {
+public class LigneDao implements ILigneDao {
 
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
 
-	public StationDao() {
-		super();
-		System.out.println("ManagementService instanciated");
-	}
-
 	@Override
-	public double insert(Station station) {
-		// TODO Auto-generated method stub
-		return 5;
-	}
-
-	@Override
-	public double delete(Station station) {
+	public double insert(Ligne ligne) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<Station> findAll() {
+	public double delete(Ligne ligne) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-		List<Station> stations = new ArrayList<Station>();
-
+	@Override
+	public List<Ligne> findAll() {
+		List<Ligne> lignes = new ArrayList<Ligne>();
 		try {
 			Connection ds = dbLoader.getDs().getConnection();
 			Statement statement = ds.createStatement();
 
-			String query = "select * from station";
+			String query = "select * from ligne";
 
 			ResultSet rs = statement.executeQuery(query);
-
-			Station s;
 
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String nom = rs.getString("nom");
-				String longitude = rs.getString("longitude");
-				String latitude = rs.getString("latitude");
 				int version = rs.getInt("version");
-				s = new Station(id, nom, longitude, latitude, version);
-				stations.add(s);
+
+				Ligne l = new Ligne(id, nom, version);
+
+				lignes.add(l);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error+this.getClass().getName());
+			System.out.println(error + this.getClass().getName());
 		}
 
-		return stations;
+		return lignes;
 	}
-
+	
+	
 	public DBLoader getDbLoader() {
 		return dbLoader;
 	}
@@ -84,5 +73,6 @@ public class StationDao implements IStationDao, Serializable {
 	public void setDbLoader(DBLoader dbLoader) {
 		this.dbLoader = dbLoader;
 	}
+
 
 }
