@@ -29,8 +29,8 @@ public class ManagementService implements IManagementService, Serializable {
 	@ManagedProperty(value="#{stationDao}")
 	private IStationDao stationDao;
 
-	@ManagedProperty(value="#{dbloader}")
-	private DBLoader dbLoader;
+	@ManagedProperty(value="#{dbloader}")//-
+	private DBLoader dbLoader;//-
 
 	
 	public ManagementService() {
@@ -63,10 +63,10 @@ public class ManagementService implements IManagementService, Serializable {
 		Map<Station, DateTime> finalStationsMap = new HashMap<Station, DateTime>();
 		Map<Station, ElementProgramme> stationsPredecessorsMap = new HashMap<Station, ElementProgramme>();
 		
-		List<Station> stations = dbLoader.getStations();
-		Station staDep = stations.get(Integer.parseInt(startStation));
-		Station staArr = stations.get(Integer.parseInt(endStation));
-		List<ElementProgramme> elementsProgramme = dbLoader.getElementsProgramme();
+		List<Station> stations = dbLoader.getStations();//
+		Station staDep = stations.get(Integer.parseInt(startStation));//-
+		Station staArr = stations.get(Integer.parseInt(endStation));//-
+		List<ElementProgramme> elementsProgramme = dbLoader.getElementsProgramme();//getelementprogbyday()
 		
 		for(Station station : stations){
 			if(station == null){

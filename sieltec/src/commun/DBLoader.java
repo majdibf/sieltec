@@ -262,11 +262,11 @@ public class DBLoader {
 	
 	private static List<ElementProgramme> executeProgramme(Programme prog, List<ElementParcours> allElementsParcours){
 		List<ElementProgramme> result = new ArrayList<ElementProgramme>();
-		Parcours parcours = prog.getParcours();
+		Parcours parcours = prog.getParcours();//-findbyid
 		List<ElementParcours> elementsParcours = new ArrayList<ElementParcours>();
-		for(ElementParcours elemParc : allElementsParcours){
-			if(elemParc.getParcours().getId() == parcours.getId()){
-				elementsParcours.add(elemParc);
+		for(ElementParcours elemParc : allElementsParcours){//-
+			if(elemParc.getParcours().getId() == parcours.getId()){//-
+				elementsParcours.add(elemParc);//-
 			}
 		}
 		
