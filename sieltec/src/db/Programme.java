@@ -5,19 +5,19 @@ import org.joda.time.DateTime;
 public class Programme {
 	private double id;
 	private DateTime dateHeureDebut;
-	private Parcours parcours;
-	private Vehicule vehicule;
-	private Conducteur conducteur;
+	private int idParcours;
+	private int idVehicule;
+	private int idConducteur;
 	private int version;
 
-	public Programme(double id, DateTime dateHeureDebut, Parcours parcours,
-			Vehicule vehicule, Conducteur conducteur, int version) {
+	public Programme(double id, DateTime dateHeureDebut, int idParcours,
+			int idVehicule, int idConducteur, int version) {
 		super();
 		this.id = id;
 		this.dateHeureDebut = dateHeureDebut;
-		this.parcours = parcours;
-		this.vehicule = vehicule;
-		this.conducteur = conducteur;
+		this.idParcours = idParcours;
+		this.idVehicule = idVehicule;
+		this.idConducteur = idConducteur;
 		this.version = version;
 	}
 
@@ -37,28 +37,28 @@ public class Programme {
 		this.dateHeureDebut = dateHeureDebut;
 	}
 
-	public Parcours getParcours() {
-		return parcours;
+	public int getIdParcours() {
+		return idParcours;
 	}
 
-	public void setParcours(Parcours parcours) {
-		this.parcours = parcours;
+	public void setIdParcours(int idParcours) {
+		this.idParcours = idParcours;
 	}
 
-	public Vehicule getVehicule() {
-		return vehicule;
+	public int getIdVehicule() {
+		return idVehicule;
 	}
 
-	public void setVehicule(Vehicule vehicule) {
-		this.vehicule = vehicule;
+	public void setIdVehicule(int idVehicule) {
+		this.idVehicule = idVehicule;
 	}
 
-	public Conducteur getConducteur() {
-		return conducteur;
+	public int getIdConducteur() {
+		return idConducteur;
 	}
 
-	public void setConducteur(Conducteur conducteur) {
-		this.conducteur = conducteur;
+	public void setIdConducteur(int idConducteur) {
+		this.idConducteur = idConducteur;
 	}
 
 	public int getVersion() {

@@ -61,13 +61,12 @@ public class ProgrammeDao implements IProgrammeDao {
 				String DateTemp = rs.getString("DATE_HEURE_DEBUT");
 				DateTime dateHeureDebut = new DateTime(DateTemp);
 
-				Parcours parcours = null;
-				Vehicule vehicule = null;
-				Conducteur conducteur = null;
+				int idParcours = rs.getInt("id_parcours");
+				int idVehicule = rs.getInt("id_vehicule");
+				int idConducteur = rs.getInt("id_conducteur");
 				int version = rs.getInt("version");
 
-				prog = new Programme(id, dateHeureDebut, parcours, vehicule,
-						conducteur, version);
+				prog = new Programme(id, dateHeureDebut, idParcours, idVehicule, idConducteur, version);
 
 				programmes.add(prog);
 

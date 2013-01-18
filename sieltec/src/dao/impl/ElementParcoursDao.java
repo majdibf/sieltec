@@ -57,20 +57,18 @@ public class ElementParcoursDao implements IElementParcoursDao {
 			while (rs.next()) {
 
 				int id = rs.getInt("id");
-				Parcours parcours = null;
-				Station stationDep = null;
-				Station stationArr = null;
+				int idParcours =rs.getInt("id_parcours");
+				int idStationDep = rs.getInt("id_station_dep");
+				int idStationArr = rs.getInt("id_station_arr");
 
 				int d = rs.getInt("duree");
 				Minutes duree = Minutes.minutes(d);
 
-				d = rs.getInt("dureearret");
+				d = rs.getInt("dureeArret");
 				Minutes dureeArret = Minutes.minutes(d);
 				int version = rs.getInt("version");
 
-				ep = new ElementParcours(id, parcours, stationDep, stationArr,
-						duree, dureeArret, version);
-				elementParcours.add(ep);
+				ep = new ElementParcours(id, idParcours, idStationDep, idStationArr, duree, dureeArret, version);
 			}
 
 		} catch (SQLException e) {

@@ -7,20 +7,20 @@ import org.joda.time.Minutes;
 
 public class ElementParcours {
 	private double id;
-	private Parcours parcours;
-	private Station stationDep;
-	private Station stationArr;
+	private int idParcours;
+	private int idStationDep;
+	private int idStationArr;
 	private Minutes duree;
 	private Minutes dureeArret;
 	private int version;
 
-	public ElementParcours(double id, Parcours parcours, Station stationDep,
-			Station stationArr, Minutes duree, Minutes dureeArret, int version) {
+	public ElementParcours(double id, int idParcours, int idStationDep,
+			int idStationArr, Minutes duree, Minutes dureeArret, int version) {
 		super();
 		this.id = id;
-		this.parcours = parcours;
-		this.stationDep = stationDep;
-		this.stationArr = stationArr;
+		this.idParcours = idParcours;
+		this.idStationDep = idStationDep;
+		this.idStationArr = idStationArr;
 		this.duree = duree;
 		this.dureeArret = dureeArret;
 		this.version = version;
@@ -34,28 +34,28 @@ public class ElementParcours {
 		this.id = id;
 	}
 
-	public Parcours getParcours() {
-		return parcours;
+	public int getIdParcours() {
+		return idParcours;
 	}
 
-	public void setParcours(Parcours parcours) {
-		this.parcours = parcours;
+	public void setIdParcours(int idParcours) {
+		this.idParcours = idParcours;
 	}
 
-	public Station getStationDep() {
-		return stationDep;
+	public int getIdStationDep() {
+		return idStationDep;
 	}
 
-	public void setStationDep(Station stationDep) {
-		this.stationDep = stationDep;
+	public void setIdStationDep(int idStationDep) {
+		this.idStationDep = idStationDep;
 	}
 
-	public Station getStationArr() {
-		return stationArr;
+	public int getIdStationArr() {
+		return idStationArr;
 	}
 
-	public void setStationArr(Station stationArr) {
-		this.stationArr = stationArr;
+	public void setIdStationArr(int idStationArr) {
+		this.idStationArr = idStationArr;
 	}
 
 	public Minutes getDuree() {
@@ -82,9 +82,9 @@ public class ElementParcours {
 		this.version = version;
 	}
 
-	@Override
-	public String toString() {
-		return parcours.getNom() + "#(" + stationDep.getNom() + "===" + duree.getMinutes() + "===>" + stationArr.getNom() + " : " + dureeArret.getMinutes() + ")";
-	}
-
+	/*
+	 * @Override public String toString() { return parcours.getNom() + "#(" +
+	 * stationDep.getNom() + "===" + duree.getMinutes() + "===>" +
+	 * stationArr.getNom() + " : " + dureeArret.getMinutes() + ")"; }
+	 */
 }

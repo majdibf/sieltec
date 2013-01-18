@@ -6,17 +6,16 @@ import java.util.List;
 public class Parcours {
 	private double id;
 	private String nom;
-	private Ligne ligne;
-	private List<ElementParcours> elementsParcours;
+	private int idLigne;
+	// private List<ElementParcours> elementsParcours;
 	private int version;
 
-	public Parcours(double id, String nom, Ligne ligne, int version) {
+	public Parcours(double id, String nom, int idLigne, int version) {
 		super();
 		this.id = id;
 		this.nom = nom;
-		this.ligne = ligne;
+		this.idLigne = idLigne;
 		this.version = version;
-		elementsParcours = new ArrayList<ElementParcours>();
 	}
 
 	public double getId() {
@@ -35,12 +34,12 @@ public class Parcours {
 		this.nom = nom;
 	}
 
-	public Ligne getLigne() {
-		return ligne;
+	public int getIdLigne() {
+		return idLigne;
 	}
 
-	public void setLigne(Ligne ligne) {
-		this.ligne = ligne;
+	public void setIdLigne(int idLigne) {
+		this.idLigne = idLigne;
 	}
 
 	public int getVersion() {
@@ -49,10 +48,6 @@ public class Parcours {
 
 	public void setVersion(int version) {
 		this.version = version;
-	}
-
-	public List<ElementParcours> getElementsParcours() {
-		return elementsParcours;
 	}
 
 }

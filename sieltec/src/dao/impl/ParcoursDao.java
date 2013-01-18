@@ -59,10 +59,10 @@ public class ParcoursDao implements IParcoursDao {
 
 				int id = rs.getInt("id");
 				String nom = rs.getString("nom");
-				Ligne ligne = null;
-				List<ElementParcours> elementsParcours = null;
+				int idLigne = rs.getInt("id_ligne");
+				// List<ElementParcours> elementsParcours = null;
 				int version = rs.getInt("version");
-				p = new Parcours(id, nom, ligne, version);
+				p = new Parcours(id, nom, idLigne, version);
 
 				parcours.add(p);
 
