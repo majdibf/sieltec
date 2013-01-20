@@ -1,5 +1,5 @@
 
-/* STATION */
+-- STATION */
 
 INSERT INTO STATION (NOM,LONGITUDE,LATITUDE,VERSION) VALUES('Station1','100','200',0);
 INSERT INTO STATION (NOM,LONGITUDE,LATITUDE,VERSION) VALUES('Station2','100','200',0);
@@ -28,7 +28,7 @@ INSERT INTO STATION (NOM,LONGITUDE,LATITUDE,VERSION) VALUES('Station24','100','2
 
 
 
-/*LIGNE*/
+--LIGNE*/
 
 INSERT INTO LIGNE (NOM,VERSION) VALUES ('bleu',0);
 INSERT INTO LIGNE (NOM,VERSION) VALUES ('rouge',0);
@@ -38,7 +38,7 @@ INSERT INTO LIGNE (NOM,VERSION) VALUES ('vert',0);
 INSERT INTO LIGNE (NOM,VERSION) VALUES ('noir',0);
 
 
-/* PARCOURS*/
+-- PARCOURS*/
 
 INSERT INTO PARCOURS (NOM,ID_LIGNE,VERSION) VALUES ('bleu_aller',1,0);
 INSERT INTO PARCOURS (NOM,ID_LIGNE,VERSION) VALUES ('rouge_aller',2,0);
@@ -47,26 +47,27 @@ INSERT INTO PARCOURS (NOM,ID_LIGNE,VERSION) VALUES ('violet_aller',4,0);
 INSERT INTO PARCOURS (NOM,ID_LIGNE,VERSION) VALUES ('vert_retour',5,0);
 INSERT INTO PARCOURS (NOM,ID_LIGNE,VERSION) VALUES ('noir_aller',6,0);
 
-/* ELEMENT_PARCOURS */
+-- ELEMENT_PARCOURS */
 
-			/* bleu_aller*/
+			-- bleu_aller*/
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (1,1,2,22,3,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (1,2,3,28,02,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (1,3,4,45,0,0);
 
-			/* rouge_aller*/
+			-- rouge_aller*/
+insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (2,1,5,5,2,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (2,5,6,5,2,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (2,6,7,3,2,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (2,7,8,26,3,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (2,8,9,7,0,0);
 
-			/* marron_retour*/
+			-- marron_retour*/
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (3,5,2,6,5,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (3,2,14,7,2,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (3,14,15,38,3,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (3,15,16,17,0,0);
 
-			/* violet_aller*/
+			-- violet_aller*/
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (4,10,7,8,2,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (4,7,11,8,2,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (4,11,3,10,2,0);
@@ -74,7 +75,7 @@ insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,dur
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (4,15,21,17,2,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (4,21,24,8,0,0);
 
-			/* vert_retour*/
+			-- vert_retour*/
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (5,9,8,3,2,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (5,8,11,3,2,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (5,11,12,3,2,0);
@@ -84,7 +85,7 @@ insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,dur
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (5,18,23,16,0,0);
 
 
-			/*noir_aller*/
+			--noir_aller*/
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (6,17,18,10,2,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (6,18,19,8,2,0);
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (6,19,20,6,2,0);
@@ -92,7 +93,7 @@ insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,dur
 insert into element_parcours(id_parcours,id_station_dep,id_station_arr,duree,duree_arret,version) values (6,21,22,2,0,0);
 
 
-/*CONDUCTEUR*/
+--CONDUCTEUR*/
 insert into conducteur(nom,prenom,contact,version) values ('C1','C1','1111',0);
 insert into conducteur(nom,prenom,contact,version) values ('C2','C2','2222',0);
 insert into conducteur(nom,prenom,contact,version) values ('C3','C3','3333',0);
@@ -100,7 +101,7 @@ insert into conducteur(nom,prenom,contact,version) values ('C4','C4','4444',0);
 insert into conducteur(nom,prenom,contact,version) values ('C5','C5','5555',0);
 insert into conducteur(nom,prenom,contact,version) values ('C6','C6','6666',0);
 
-/*VEHICULE*/
+--VEHICULE*/
 insert into vehicule(immatriculation,version) values('V1',0);
 insert into vehicule(immatriculation,version) values('V2',0);
 insert into vehicule(immatriculation,version) values('V3',0);
@@ -126,7 +127,7 @@ insert into programme(date_heure_debut,id_parcours,id_vehicule,id_conducteur,ver
 
 
 
-/*EVENEMENT*/
+--EVENEMENT*/
 
 
 
