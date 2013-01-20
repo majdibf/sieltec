@@ -21,9 +21,9 @@ public class ItineraireBean {
 
 	//input
 	private String id;
-	private String startStation = "3";
-	private String endStation = "24";
-	private String[] stationNames = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"};
+	private String startStation = "Station1";
+	private String endStation = "Station24";
+	private String[] stationNames = {"Station1", "Station2", "Station3", "Station4", "Station5", "Station6", "Station7", "Station8", "Station9", "Station10", "Station11", "Station12", "Station13", "Station14", "Station15", "Station16", "Station17", "Station18", "Station19", "Station20", "Station21", "Station22", "Station23", "Station24"};
 
 	//output
 	private List<ElementProgramme> itineraire;

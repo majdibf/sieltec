@@ -15,5 +15,6 @@ public interface IManagementService {
 	
 	public List<Station> getAllStations();
 	
+	public List<ElementProgramme> buildElementsProgrammes(DateTime jour);
 	
 }

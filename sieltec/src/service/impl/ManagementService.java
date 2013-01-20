@@ -18,19 +18,35 @@ import service.IManagementService;
 
 import commun.DBLoader;
 
+import dao.IElementParcoursDao;
+import dao.IParcoursDao;
+import dao.IProgrammeDao;
 import dao.IStationDao;
+import db.ElementParcours;
 import db.ElementProgramme;
+import db.Parcours;
+import db.Programme;
 import db.Station;
 
 @ManagedBean(name="managementService", eager=true)
 @ApplicationScoped
 public class ManagementService implements IManagementService, Serializable {
 	
+	@ManagedProperty(value="#{dbloader}")
+	private DBLoader dbLoader;
+
 	@ManagedProperty(value="#{stationDao}")
 	private IStationDao stationDao;
 
-	@ManagedProperty(value="#{dbloader}")//-
-	private DBLoader dbLoader;//-
+	@ManagedProperty(value="#{programmeDao}")
+	private IProgrammeDao programmeDao;
+
+	@ManagedProperty(value="#{elementParcoursDao}")
+	private IElementParcoursDao elementParcoursDao;
+
+	@ManagedProperty(value="#{parcoursDao}")
+	private IParcoursDao parcoursDao;
+
 
 	
 	public ManagementService() {
@@ -59,30 +75,27 @@ public class ManagementService implements IManagementService, Serializable {
 		
 		List<ElementProgramme> result = new ArrayList<ElementProgramme>();
 		
-		Map<Station, DateTime> initialStationsMap = new HashMap<Station, DateTime>();
-		Map<Station, DateTime> finalStationsMap = new HashMap<Station, DateTime>();
-		Map<Station, ElementProgramme> stationsPredecessorsMap = new HashMap<Station, ElementProgramme>();
+		Map<Long, DateTime> initialStationsMap = new HashMap<Long, DateTime>();
+		Map<Long, DateTime> finalStationsMap = new HashMap<Long, DateTime>();
+		Map<Long, ElementProgramme> stationsPredecessorsMap = new HashMap<Long, ElementProgramme>();
 		
-		List<Station> stations = dbLoader.getStations();//
-		Station staDep = stations.get(Integer.parseInt(startStation));//-
-		Station staArr = stations.get(Integer.parseInt(endStation));//-
-		List<ElementProgramme> elementsProgramme = dbLoader.getElementsProgramme();//getelementprogbyday()
+		List<Station> stations = stationDao.findAll();
+		Station staDep = stationDao.findByName(startStation);
+		Station staArr = stationDao.findByName(endStation);
+		List<ElementProgramme> elementsProgramme = buildElementsProgrammes(dateHeurDepart);
 		
 		for(Station station : stations){
-			if(station == null){
-				continue;
-			}
 			if(station.getId() == staDep.getId()){
-				initialStationsMap.put(station, dateHeurDepart);
+				initialStationsMap.put(station.getId(), dateHeurDepart);
 			} else {
-				initialStationsMap.put(station, dateHeurDepart.plus(Minutes.MAX_VALUE));
+				initialStationsMap.put(station.getId(), dateHeurDepart.plus(Minutes.MAX_VALUE));
 			}
 		}
 		
 		List<ElementProgramme> candidats = null;
 		while(!initialStationsMap.isEmpty()){
 		
-			Station minStation = getMinStation(initialStationsMap);
+			Long minStation = getMinStation(initialStationsMap);
 			DateTime minTime = initialStationsMap.get(minStation);
 			
 			finalStationsMap.put(minStation, minTime);
@@ -93,13 +106,13 @@ public class ManagementService implements IManagementService, Serializable {
 			
 		}
 		
-		Station sta = staArr;
+		Long staId = staArr.getId();
 		boolean stop = false;
-		while(!stop && !sta.equals(staDep)){
-			ElementProgramme element = stationsPredecessorsMap.get(sta);
+		while(!stop && staId != staDep.getId()){
+			ElementProgramme element = stationsPredecessorsMap.get(staId);
 			if(element != null){
 				result.add(0,element);
-				sta = element.getStationDep();
+				staId = element.getStationDepId();
 			} else {
 				stop = true;
 			}
@@ -109,28 +122,28 @@ public class ManagementService implements IManagementService, Serializable {
 		return result;		
 	}
 	
-	private static void updateVoisins(List<ElementProgramme> candidats, Map<Station, DateTime> stationsMap, Map<Station, ElementProgramme> stationsPredecessorsMap){
+	private static void updateVoisins(List<ElementProgramme> candidats, Map<Long, DateTime> stationsMap, Map<Long, ElementProgramme> stationsPredecessorsMap){
 		
 		for(ElementProgramme element : candidats){
 			
-			Station stationArr = element.getStationArr();
+			Long stationArrId = element.getStationArrId();
 			DateTime dateHeureArr = element.getDateHeureArrivee();
-			DateTime oldDateTime = stationsMap.get(stationArr);
+			DateTime oldDateTime = stationsMap.get(stationArrId);
 			if(oldDateTime != null && dateHeureArr.isBefore(oldDateTime)){
-				stationsMap.put(stationArr, dateHeureArr);
-				stationsPredecessorsMap.put(stationArr, element);
+				stationsMap.put(stationArrId, dateHeureArr);
+				stationsPredecessorsMap.put(stationArrId, element);
 			}
 			
 		}
 		
 	}
 	
-	private Station getMinStation(Map<Station, DateTime> map){
-		Station result = null;
+	private Long getMinStation(Map<Long, DateTime> map){
+		Long result = -1l;
 		DateTime min = null;
-		Set<Station> stations = map.keySet();
+		Set<Long> stations = map.keySet();
 		
-		for(Station station : stations){
+		for(Long station : stations){
 			DateTime time = map.get(station);
 			if(min == null || time.isBefore(min)){
 				result = station;
@@ -142,12 +155,12 @@ public class ManagementService implements IManagementService, Serializable {
 		return result;
 	}
 	
-	private List<ElementProgramme> getCandidats(Station station, DateTime dateHeure, List<ElementProgramme> elementsProgramme){
+	private List<ElementProgramme> getCandidats(Long stationId, DateTime dateHeure, List<ElementProgramme> elementsProgramme){
 		
 		List<ElementProgramme> resultat = new ArrayList<ElementProgramme>(); 
 		
 		for(ElementProgramme element : elementsProgramme){
-			if(element.getStationDep().getId() == station.getId() && element.getDateHeureDepart().isAfter(dateHeure)){
+			if(element.getStationDepId() == stationId && element.getDateHeureDepart().isAfter(dateHeure)){
 				resultat.add(element);
 			}
 		}
@@ -162,4 +175,90 @@ public class ManagementService implements IManagementService, Serializable {
 		return stationDao.findAll();
 	}
 
+	@Override
+	public List<ElementProgramme> buildElementsProgrammes(DateTime jour) {
+		List<ElementProgramme> elementsProgrammes = new ArrayList<ElementProgramme>();
+		List<Programme> programmes = programmeDao.findAll();
+		List<ElementParcours> elementsParcours = elementParcoursDao.findAll();
+		
+		for(Programme progr : programmes){
+			elementsProgrammes.addAll(executeProgramme(progr, elementsParcours));
+		}
+		
+		
+		return elementsProgrammes;
+	}
+	
+	private List<ElementProgramme> executeProgramme(Programme prog, List<ElementParcours> allElementsParcours){
+		List<ElementProgramme> result = new ArrayList<ElementProgramme>();
+		
+		List<ElementParcours> elementsParcours = new ArrayList<ElementParcours>();
+		for(ElementParcours elemParc : allElementsParcours){
+			if(elemParc.getParcoursId() == prog.getParcoursId()){
+				elementsParcours.add(elemParc);
+			}
+		}
+		
+		elementsParcours = trierElementsParcours(elementsParcours);
+		
+		DateTime dateHeureDepart = prog.getDateHeureDebut();
+		for(ElementParcours elemPar : elementsParcours){
+			ElementProgramme elPr = new ElementProgramme(elemPar.getStationDepId(), elemPar.getStationArrId(), dateHeureDepart, dateHeureDepart.plusMinutes(elemPar.getDuree().getMinutes()), elemPar.getParcoursId());
+			dateHeureDepart = elPr.getDateHeureArrivee().plusMinutes(elemPar.getDureeArret().getMinutes());
+			result.add(elPr);
+		}
+		
+		return result;
+	}
+	
+	private List<ElementParcours> trierElementsParcours(List<ElementParcours> elemParcours){
+		List<ElementParcours> result = new ArrayList<ElementParcours>();
+		
+		ElementParcours firstEP =  elemParcours.remove(0);
+		ElementParcours lastEP =  firstEP;
+		result.add(firstEP);
+		while(!elemParcours.isEmpty()){
+			ElementParcours ep = elemParcours.remove(0);
+			if(ep.getStationArrId() == firstEP.getStationDepId()){
+				result.add(0, ep);
+				firstEP = ep;
+				continue;
+			}
+			if(ep.getStationDepId() == lastEP.getStationArrId()){
+				result.add(ep);
+				lastEP = ep;
+				continue;
+			}
+			elemParcours.add(ep);
+		}
+		
+		return result;
+	}
+
+	public IProgrammeDao getProgrammeDao() {
+		return programmeDao;
+	}
+
+	public void setProgrammeDao(IProgrammeDao programmeDao) {
+		this.programmeDao = programmeDao;
+	}
+
+	public IElementParcoursDao getElementParcoursDao() {
+		return elementParcoursDao;
+	}
+
+	public void setElementParcoursDao(IElementParcoursDao elementParcoursDao) {
+		this.elementParcoursDao = elementParcoursDao;
+	}
+
+	public IParcoursDao getParcoursDao() {
+		return parcoursDao;
+	}
+
+	public void setParcoursDao(IParcoursDao parcoursDao) {
+		this.parcoursDao = parcoursDao;
+	}	
+
+	
+	
 }
