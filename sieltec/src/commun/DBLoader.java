@@ -15,8 +15,6 @@ import javax.sql.DataSource;
 
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.mchange.v2.c3p0.DataSources;
@@ -33,7 +31,6 @@ import db.Station;
 @ApplicationScoped
 public class DBLoader {
 
-	private  double id = 1;
 	private  List<Station> stations = new ArrayList<Station>();
 	private  List<Ligne> lignes = new ArrayList<Ligne>();
 	private  List<Parcours> parcours = new ArrayList<Parcours>();
@@ -46,14 +43,6 @@ public class DBLoader {
 		super();
 		init();
 		
-	}
-
-	public double getId() {
-		return id;
-	}
-
-	public void setId(double id) {
-		this.id = id;
 	}
 
 	public List<Station> getStations() {
@@ -108,97 +97,22 @@ public class DBLoader {
 	private void init(){
 		
 		
-
+		
 		try {
 			Class.forName("org.apache.derby.jdbc.ClientDriver");
 			DataSource unpooled = DataSources.unpooledDataSource("jdbc:derby://localhost:1527/sieltecdb","sieltec","sieltec");
 			ds = DataSources.pooledDataSource( unpooled );		
-			String query = "select * from programme";
-			Connection conn = ds.getConnection();
-			System.out.println(((PoolBackedDataSource)ds).getNumIdleConnections());
-			Statement statement = conn.createStatement();
-			ResultSet rs = statement.executeQuery(query);
-			
-			while (rs.next()) {
-				//double id = rs.getDouble("id");
-				//System.out.println(id + " " + rs.getString("nom"));
-			
-				String DateTemp = rs.getString("DATE_HEURE_DEBUT");
-				DateTime dateHeureDebut = new DateTime(DateTime.parse(DateTemp));
-			}
-			
-			System.out.println(((PoolBackedDataSource)ds).getNumIdleConnections());
-			conn.close();
-			System.out.println(((PoolBackedDataSource)ds).getNumIdleConnections());	
-			
-						
 		} catch (Exception e) {
-			
 			System.out.println("Problème d'initialisation du pool de connexion : " + e);
 			e.printStackTrace();
 		} finally {
+			// todo : ???
 		}
-		
-	/*	
-		for(Programme progr : programmes){
-			elementsProgramme.addAll(executeProgramme(progr, elementsParcours));
-		}
-		
+				
 	}
 
 	
-	*/
-		
-		
-	}
 	
-		/*
-	private static List<ElementProgramme> executeProgramme(Programme prog, List<ElementParcours> allElementsParcours){
-		List<ElementProgramme> result = new ArrayList<ElementProgramme>();
-		Parcours parcours = prog.getParcours();//-findbyid
-		List<ElementParcours> elementsParcours = new ArrayList<ElementParcours>();
-		for(ElementParcours elemParc : allElementsParcours){//-
-			if(elemParc.getParcours().getId() == parcours.getId()){//-
-				elementsParcours.add(elemParc);//-
-			}
-		}
-		
-		elementsParcours = trierElementsParcours(elementsParcours);
-		
-		DateTime dateHeureDepart = prog.getDateHeureDebut();
-		for(ElementParcours elemPar : elementsParcours){
-			ElementProgramme elPr = new ElementProgramme(elemPar.getStationDep(), elemPar.getStationArr(), dateHeureDepart, dateHeureDepart.plusMinutes(elemPar.getDuree().getMinutes()), elemPar.getParcours());
-			dateHeureDepart = elPr.getDateHeureArrivee().plusMinutes(elemPar.getDureeArret().getMinutes());
-			result.add(elPr);
-		}
-		
-		return result;
-	}
-	
-	private static List<ElementParcours> trierElementsParcours(List<ElementParcours> elemParcours){
-		List<ElementParcours> result = new ArrayList<ElementParcours>();
-		
-		ElementParcours firstEP =  elemParcours.remove(0);
-		ElementParcours lastEP =  firstEP;
-		result.add(firstEP);
-		while(!elemParcours.isEmpty()){
-			ElementParcours ep = elemParcours.remove(0);
-			if(ep.getStationArr().getId() == firstEP.getStationDep().getId()){
-				result.add(0, ep);
-				firstEP = ep;
-				continue;
-			}
-			if(ep.getStationDep().getId() == lastEP.getStationArr().getId()){
-				result.add(ep);
-				lastEP = ep;
-				continue;
-			}
-			elemParcours.add(ep);
-		}
-		
-		return result;
-	}
-*/
 	public DataSource getDs() {
 		return ds;
 	}
@@ -207,7 +121,4 @@ public class DBLoader {
 		this.ds = ds;
 	}
 
-
-	
-	
 }
