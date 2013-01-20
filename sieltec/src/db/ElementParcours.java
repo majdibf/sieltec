@@ -6,85 +6,143 @@ import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 
 public class ElementParcours {
-	private double id;
-	private int idParcours;
-	private int idStationDep;
-	private int idStationArr;
+	private Long id;
+	private Long parcoursId;
+	private Long stationDepId;
+	private Long stationArrId;
 	private Minutes duree;
 	private Minutes dureeArret;
 	private int version;
 
-	public ElementParcours(double id, int idParcours, int idStationDep,
-			int idStationArr, Minutes duree, Minutes dureeArret, int version) {
+
+	public ElementParcours(Long id, Long parcoursId, Long stationDepId,
+			Long stationArrId, Minutes duree, Minutes dureeArret, int version) {
 		super();
 		this.id = id;
-		this.idParcours = idParcours;
-		this.idStationDep = idStationDep;
-		this.idStationArr = idStationArr;
+		this.parcoursId = parcoursId;
+		this.stationDepId = stationDepId;
+		this.stationArrId = stationArrId;
 		this.duree = duree;
 		this.dureeArret = dureeArret;
 		this.version = version;
 	}
 
-	public double getId() {
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(double id) {
+
+
+
+
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public int getIdParcours() {
-		return idParcours;
+
+
+
+
+	public Long getParcoursId() {
+		return parcoursId;
 	}
 
-	public void setIdParcours(int idParcours) {
-		this.idParcours = idParcours;
+
+
+
+
+	public void setParcoursId(Long parcoursId) {
+		this.parcoursId = parcoursId;
 	}
 
-	public int getIdStationDep() {
-		return idStationDep;
+
+
+
+
+	public Long getStationDepId() {
+		return stationDepId;
 	}
 
-	public void setIdStationDep(int idStationDep) {
-		this.idStationDep = idStationDep;
+
+
+
+
+	public void setStationDepId(Long stationDepId) {
+		this.stationDepId = stationDepId;
 	}
 
-	public int getIdStationArr() {
-		return idStationArr;
+
+
+
+
+	public Long getStationArrId() {
+		return stationArrId;
 	}
 
-	public void setIdStationArr(int idStationArr) {
-		this.idStationArr = idStationArr;
+
+
+
+
+	public void setStationArrId(Long stationArrId) {
+		this.stationArrId = stationArrId;
 	}
+
+
+
+
 
 	public Minutes getDuree() {
 		return duree;
 	}
 
+
+
+
+
 	public void setDuree(Minutes duree) {
 		this.duree = duree;
 	}
+
+
+
+
 
 	public Minutes getDureeArret() {
 		return dureeArret;
 	}
 
+
+
+
+
 	public void setDureeArret(Minutes dureeArret) {
 		this.dureeArret = dureeArret;
 	}
+
+
+
+
 
 	public int getVersion() {
 		return version;
 	}
 
+
+
+
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
 
-	/*
-	 * @Override public String toString() { return parcours.getNom() + "#(" +
-	 * stationDep.getNom() + "===" + duree.getMinutes() + "===>" +
-	 * stationArr.getNom() + " : " + dureeArret.getMinutes() + ")"; }
-	 */
+
+
+
+
+	@Override
+	public String toString() {
+		return parcoursId + "#(" + stationDepId + "===" + duree.getMinutes() + "===>" + stationArrId + " : " + dureeArret.getMinutes() + ")";
+	}
+
 }

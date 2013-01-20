@@ -29,15 +29,15 @@ public class ElementParcoursDao implements IElementParcoursDao {
 	private DBLoader dbLoader;
 
 	@Override
-	public double insert(ElementParcours ep) {
+	public Long insert(ElementParcours ep) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0l;
 	}
 
 	@Override
-	public double delete(ElementParcours ep) {
+	public Long delete(ElementParcours ep) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0l;
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class ElementParcoursDao implements IElementParcoursDao {
 			Connection ds = dbLoader.getDs().getConnection();
 			Statement statement = ds.createStatement();
 
-			String query = "select * from elementparcours";
+			String query = "select * from element_parcours";
 
 			ResultSet rs = statement.executeQuery(query);
 
@@ -56,19 +56,20 @@ public class ElementParcoursDao implements IElementParcoursDao {
 
 			while (rs.next()) {
 
-				int id = rs.getInt("id");
-				int idParcours =rs.getInt("id_parcours");
-				int idStationDep = rs.getInt("id_station_dep");
-				int idStationArr = rs.getInt("id_station_arr");
+				Long id = rs.getLong("id");
+				Long parcoursId = rs.getLong("ID_PARCOURS");
+				Long stationDepId = rs.getLong("ID_STATION_DEP");
+				Long stationArrId = rs.getLong("ID_STATION_ARR");
 
 				int d = rs.getInt("duree");
 				Minutes duree = Minutes.minutes(d);
 
-				d = rs.getInt("dureeArret");
+				d = rs.getInt("duree_arret");
 				Minutes dureeArret = Minutes.minutes(d);
 				int version = rs.getInt("version");
 
-				ep = new ElementParcours(id, idParcours, idStationDep, idStationArr, duree, dureeArret, version);
+				ep = new ElementParcours(id, parcoursId, stationDepId, stationArrId, duree, dureeArret, version);
+				elementParcours.add(ep);
 			}
 
 		} catch (SQLException e) {

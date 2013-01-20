@@ -3,6 +3,7 @@ package dao.impl;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
@@ -21,7 +22,7 @@ import db.Parcours;
 import db.Programme;
 import db.Vehicule;
 
-@ManagedBean(name = "programmeDAO", eager = true)
+@ManagedBean(name = "programmeDao", eager = true)
 @ApplicationScoped
 public class ProgrammeDao implements IProgrammeDao {
 
@@ -29,15 +30,15 @@ public class ProgrammeDao implements IProgrammeDao {
 	DBLoader dbLoader;
 
 	@Override
-	public double insert(Programme programme) {
+	public Long insert(Programme programme) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0l;
 	}
 
 	@Override
-	public double delete(Programme programme) {
+	public Long delete(Programme programme) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0l;
 	}
 
 	@Override
@@ -56,17 +57,19 @@ public class ProgrammeDao implements IProgrammeDao {
 			Programme prog;
 
 			while (rs.next()) {
-				int id = rs.getInt("id");
+				Long id = rs.getLong("id");
 
-				String DateTemp = rs.getString("DATE_HEURE_DEBUT");
-				DateTime dateHeureDebut = new DateTime(DateTemp);
-
-				int idParcours = rs.getInt("id_parcours");
-				int idVehicule = rs.getInt("id_vehicule");
-				int idConducteur = rs.getInt("id_conducteur");
+				Timestamp dateHeureDebutTS = rs.getTimestamp("DATE_HEURE_DEBUT");
+				
+				DateTime dateHeureDebut = new DateTime(dateHeureDebutTS.getTime());
+				Long parcoursId = rs.getLong("ID_PARCOURS");
+				
+				Parcours parcours = null;
+				Vehicule vehicule = null;
+				Conducteur conducteur = null;
 				int version = rs.getInt("version");
 
-				prog = new Programme(id, dateHeureDebut, idParcours, idVehicule, idConducteur, version);
+				prog = new Programme(id, dateHeureDebut, parcoursId, vehicule, conducteur, version);
 
 				programmes.add(prog);
 

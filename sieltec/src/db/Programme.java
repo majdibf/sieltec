@@ -3,29 +3,30 @@ package db;
 import org.joda.time.DateTime;
 
 public class Programme {
-	private double id;
+	private Long id;
 	private DateTime dateHeureDebut;
-	private int idParcours;
-	private int idVehicule;
-	private int idConducteur;
+	private Long parcoursId;
+	private Vehicule vehicule;
+	private Conducteur conducteur;
 	private int version;
 
-	public Programme(double id, DateTime dateHeureDebut, int idParcours,
-			int idVehicule, int idConducteur, int version) {
+
+	public Programme(Long id, DateTime dateHeureDebut, Long parcoursId,
+			Vehicule vehicule, Conducteur conducteur, int version) {
 		super();
 		this.id = id;
 		this.dateHeureDebut = dateHeureDebut;
-		this.idParcours = idParcours;
-		this.idVehicule = idVehicule;
-		this.idConducteur = idConducteur;
+		this.parcoursId = parcoursId;
+		this.vehicule = vehicule;
+		this.conducteur = conducteur;
 		this.version = version;
 	}
 
-	public double getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(double id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -37,28 +38,29 @@ public class Programme {
 		this.dateHeureDebut = dateHeureDebut;
 	}
 
-	public int getIdParcours() {
-		return idParcours;
+
+	public Long getParcoursId() {
+		return parcoursId;
 	}
 
-	public void setIdParcours(int idParcours) {
-		this.idParcours = idParcours;
+	public void setParcoursId(Long parcoursId) {
+		this.parcoursId = parcoursId;
 	}
 
-	public int getIdVehicule() {
-		return idVehicule;
+	public Vehicule getVehicule() {
+		return vehicule;
 	}
 
-	public void setIdVehicule(int idVehicule) {
-		this.idVehicule = idVehicule;
+	public void setVehicule(Vehicule vehicule) {
+		this.vehicule = vehicule;
 	}
 
-	public int getIdConducteur() {
-		return idConducteur;
+	public Conducteur getConducteur() {
+		return conducteur;
 	}
 
-	public void setIdConducteur(int idConducteur) {
-		this.idConducteur = idConducteur;
+	public void setConducteur(Conducteur conducteur) {
+		this.conducteur = conducteur;
 	}
 
 	public int getVersion() {
