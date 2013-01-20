@@ -24,15 +24,15 @@ public class ConducteurDao implements IConducteurDao {
 	private DBLoader dbLoader;
 
 	@Override
-	public double insert(Conducteur conducteur) {
+	public Long insert(Conducteur conducteur) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0l;
 	}
 
 	@Override
-	public double delete(Conducteur station) {
+	public Long delete(Conducteur station) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0l;
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class ConducteurDao implements IConducteurDao {
 			Conducteur c;
 
 			while (rs.next()) {
-				int id = rs.getInt("id");
+				Long id = rs.getLong("id");
 				String nom = rs.getString("nom");
 				String prenom = rs.getString("prenom");
 				String contact = rs.getString("contact");

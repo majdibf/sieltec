@@ -24,15 +24,15 @@ public class LigneDao implements ILigneDao {
 	private DBLoader dbLoader;
 
 	@Override
-	public double insert(Ligne ligne) {
+	public Long insert(Ligne ligne) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0l;
 	}
 
 	@Override
-	public double delete(Ligne ligne) {
+	public Long delete(Ligne ligne) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0l;
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class LigneDao implements ILigneDao {
 			ResultSet rs = statement.executeQuery(query);
 
 			while (rs.next()) {
-				int id = rs.getInt("id");
+				Long id = rs.getLong("id");
 				String nom = rs.getString("nom");
 				int version = rs.getInt("version");
 

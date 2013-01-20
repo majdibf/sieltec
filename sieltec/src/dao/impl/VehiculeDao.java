@@ -24,15 +24,15 @@ public class VehiculeDao implements IVehiculeDao {
 	private DBLoader dbLoader;
 
 	@Override
-	public double insert(Vehicule vehicule) {
+	public Long insert(Vehicule vehicule) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0l;
 	}
 
 	@Override
-	public double delete(Vehicule vehicule) {
+	public Long delete(Vehicule vehicule) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0l;
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class VehiculeDao implements IVehiculeDao {
 			
 			Vehicule v;
 			while(rs.next()){
-				int id=rs.getInt("id");
+				Long id=rs.getLong("id");
 				String immatriculation=rs.getString("immatriculation");
 				int version=rs.getInt("version");
 				v=new Vehicule(id, immatriculation, version);
