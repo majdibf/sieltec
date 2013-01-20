@@ -3,13 +3,13 @@ package db;
 import java.util.Date;
 
 public class Conducteur {
-	private double id;
+	private Long id;
 	private String nom;
 	private String prenom;
 	private String contact;
 	private int version;
 
-	public Conducteur(double id, String nom, String prenom, String contact,
+	public Conducteur(Long id, String nom, String prenom, String contact,
 			int version) {
 		super();
 		this.id = id;
@@ -19,11 +19,11 @@ public class Conducteur {
 		this.version = version;
 	}
 
-	public double getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(double id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
