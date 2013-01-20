@@ -3,13 +3,13 @@ package db;
 import java.util.Date;
 
 public class Station {
-	private double id;
+	private Long id;
 	private String nom;
 	private String longitude;
 	private String latitude;
 	private int version;
 
-	public Station(double id, String nom, String longitude, String latitude,
+	public Station(Long id, String nom, String longitude, String latitude,
 			int version) {
 		super();
 		this.id = id;
@@ -19,11 +19,11 @@ public class Station {
 		this.version = version;
 	}
 
-	public double getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(double id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

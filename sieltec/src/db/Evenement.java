@@ -3,14 +3,14 @@ package db;
 import java.util.Date;
 
 public class Evenement {
-	private double id;
+	private Long id;
 	private Programme programme;
 	private Station station;
 	private TypeEvenement typeEvenement;
 	private Date dateHeure;
 	private int version;
 
-	public Evenement(double id, Programme programme, Station station,
+	public Evenement(Long id, Programme programme, Station station,
 			TypeEvenement typeEvenement, Date dateHeure, int version) {
 		super();
 		this.id = id;
@@ -21,11 +21,11 @@ public class Evenement {
 		this.version = version;
 	}
 
-	public double getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(double id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

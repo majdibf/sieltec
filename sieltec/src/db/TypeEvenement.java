@@ -1,22 +1,22 @@
 package db;
 
 public class TypeEvenement {
-	private double id;
+	private Long id;
 	private String libelle;
 	private int version;
 
-	public TypeEvenement(double id, String libelle, int version) {
+	public TypeEvenement(Long id, String libelle, int version) {
 		super();
 		this.id = id;
 		this.libelle = libelle;
 		this.version = version;
 	}
 
-	public double getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(double id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

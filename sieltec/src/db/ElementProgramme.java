@@ -6,68 +6,90 @@ import org.joda.time.format.DateTimeFormatter;
 
 public class ElementProgramme {
 
-	private Station stationDep;
-	private Station stationArr;
+	private Long stationDepId;
+	private Long stationArrId;
 	private DateTime dateHeureDepart;
 	private DateTime dateHeureArrivee;
-	private Parcours parcours;
+	private Long parcoursId;
 
 
-	public ElementProgramme(Station stationDep, Station stationArr,
+
+	public ElementProgramme(Long stationDepId, Long stationArrId,
 			DateTime dateHeureDepart, DateTime dateHeureArrivee,
-			Parcours parcours) {
+			Long parcoursId) {
 		super();
-		this.stationDep = stationDep;
-		this.stationArr = stationArr;
+		this.stationDepId = stationDepId;
+		this.stationArrId = stationArrId;
 		this.dateHeureDepart = dateHeureDepart;
 		this.dateHeureArrivee = dateHeureArrivee;
-		this.parcours = parcours;
+		this.parcoursId = parcoursId;
 	}
 
-	public Station getStationDep() {
-		return stationDep;
+
+
+	public Long getStationDepId() {
+		return stationDepId;
 	}
 
-	public void setStationDep(Station stationDep) {
-		this.stationDep = stationDep;
+
+
+	public void setStationDepId(Long stationDepId) {
+		this.stationDepId = stationDepId;
 	}
 
-	public Station getStationArr() {
-		return stationArr;
+
+
+	public Long getStationArrId() {
+		return stationArrId;
 	}
 
-	public void setStationArr(Station stationArr) {
-		this.stationArr = stationArr;
+
+
+	public void setStationArrId(Long stationArrId) {
+		this.stationArrId = stationArrId;
 	}
+
+
 
 	public DateTime getDateHeureDepart() {
 		return dateHeureDepart;
 	}
 
+
+
 	public void setDateHeureDepart(DateTime dateHeureDepart) {
 		this.dateHeureDepart = dateHeureDepart;
 	}
+
+
 
 	public DateTime getDateHeureArrivee() {
 		return dateHeureArrivee;
 	}
 
+
+
 	public void setDateHeureArrivee(DateTime dateHeureArrivee) {
 		this.dateHeureArrivee = dateHeureArrivee;
 	}
-	
-	
-	public Parcours getParcours() {
-		return parcours;
+
+
+
+	public Long getParcoursId() {
+		return parcoursId;
 	}
 
-	public void setParcours(Parcours parcours) {
-		this.parcours = parcours;
+
+
+	public void setParcoursId(Long parcoursId) {
+		this.parcoursId = parcoursId;
 	}
+
+
 
 	@Override
 	public String toString() {
 		DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm");
-		return parcours.getNom() + "#(" + stationDep.getNom() + " : " + fmt.print(dateHeureDepart) + "=====>" + stationArr.getNom() + " : " + fmt.print(dateHeureArrivee) + ")";
+		return parcoursId + "#(" + stationDepId + " : " + fmt.print(dateHeureDepart) + "=====>" + stationArrId + " : " + fmt.print(dateHeureArrivee) + ")";
 	}
 }

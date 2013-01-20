@@ -2,22 +2,22 @@ package db;
 
 public class Ligne {
 
-	private double id;
+	private Long id;
 	private String nom;
 	private int version;
 
-	public Ligne(double id, String nom, int version) {
+	public Ligne(Long id, String nom, int version) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.version = version;
 	}
 
-	public double getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(double id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

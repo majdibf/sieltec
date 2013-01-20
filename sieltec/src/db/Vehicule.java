@@ -1,22 +1,22 @@
 package db;
 
 public class Vehicule {
-	private double id;
+	private Long id;
 	private String immatriculation;
 	private int version;
 
-	public Vehicule(double id, String immatriculation, int version) {
+	public Vehicule(Long id, String immatriculation, int version) {
 		super();
 		this.id = id;
 		this.immatriculation = immatriculation;
 		this.version = version;
 	}
 
-	public double getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(double id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
