@@ -6,9 +6,9 @@ import db.Vehicule;
 
 public interface IVehiculeDao {
 
-	public double insert(Vehicule vehicule);
+	public Long insert(Vehicule vehicule);
 
-	public double delete(Vehicule vehicule);
+	public Long delete(Vehicule vehicule);
 
 	public List<Vehicule> findAll();
 

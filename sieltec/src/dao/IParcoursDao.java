@@ -6,10 +6,12 @@ import db.Parcours;
 
 public interface IParcoursDao {
 
-	public double insert(Parcours parcours);
+	public Long insert(Parcours parcours);
 
-	public double delete(Parcours parcours);
+	public Long delete(Parcours parcours);
 
 	public List<Parcours> findAll();
+	
+	public Parcours find(Long parcoursId);
 
 }

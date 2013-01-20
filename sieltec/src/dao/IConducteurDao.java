@@ -8,9 +8,9 @@ import db.Conducteur;
 public interface IConducteurDao {
 
 	
-	public double insert(Conducteur conducteur);
+	public Long insert(Conducteur conducteur);
 	
-	public double delete(Conducteur station);
+	public Long delete(Conducteur station);
 
 	public List<Conducteur> findAll();
 	

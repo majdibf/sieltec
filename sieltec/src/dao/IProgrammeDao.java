@@ -6,9 +6,9 @@ import db.Programme;
 
 public interface IProgrammeDao {
 
-	public double insert(Programme programme);
+	public Long insert(Programme programme);
 
-	public double delete(Programme programme);
+	public Long delete(Programme programme);
 
 	public List<Programme> findAll();
 
