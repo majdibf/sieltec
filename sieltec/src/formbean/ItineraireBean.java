@@ -1,5 +1,7 @@
 package formbean;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.*;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.joda.time.DateTime;
 
 import db.ElementProgramme;
+import db.Programme;
 import db.Station;
 
 import service.IManagementService;
@@ -24,7 +27,9 @@ public class ItineraireBean {
 	private String startStation = "Station1";
 	private String endStation = "Station24";
 	private String[] stationNames = {"Station1", "Station2", "Station3", "Station4", "Station5", "Station6", "Station7", "Station8", "Station9", "Station10", "Station11", "Station12", "Station13", "Station14", "Station15", "Station16", "Station17", "Station18", "Station19", "Station20", "Station21", "Station22", "Station23", "Station24"};
-
+	private Date date;
+	
+	
 	//output
 	private List<ElementProgramme> itineraire;
 	
@@ -79,7 +84,10 @@ public class ItineraireBean {
 
 	public String search() {
 		
-		this.itineraire = managementService.findPath(startStation, endStation, new DateTime(2013, 01, 05, 07, 52));
+		DateTime d= new DateTime(date.getTime());
+		System.out.println(d);
+		//new DateTime(2013, 01, 05, 07, 52)
+		this.itineraire = managementService.findPath(startStation, endStation, d);
 		return "itineraire";
 	}
 
@@ -91,6 +99,23 @@ public class ItineraireBean {
 		this.itineraire = itineraire;
 	}
 	
-	
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public List <String> complete(String ch){
+		List <Station> stations=new ArrayList<>();
+		List <String> result=new ArrayList<>();
+		stations=managementService.getAllStations();
+		for(Station s : stations){
+			result.add(s.getNom());
+		}
+		return result;
+	}
+
 	
 }
