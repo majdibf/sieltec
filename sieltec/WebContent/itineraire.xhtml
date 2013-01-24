@@ -2,7 +2,8 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Recherche d'itinéraire</title>
@@ -20,18 +21,21 @@
 		<fieldset>
 			<legend>éléments de recherche</legend>
 			<h:form>
-	Station de départ : <h:selectOneMenu
-					value="#{itineraireBean.startStation}">
-					<f:selectItems value="#{itineraireBean.stationNames}" />
-				</h:selectOneMenu>
+	Station de départ :<p:autoComplete  value="#{itineraireBean.startStation}"   
+                    completeMethod="#{itineraireBean.complete}" dropdown="true" scrollHeight="200" forceSelection="true"/>  
+				
+				<br />
+				
+				<br />
+	Station d'arrivée :<p:autoComplete value="#{itineraireBean.endStation}"   
+                    completeMethod="#{itineraireBean.complete}" dropdown="true" scrollHeight="200" forceSelection="true"/>  
 				<br />
 				<br />
-	Station d'arrivée : <h:selectOneMenu
-					value="#{itineraireBean.endStation}">
-					<f:selectItems value="#{itineraireBean.stationNames}" />
-				</h:selectOneMenu>
+				
+				Date de départ : <p:calendar value="#{itineraireBean.date}" pattern="mm/dd/yyyy HH:mm" />
 				<br />
 				<br />
+				
 				<h:commandButton value="Recherche" action="#{itineraireBean.search}" />
 			</h:form>
 		</fieldset>
