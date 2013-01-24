@@ -112,7 +112,9 @@ public class ItineraireBean {
 		List <String> result=new ArrayList<>();
 		stations=managementService.getAllStations();
 		for(Station s : stations){
+			 if(s.getNom().startsWith(ch))
 			result.add(s.getNom());
+			 
 		}
 		return result;
 	}
