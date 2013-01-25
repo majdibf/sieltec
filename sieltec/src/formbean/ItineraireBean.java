@@ -27,7 +27,7 @@ public class ItineraireBean {
 	private String startStation = "Station1";
 	private String endStation = "Station24";
 	private String[] stationNames = {"Station1", "Station2", "Station3", "Station4", "Station5", "Station6", "Station7", "Station8", "Station9", "Station10", "Station11", "Station12", "Station13", "Station14", "Station15", "Station16", "Station17", "Station18", "Station19", "Station20", "Station21", "Station22", "Station23", "Station24"};
-	private Date date;
+	private Date date=new Date(new DateTime().getMillis());
 	
 	
 	//output
@@ -83,7 +83,6 @@ public class ItineraireBean {
 
 
 	public String search() {
-		
 		DateTime d= new DateTime(date.getTime());
 		System.out.println(d);
 		//new DateTime(2013, 01, 05, 07, 52)
