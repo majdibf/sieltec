@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Recherche d'itinéraire</title>
+	<link href="./css/styles.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body>
+
+	<div align="center">
+		<table class="title">
+			<tr>
+				<th>Recherche d'itinéraire</th>
+			</tr>
+		</table>
+		<p />
+		<fieldset>
+			<legend>éléments de recherche <p:clock />  </legend>
+			<h:form>
+				Station de départ :<p:autoComplete  value="#{itineraireBean.startStation}" completeMethod="#{itineraireBean.complete}" dropdown="true" scrollHeight="200" forceSelection="true"/>
+				<br />
+				<br />
+				Station d'arrivée :<p:autoComplete value="#{itineraireBean.endStation}" completeMethod="#{itineraireBean.complete}" dropdown="true" scrollHeight="200" forceSelection="true"/>
+				<br />
+				<br />
+				Date de départ : <p:calendar value="#{itineraireBean.date}" pattern="dd/MM/yyyy HH:mm" />
+				<br />
+				<br />
+				<h:commandButton value="Recherche" action="#{itineraireBean.search}" />
+			</h:form>
+		</fieldset>
+	</div>
+	<br />
+
+	<div align="center">
+		<table class="title">
+			<tr>
+				<th>Résultat</th>
+			</tr>
+		</table>
+		<p />
+		<fieldset>
+			<legend>Résultat de la recherche</legend>
+
+			<h:dataTable var="elemItineraire"
+				value="#{itineraireBean.itineraire}" border="1">
+				<h:column>#{elemItineraire.toString()}</h:column>
+			</h:dataTable>
+
+		</fieldset>
+	</div>
+
+</h:body>
+</html>
