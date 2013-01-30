@@ -72,9 +72,6 @@ public class ItineraireBean {
 		this.endStation = endStation;
 	}
 
-	public List<Station> getStationNames() {
-		return managementService.getAllStations();
-	}
 
 
 	public String search() {
