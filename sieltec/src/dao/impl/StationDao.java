@@ -12,8 +12,6 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 import commun.DBLoader;
 
 import dao.IStationDao;
