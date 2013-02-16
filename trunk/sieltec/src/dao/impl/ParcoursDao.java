@@ -12,17 +12,10 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
-import org.joda.time.Minutes;
-
-import com.sun.xml.internal.ws.api.PropertySet.Property;
-
 import commun.DBLoader;
 
 import dao.IParcoursDao;
-import db.ElementParcours;
-import db.Ligne;
 import db.Parcours;
-import db.Station;
 
 @ManagedBean(name = "parcoursDao", eager = true)
 @ApplicationScoped
