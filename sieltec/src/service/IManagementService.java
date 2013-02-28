@@ -5,6 +5,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import db.ElementProgramme;
+import db.Ligne;
 import db.Station;
 
 
