@@ -1,6 +1,7 @@
 package formbean;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +10,10 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.Date;
+
 import org.joda.time.DateTime;
+import org.openfaces.util.Faces;
 
 import db.ElementProgramme;
 import db.Programme;
@@ -24,12 +28,15 @@ public class ItineraireBean {
 
 	private String namePage = "Rechercher itinéraire";
 
-
 	// input
 	private String id;
 	private String startStation = "Station1";
 	private String endStation = "Station24";
+
 	private Date date = new Date(new DateTime().getMillis());
+
+	private int heur = date.getHours();
+	private int minute = date.getMinutes();
 
 	// output
 	private List<ElementProgramme> itineraire;
@@ -74,14 +81,6 @@ public class ItineraireBean {
 		this.endStation = endStation;
 	}
 
-	public String search() {
-		DateTime d = new DateTime(date.getTime());
-		System.out.println(d);
-		this.itineraire = managementService.findPath(startStation, endStation,
-				d);
-		return "itineraire";
-	}
-
 	public List<ElementProgramme> getItineraire() {
 		return itineraire;
 	}
@@ -97,7 +96,7 @@ public class ItineraireBean {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
 	public String getNamePage() {
 		return namePage;
 	}
@@ -106,16 +105,64 @@ public class ItineraireBean {
 		this.namePage = namePage;
 	}
 
-	public List<String> complete(String ch) {
-		List<Station> stations = new ArrayList<>();
-		List<String> result = new ArrayList<>();
+	public int getHeur() {
+		return heur;
+	}
+
+	public void setHeur(int heur) {
+		this.heur = heur;
+	}
+
+	public int getMinute() {
+		return minute;
+	}
+
+	public void setMinute(int minute) {
+		this.minute = minute;
+	}
+
+	// auto completion
+	public List<String> getSuggestedStations() {
+		List<String> suggestedStations = new ArrayList<String>();
+		List<Station> stations = new ArrayList<Station>();
 		stations = managementService.getAllStations();
-		for (Station s : stations) {
-			if (s.getNom().startsWith(ch)) {
-				result.add(s.getNom());
+
+		String typedValue = Faces.var("searchString", String.class);
+		if (typedValue != null) {
+
+			for (Station s : stations) {
+				String stationForComparison = s.getNom().toLowerCase();
+				String typedValueForComparison = typedValue.toLowerCase();
+				if (stationForComparison.startsWith(typedValueForComparison))
+					suggestedStations.add(s.getNom());
+			}
+		} else {
+			for (int i = 0; i < stations.size(); i++) {
+
+				Station s = stations.get(i);
+				suggestedStations.add(s.getNom());
+
 			}
 		}
-		return result;
+		return suggestedStations;
+	}
+
+	// Recherche itineraire
+
+	public String search() {
+
+		DateTime d = new DateTime(date.getTime());
+		System.out.println(d);
+	//	d.plusHours(this.heur);
+	//	d.plusMinutes(this.minute);
+		System.out.println(d+"+");
+		
+		
+		
+		this.itineraire = managementService.findPath(startStation, endStation,
+				d);
+		return "itineraire";
+
 	}
 
 }
