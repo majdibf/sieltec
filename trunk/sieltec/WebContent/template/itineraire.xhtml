@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:o="http://openfaces.org/">
       
   <h:head>
     <meta charset="utf-8"/>
@@ -99,22 +99,68 @@
               
             
               <div class="span3">
-                <br/>
+				
+				<h:form>
+			
+				Station de départ :<o:dropDownField id="startStation"
+                           				suggestionMode="custom"
+                          				autoComplete="true"
+                           				customValueAllowed="false"
+                          				value="#{itineraireBean.startStation}"
+                           				listItemStyle="white-space: nowrap;">
+            							
+            							<o:dropDownItems value="#{itineraireBean.suggestedStations}"/>
+          							
+          						   </o:dropDownField>
+			
+			
+				<br />
+				<br />
+				Station d'arrivée :<o:dropDownField id="endStation"
+                           				suggestionMode="custom"
+                          				autoComplete="true"
+                           				customValueAllowed="false"
+                          				value="#{itineraireBean.endStation}"
+                           				listItemStyle="white-space: nowrap;">
+            							
+            							<o:dropDownItems value="#{itineraireBean.suggestedStations}"/>
+          							
+          						   </o:dropDownField>
+
+				<br />
+				<br />
+				Date de départ : <o:dateChooser value="#{itineraireBean.date}" 
+												pattern="MM/dd/yyyy"
+												 noneText=""/>
+				<br />
+				<br />
+				
+				
+				Heure de départ : <o:spinner value="#{itineraireBean.heur}" minValue="00" maxValue="23" step="1" type="hour"/>hr
+								  <o:spinner value="#{itineraireBean.minute}" minValue="00" maxValue="59" step="1"/>min
+				<br />
+				<br />
+				
+				<h:commandButton value="Recherche" action="#{itineraireBean.search}" />
+			</h:form>
+			
+			
+			<legend>Résultat de la recherche</legend>
+
+			<h:dataTable var="elemItineraire"
+				value="#{itineraireBean.itineraire}" border="1">
+				<h:column>#{elemItineraire.toString()}</h:column>
+			</h:dataTable>
+			
+			
 				<br/>
 				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
+			
+			
+			
+			
+			
+			
 		
               </div><!-- /span -->
             </div><!-- /row -->
