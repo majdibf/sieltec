@@ -56,7 +56,7 @@ public class ProchainPassage1Bean {
 
 	// searchLigne :
 	public String searchLignes() {
-		this.resLignes = managementService.findLignes(startStation);
+//		this.resLignes = managementService.findLignes(startStation);
 		return "resLignes";
 	}
 
