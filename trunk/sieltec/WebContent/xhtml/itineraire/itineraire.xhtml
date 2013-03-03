@@ -78,10 +78,10 @@
       <div class="span3 bs-docs-sidebar">
         <ul class="nav nav-list bs-docs-sidenav">
           <li class="active"><a href="itineraire.jsf"><i class="icon-chevron-right"></i> 1. Itinéraire</a></li>
-          <li><a href="prochain_passage.jsf"><i class="icon-chevron-right"></i> 2. Prochain passage à l'arrêt</a></li>
-          <li><a href="stations.jsf"><i class="icon-chevron-right"></i> 3. Les stations</a></li>
-          <li><a href="plan.jsf"><i class="icon-chevron-right"></i> 4. Plan</a></li>
-		  <li><a href="alerte.jsf"><i class="icon-chevron-right"></i> 5. Service des alertes</a></li>
+          <li><a href="../prochainpassage/prochain_passage.jsf"><i class="icon-chevron-right"></i> 2. Prochain passage à l'arrêt</a></li>
+          <li><a href="../stations/stations.jsf"><i class="icon-chevron-right"></i> 3. Les stations</a></li>
+          <li><a href="../plan/plan.jsf"><i class="icon-chevron-right"></i> 4. Plan</a></li>
+		  <li><a href="../alertes/alerte.jsf"><i class="icon-chevron-right"></i> 5. Service des alertes</a></li>
         </ul>
       </div>
       <div class="span9">
@@ -98,8 +98,6 @@
             </div>
             <div class="row download-builder">
               
-            
-              <div class="span3">
 				
 				<h:form>
 			
@@ -113,10 +111,7 @@
             							<o:dropDownItems value="#{itineraireBean.suggestedStations}"/>
           							
           						   </o:dropDownField>
-			
-			
-				<br />
-				<br />
+
 				Station d'arrivée :<o:dropDownField id="endStation"
                            				suggestionMode="custom"
                           				autoComplete="true"
@@ -128,14 +123,11 @@
           							
           						   </o:dropDownField>
 
-				<br />
-				<br />
 				Date de départ : <o:dateChooser value="#{itineraireBean.date}" 
 												pattern="MM/dd/yyyy"
+												styleClass="defaultWidth"
+												dayStyle="border: 1px solid white;"
 												 noneText=""/>
-				<br />
-				<br />
-				
 				
 				Heure de départ : <o:spinner value="#{itineraireBean.heur}" minValue="00" maxValue="23" step="1" type="hour"/>hr
 								  <o:spinner value="#{itineraireBean.minute}" minValue="00" maxValue="59" step="1"/>min
@@ -145,7 +137,6 @@
 				<h:commandButton value="Recherche" action="#{itineraireBean.search}" />
 			</h:form>
 			
-			
 			<legend>Résultat de la recherche</legend>
 
 			<h:dataTable var="elemItineraire"
@@ -153,18 +144,9 @@
 				<h:column>#{elemItineraire.toString()}</h:column>
 			</h:dataTable>
 			
-			
-				<br/>
-				<br/>
-			
-			
-			
-			
-			
-			
-		
-              </div><!-- /span -->
             </div><!-- /row -->
+      
+      
           </section>
       
         </form>
