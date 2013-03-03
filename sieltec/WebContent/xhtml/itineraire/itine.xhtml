@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:o="http://openfaces.org/">
+
+<h:head>
+	<meta charset="utf-8" />
+
+</h:head>
+
+<body>
+
+	<h:form>
+
+		
+		
+			
+				<o:dropDownField id="startStation" suggestionMode="custom"
+						autoComplete="true" customValueAllowed="false"
+						value="#{itineraireBean.startStation}"
+						listItemStyle="white-space: nowrap;">
+
+						<o:dropDownItems value="#{itineraireBean.suggestedStations}" />
+
+					</o:dropDownField>
+			
+			
+
+		Station d'arrivée :
+			
+			<o:dropDownField id="endStation" suggestionMode="custom"
+				autoComplete="true" customValueAllowed="false"
+				value="#{itineraireBean.endStation}"
+				listItemStyle="white-space: nowrap;">
+
+				<o:dropDownItems value="#{itineraireBean.suggestedStations}" />
+
+			</o:dropDownField></td>
+	
+				
+			
+			
+				Date de départ : <o:dateChooser value="#{itineraireBean.date}"
+			pattern="MM/dd/yyyy" styleClass="defaultWidth"
+			dayStyle="border: 1px solid white;" noneText="" />
+			
+				
+				Heure de départ : <o:spinner value="#{itineraireBean.heur}"
+			minValue="00" maxValue="23" step="1" type="hour" />hr
+								  <o:spinner value="#{itineraireBean.minute}" minValue="00"
+			maxValue="59" step="1" />min
+				
+				
+				<h:commandButton value="Recherche" action="#{itineraireBean.search}" />
+
+<input type="text"/><input type="text"/><input type="text"/><input type="text"/>
+
+	</h:form>
+
+</body>
+</html>
