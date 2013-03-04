@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html" xmlns:o="http://openfaces.org/">
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:o="http://openfaces.org/">
 
 <h:head>
-	<meta charset="utf-8" />
-
+	
 </h:head>
 
 <body>
@@ -15,8 +15,10 @@
 
 		
 		
-			
-				<o:dropDownField id="startStation" suggestionMode="custom"
+		<h:panelGrid id="panel" columns="2" border="1" cellpadding="0" cellspacing="2">	
+		
+		<h:panelGroup style="display:block; text-align:center">
+				station de départ: <o:dropDownField id="startStation" suggestionMode="custom"
 						autoComplete="true" customValueAllowed="false"
 						value="#{itineraireBean.startStation}"
 						listItemStyle="white-space: nowrap;">
@@ -24,9 +26,9 @@
 						<o:dropDownItems value="#{itineraireBean.suggestedStations}" />
 
 					</o:dropDownField>
+			</h:panelGroup>
 			
-			
-
+		<h:panelGroup style="display:block; text-align:center">
 		Station d'arrivée :
 			
 			<o:dropDownField id="endStation" suggestionMode="custom"
@@ -36,9 +38,31 @@
 
 				<o:dropDownItems value="#{itineraireBean.suggestedStations}" />
 
-			</o:dropDownField></td>
+			</o:dropDownField>
 	
+			</h:panelGroup>
+			
 				
+			</h:panelGrid>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			
 				Date de départ : <o:dateChooser value="#{itineraireBean.date}"
@@ -53,8 +77,6 @@
 				
 				
 				<h:commandButton value="Recherche" action="#{itineraireBean.search}" />
-
-<input type="text"/><input type="text"/><input type="text"/><input type="text"/>
 
 	</h:form>
 
