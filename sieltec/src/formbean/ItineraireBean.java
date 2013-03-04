@@ -3,6 +3,7 @@ package formbean;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.faces.bean.*;
@@ -35,7 +36,7 @@ public class ItineraireBean {
 
 	private Date date = new Date(new DateTime().getMillis());
 
-	private int heur = date.getHours();
+	//private int heur = date.getHours();
 	private int minute = date.getMinutes();
 
 	// output
@@ -106,11 +107,16 @@ public class ItineraireBean {
 	}
 
 	public int getHeur() {
-		return heur;
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.setTime(this.date);
+		return cal.get(GregorianCalendar.HOUR_OF_DAY);
 	}
 
 	public void setHeur(int heur) {
-		this.heur = heur;
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.setTime(this.date);
+		cal.set(GregorianCalendar.HOUR_OF_DAY,heur);
+		this.date = cal.getTime();
 	}
 
 	public int getMinute() {
