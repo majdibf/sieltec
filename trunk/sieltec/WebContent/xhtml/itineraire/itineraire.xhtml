@@ -123,32 +123,18 @@
 										value="#{itineraireBean.endStation}"
 										listItemStyle="white-space: nowrap;">
 
-										<o:dropDownItems value="#{itineraireBean.suggestedStations}" />
+									<o:dropDownItems value="#{itineraireBean.suggestedStations}" />
 
 									</o:dropDownField>
-									
-								</h:panelGrid>
-
-							<br />
-							<br />
-							<br />
-
-
-							<h:panelGrid columns="2">
-
-
-								<h:panelGrid columns="2">
 									<h:outputLabel for="dateDepart" value="date de départ :" />
+									<h:outputLabel for="heureDepart" value="Heure de départ :" />
 
 									<o:dateChooser id="dateDepart" value="#{itineraireBean.date}"
 										pattern="MM/dd/yyyy" styleClass="defaultWidth"
 										dayStyle="border: 1px solid white;" noneText="" />
-								</h:panelGrid>
 
 
-								<h:panelGrid columns="2">
 
-									<h:outputLabel for="heureDepart" value="Heure de départ :" />
 
 									<h:panelGrid id="heureDepart" columns="3">
 										<o:spinner value="#{itineraireBean.heur}" minValue="00"
@@ -157,9 +143,9 @@
 										<o:spinner value="#{itineraireBean.minute}" minValue="00"
 											maxValue="59" step="1" />
 									</h:panelGrid>
+									
 								</h:panelGrid>
 
-							</h:panelGrid>
 
 
 							<br />
