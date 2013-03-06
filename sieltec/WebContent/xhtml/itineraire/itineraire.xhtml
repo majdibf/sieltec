@@ -104,10 +104,11 @@
 
 
 						<h:form>
-							<h:panelGrid columns="2">
 
 								<h:panelGrid columns="2">
 									<h:outputLabel for="startStation" value="Station de départ :" />
+									<h:outputLabel for="endStation" value="Station d'arrivée :" />
+									
 									<o:dropDownField id="startStation" suggestionMode="custom"
 										autoComplete="true" customValueAllowed="false"
 										value="#{itineraireBean.startStation}"
@@ -116,25 +117,17 @@
 										<o:dropDownItems value="#{itineraireBean.suggestedStations}" />
 
 									</o:dropDownField>
+									
+									<o:dropDownField id="endStation" suggestionMode="custom"
+										autoComplete="true" customValueAllowed="false"
+										value="#{itineraireBean.endStation}"
+										listItemStyle="white-space: nowrap;">
+
+										<o:dropDownItems value="#{itineraireBean.suggestedStations}" />
+
+									</o:dropDownField>
+									
 								</h:panelGrid>
-
-
-								<h:panelGrid>
-									<h:panelGrid columns="2">
-										<h:outputLabel for="endStation" value="Station d'arrivée :" />
-										<o:dropDownField id="endStation" suggestionMode="custom"
-											autoComplete="true" customValueAllowed="false"
-											value="#{itineraireBean.endStation}"
-											listItemStyle="white-space: nowrap;">
-
-											<o:dropDownItems value="#{itineraireBean.suggestedStations}" />
-
-										</o:dropDownField>
-									</h:panelGrid>
-
-								</h:panelGrid>
-
-							</h:panelGrid>
 
 							<br />
 							<br />
@@ -217,8 +210,8 @@
 								<f:facet name="header">
 									<h:outputText value="Heure d'arrivée" />
 								</f:facet>
-								<h:outputText value="#{elemItineraire.getDateHeureArrivee().getTime()}">
-								                <f:convertDateTime type="time" pattern="hh:m"/>
+								<h:outputText value="#{elemItineraire.getDateHeureArrivee()}">
+								                <!-- f:convertDateTime type="time" pattern="hh:m"/-->
 								</h:outputText>
 							</o:column>
 
