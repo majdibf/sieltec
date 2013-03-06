@@ -164,6 +164,15 @@ public class ItineraireBean {
 		System.out.println(d+"+");
 		
 		
+		List<ElementProgramme> itineraireEP = managementService.findPath(startStation, endStation, d);
+		//List<ElementItineraire> itineraireEI = new ArrayList<ElementItineraire>();
+		
+		for(ElementProgramme ep : itineraire){
+			//ElementItineraire ei = new ElementItineraire();
+			//convertir ep en ei 
+			//itineraireEI.add(ei);
+		}
+		
 		
 		this.itineraire = managementService.findPath(startStation, endStation, d);
 		return "itineraire";
