@@ -165,8 +165,7 @@ public class ItineraireBean {
 		
 		
 		
-		this.itineraire = managementService.findPath(startStation, endStation,
-				d);
+		this.itineraire = managementService.findPath(startStation, endStation, d);
 		return "itineraire";
 
 	}
