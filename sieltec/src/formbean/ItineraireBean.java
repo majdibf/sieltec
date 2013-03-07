@@ -167,31 +167,34 @@ public class ItineraireBean {
 		List<ElementProgramme> itineraireEP = managementService.findPath(
 				startStation, endStation, d);
 		List<ElementItineraire> itineraireEI = new ArrayList<ElementItineraire>();
-		List<Long> idStationsDep = new ArrayList<Long>();
-		List<Long> idStationsArr = new ArrayList<Long>();
+		List<Long> idStations = new ArrayList<Long>();
 		List<Long> idParcours = new ArrayList<Long>();
 
-		HashMap<Long, Station> stationsDep = new HashMap<Long, Station>();
-		HashMap<Long, Station> stationsArr = new HashMap<Long, Station>();
+		HashMap<Long, Station> stations = new HashMap<Long, Station>();
 		HashMap<Long, Parcours> parcours = new HashMap<Long, Parcours>();
 
 		ElementItineraire ei;
 
 		for (ElementProgramme ep : itineraireEP) {
-			idStationsDep.add(ep.getStationDepId());
-			idStationsArr.add(ep.getStationArrId());
+			if (!idStations.contains(ep.getStationDepId())){
+			idStations.add(ep.getStationDepId());
+			}
+		
+			if (!idStations.contains(ep.getStationArrId())){
+				idStations.add(ep.getStationArrId());
+				}
+				
 			idParcours.add(ep.getParcoursId());
 		}
 
-		stationsDep = managementService.getStationsByList(idStationsDep);
-		stationsArr = managementService.getStationsByList(idStationsArr);
+		stations = managementService.getStationsByList(idStations);
 		parcours = managementService.getParcoursbyIdList(idParcours);
 
 		// convertir ep en ei
 
 		for (ElementProgramme ep : itineraireEP) {
-			Station stationDep = stationsDep.get(ep.getStationDepId());
-			Station stationArr = stationsArr.get(ep.getStationArrId());
+			Station stationDep = stations.get(ep.getStationDepId());
+			Station stationArr = stations.get(ep.getStationArrId());
 			Date dateHeureDepart = new Date(ep.getDateHeureDepart().getMillis());
 			Date dateHeureArrivee = new Date(ep.getDateHeureArrivee()
 					.getMillis());
