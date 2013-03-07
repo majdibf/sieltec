@@ -188,7 +188,7 @@ public class ItineraireBean {
 		}
 
 		stations = managementService.getStationsByIdList(idStations);
-		parcours = managementService.getParcoursbyIdList(idParcours);
+		parcours = managementService.getParcoursByIdList(idParcours);
 
 		// convertir ep en ei
 
