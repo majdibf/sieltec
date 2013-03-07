@@ -125,7 +125,7 @@ public class ParcoursDao implements IParcoursDao {
 		return result;	}
 
 	@Override
-	public HashMap<Long, Parcours> findByListId(List<Long> idList) {
+	public HashMap<Long, Parcours> findByIdList(List<Long> idList) {
 		String query = "select * from parcours where id IN()";
 		Parcours parc = null;
 		Connection conn = null;
@@ -138,7 +138,7 @@ public class ParcoursDao implements IParcoursDao {
 			inClause = inClause + id + ",";
 		}
 		inClause = inClause.substring(0, inClause.length() - 1);
-		query.replace("()", "(" + inClause + ")");
+		query = query.replace("()", "(" + inClause + ")");
 		
 		try {
 			conn = dbLoader.getDs().getConnection();
