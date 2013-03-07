@@ -75,13 +75,13 @@ public class ManagementServiceTest {
 	}
 
 	@Test
-	public void testGetParcoursbyIdList() {
+	public void testGetParcoursByIdList() {
 		List<Long> idParcoursList = new ArrayList<Long>();
 		idParcoursList.add(1L);
 		idParcoursList.add(3L);
 		idParcoursList.add(2L);
 		idParcoursList.add(6L);
-		HashMap<Long, Parcours> result = ms.getParcoursbyIdList(idParcoursList);
+		HashMap<Long, Parcours> result = ms.getParcoursByIdList(idParcoursList);
 		Parcours p = result.get(1L);
 		assertTrue(p.getId() == 1L);
 		p = result.get(2L);
@@ -94,12 +94,19 @@ public class ManagementServiceTest {
 	}
 
 	@Test
-	public void testGetStationbyIdList() {
+	public void testGetParcoursByIdList2() {
 		List<Long> idParcoursList = new ArrayList<Long>();
-		HashMap<Long, Station> result = ms.getStationsByIdList(idParcoursList);
+		HashMap<Long, Parcours> result = ms.getParcoursByIdList(idParcoursList);
 		assertTrue(result.isEmpty());
 
 	}
-	
+
+	@Test
+	public void testGetStationByIdList() {
+		List<Long> idStationsList = new ArrayList<Long>();
+		HashMap<Long, Station> result = ms.getStationsByIdList(idStationsList);
+		assertTrue(result.isEmpty());
+
+	}
 
 }
