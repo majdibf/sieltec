@@ -157,6 +157,7 @@ public class ParcoursDao implements IParcoursDao {
 				Long ligneId = rs.getLong("ID_LIGNE");
 				int version = rs.getInt("VERSION");
 				parc = new Parcours(id, nom, ligneId, version);
+				parcours.put(parc.getId(), parc);
 			}			
 			
 		} catch (SQLException e) {
