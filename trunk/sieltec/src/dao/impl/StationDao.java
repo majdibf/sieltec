@@ -155,29 +155,26 @@ public class StationDao implements IStationDao, Serializable {
 	}
 
 	@Override
-	public HashMap<Long, Station> findByListId(List<Long> list) {
+	public HashMap<Long, Station> findByListId(List<Long> idList) {
 
-		String query = "select * from station where id IN(";
+		String query = "select * from station where id IN()";
 		Station st = null;
 		Connection conn = null;
 		Statement statement = null;
 		ResultSet rs = null;
 		HashMap<Long, Station>stations=new HashMap<Long, Station>();
 
+		String inClause = "";
+		for(Long id : idList){
+			inClause = inClause + id + ",";
+		}
+		inClause = inClause.substring(0, inClause.length() - 1);
+		query=query.replace("()", "(" + inClause + ")");
+		
+		
 		try {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
-
-			Iterator i = list.iterator();
-			while (i.hasNext()) {
-				long id =   (long) i.next();
-				if (i.next < list.size()-1) {
-					query = +id + ",";
-				} else {
-					query = +id + ")";
-				}
-			}
-			
 			
 			System.out.println("query = "+query);
 			
