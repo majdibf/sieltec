@@ -266,9 +266,9 @@ public class ManagementService implements IManagementService, Serializable {
 	}
 
 	@Override
-	public HashMap<Long, Parcours> getParcoursbyList(List<Long> idParcours) {
+	public HashMap<Long, Parcours> getParcoursbyIdList(List<Long> idParcours) {
 
-		return parcoursDao.findByListId(idParcours);
+		return parcoursDao.findByIdList(idParcours);
 	}	
 
 	

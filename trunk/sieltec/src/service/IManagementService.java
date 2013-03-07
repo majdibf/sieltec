@@ -22,6 +22,6 @@ public interface IManagementService {
 
 	public HashMap<Long, Station> getStationsByList(List<Long> idStations);
 
-	public HashMap<Long, Parcours> getParcoursbyList(List<Long> idParcours);
+	public HashMap<Long, Parcours> getParcoursbyIdList(List<Long> idParcours);
 	
 }
