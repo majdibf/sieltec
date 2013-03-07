@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.*;
 import javax.faces.context.ExternalContext;
@@ -17,9 +19,11 @@ import org.joda.time.DateTime;
 import org.openfaces.util.Faces;
 
 import db.ElementProgramme;
+import db.Parcours;
 import db.Programme;
 import db.Station;
 
+import screenbean.ElementItineraire;
 import service.IManagementService;
 
 @ManagedBean
@@ -36,11 +40,11 @@ public class ItineraireBean {
 
 	private Date date = new Date(new DateTime().getMillis());
 
-	//private int heur = date.getHours();
+	// private int heur = date.getHours();
 	private int minute = date.getMinutes();
 
 	// output
-	private List<ElementProgramme> itineraire;
+	private List<ElementItineraire> itineraire;
 
 	public ItineraireBean() {
 		super();
@@ -82,11 +86,11 @@ public class ItineraireBean {
 		this.endStation = endStation;
 	}
 
-	public List<ElementProgramme> getItineraire() {
+	public List<ElementItineraire> getItineraire() {
 		return itineraire;
 	}
 
-	public void setItineraire(List<ElementProgramme> itineraire) {
+	public void setItineraire(List<ElementItineraire> itineraire) {
 		this.itineraire = itineraire;
 	}
 
@@ -115,7 +119,7 @@ public class ItineraireBean {
 	public void setHeur(int heur) {
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(this.date);
-		cal.set(GregorianCalendar.HOUR_OF_DAY,heur);
+		cal.set(GregorianCalendar.HOUR_OF_DAY, heur);
 		this.date = cal.getTime();
 	}
 
@@ -159,24 +163,50 @@ public class ItineraireBean {
 
 		DateTime d = new DateTime(date.getTime());
 		System.out.println(d);
-	//	d.plusHours(this.heur);
-	//	d.plusMinutes(this.minute);
-		System.out.println(d+"+");
-		
-		
-		List<ElementProgramme> itineraireEP = managementService.findPath(startStation, endStation, d);
-		//List<ElementItineraire> itineraireEI = new ArrayList<ElementItineraire>();
-		
-		for(ElementProgramme ep : itineraire){
-			//ElementItineraire ei = new ElementItineraire();
-			//convertir ep en ei 
-			//itineraireEI.add(ei);
+
+		List<ElementProgramme> itineraireEP = managementService.findPath(
+				startStation, endStation, d);
+		List<ElementItineraire> itineraireEI = new ArrayList<ElementItineraire>();
+		List<Long> idStationsDep = new ArrayList<Long>();
+		List<Long> idStationsArr = new ArrayList<Long>();
+		List<Long> idParcours = new ArrayList<Long>();
+
+		HashMap<Long, Station> stationsDep = new HashMap<Long, Station>();
+		HashMap<Long, Station> stationsArr = new HashMap<Long, Station>();
+		HashMap<Long, Parcours> parcours = new HashMap<Long, Parcours>();
+
+		ElementItineraire ei;
+
+		for (ElementProgramme ep : itineraireEP) {
+			idStationsDep.add(ep.getStationDepId());
+			idStationsArr.add(ep.getStationArrId());
+			idParcours.add(ep.getParcoursId());
 		}
-		
-		
-		this.itineraire = managementService.findPath(startStation, endStation, d);
+
+		stationsDep = managementService.getStationsByList(idStationsDep);
+		stationsArr = managementService.getStationsByList(idStationsArr);
+		parcours = managementService.getParcoursbyList(idParcours);
+
+		// convertir ep en ei
+
+		for (ElementProgramme ep : itineraireEP) {
+			Station stationDep = stationsDep.get(ep.getStationDepId());
+			Station stationArr = stationsArr.get(ep.getStationArrId());
+			Date dateHeureDepart = new Date(ep.getDateHeureDepart().getMillis());
+			Date dateHeureArrivee = new Date(ep.getDateHeureArrivee()
+					.getMillis());
+			Parcours parc = parcours.get(ep.getParcoursId());
+
+			ei = new ElementItineraire(stationDep, stationArr, dateHeureDepart,
+					dateHeureArrivee, parc);
+
+			itineraireEI.add(ei);
+
+		}
+
+		this.itineraire = itineraireEI;
+
 		return "itineraire";
 
 	}
-
 }

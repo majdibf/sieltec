@@ -1,8 +1,11 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import db.Parcours;
+import db.Station;
 
 public interface IParcoursDao {
 
@@ -13,5 +16,8 @@ public interface IParcoursDao {
 	public List<Parcours> findAll();
 	
 	public Parcours find(Long parcoursId);
+	
+	public HashMap<Long, Parcours> findByListId(List<Long> list);
+
 
 }

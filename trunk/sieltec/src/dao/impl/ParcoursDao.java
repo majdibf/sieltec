@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -16,6 +19,7 @@ import commun.DBLoader;
 
 import dao.IParcoursDao;
 import db.Parcours;
+import db.Station;
 
 @ManagedBean(name = "parcoursDao", eager = true)
 @ApplicationScoped
@@ -119,4 +123,66 @@ public class ParcoursDao implements IParcoursDao {
 		}
 		
 		return result;	}
+
+	@Override
+	public HashMap<Long, Parcours> findByListId(List<Long> list) {
+		String query = "select * from parcours where id IN(";
+		Parcours parc = null;
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		HashMap<Long, Parcours>parcours=new HashMap<Long, Parcours>();
+
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+
+			Iterator i = list.iterator();
+			while (i.hasNext()) {
+				long id =   (long) i.next();
+				if (i.next < list.size()-1) {
+					query = +id + ",";
+				} else {
+					query = +id + ")";
+				}
+			}
+			
+			
+			System.out.println("query = "+query);
+			
+			
+			System.out.println("trying to execute :\n" + query);
+			rs = statement.executeQuery(query);
+			System.out.println("query executed successfuly :\n" + query);
+
+			while (rs.next()) {
+				Long id = rs.getLong("ID");
+				String nom = rs.getString("NOM");
+				Long ligneId = rs.getLong("ID_LIGNE");
+				int version = rs.getInt("VERSION");
+				parc = new Parcours(id, nom, ligneId, version);
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+
+		return parcours;
+
+	}
 }
