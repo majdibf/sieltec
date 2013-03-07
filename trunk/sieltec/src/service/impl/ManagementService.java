@@ -260,7 +260,7 @@ public class ManagementService implements IManagementService, Serializable {
 	}
 
 	@Override
-	public HashMap<Long, Station> getStationsByList(List<Long> idStations) {
+	public HashMap<Long, Station> getStationsByIdList(List<Long> idStations) {
 			
 		return stationDao.findByListId(idStations);
 	}
