@@ -126,12 +126,16 @@ public class ParcoursDao implements IParcoursDao {
 
 	@Override
 	public HashMap<Long, Parcours> findByIdList(List<Long> idList) {
+		HashMap<Long, Parcours> parcours = new HashMap<Long, Parcours>();
+		if(idList == null || idList.isEmpty()){
+			return parcours;
+		}
+		
 		String query = "select * from parcours where id IN()";
 		Parcours parc = null;
 		Connection conn = null;
 		Statement statement = null;
 		ResultSet rs = null;
-		HashMap<Long, Parcours> parcours = new HashMap<Long, Parcours>();
 
 		String inClause = "";
 		for(Long id : idList){
