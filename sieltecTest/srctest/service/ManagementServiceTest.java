@@ -28,6 +28,7 @@ import dao.impl.ProgrammeDao;
 import dao.impl.StationDao;
 import db.ElementProgramme;
 import db.Parcours;
+import db.Station;
 
 public class ManagementServiceTest {
 	private static ManagementService ms = new ManagementService();
@@ -66,7 +67,7 @@ public class ManagementServiceTest {
 	}
 
 	@Test
-	public void test() {
+	public void testFindPath() {
 		
 		List<ElementProgramme> itineraire = ms.findPath("Station1", "Station24", new DateTime(2013,1,5,07,50));
 		assertTrue(itineraire != null);
@@ -74,7 +75,7 @@ public class ManagementServiceTest {
 	}
 
 	@Test
-	public void test2() {
+	public void testGetParcoursbyIdList() {
 		List<Long> idParcoursList = new ArrayList<Long>();
 		idParcoursList.add(1L);
 		idParcoursList.add(3L);
@@ -92,5 +93,13 @@ public class ManagementServiceTest {
 
 	}
 
+	@Test
+	public void testGetStationbyIdList() {
+		List<Long> idParcoursList = new ArrayList<Long>();
+		HashMap<Long, Station> result = ms.getStationsByIdList(idParcoursList);
+		assertTrue(result.isEmpty());
+
+	}
+	
 
 }
