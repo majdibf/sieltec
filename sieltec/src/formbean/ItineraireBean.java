@@ -173,7 +173,7 @@ public class ItineraireBean {
 		HashMap<Long, Station> stations = new HashMap<Long, Station>();
 		HashMap<Long, Parcours> parcours = new HashMap<Long, Parcours>();
 
-		ElementItineraire ei;
+		ElementItineraire ei = null;
 
 		for (ElementProgramme ep : itineraireEP) {
 			if (!idStations.contains(ep.getStationDepId())){
@@ -193,17 +193,35 @@ public class ItineraireBean {
 		// convertir ep en ei
 
 		for (ElementProgramme ep : itineraireEP) {
-			Station stationDep = stations.get(ep.getStationDepId());
-			Station stationArr = stations.get(ep.getStationArrId());
-			Date dateHeureDepart = new Date(ep.getDateHeureDepart().getMillis());
-			Date dateHeureArrivee = new Date(ep.getDateHeureArrivee()
-					.getMillis());
-			Parcours parc = parcours.get(ep.getParcoursId());
+			
+			if(ei != null && ep.getParcoursId() != ei.getParcours().getId()){
+				itineraireEI.add(ei);
+				Station stationDep = stations.get(ep.getStationDepId());
+				Station stationArr = stations.get(ep.getStationArrId());
+				Date dateHeureDepart = new Date(ep.getDateHeureDepart().getMillis());
+				Date dateHeureArrivee = new Date(ep.getDateHeureArrivee().getMillis());
+				Parcours parc = parcours.get(ep.getParcoursId());
+				ei = new ElementItineraire(stationDep, stationArr, dateHeureDepart,	dateHeureArrivee, parc);								
+			} else {
+				if(ei != null){
+					Station stationDep = stations.get(ep.getStationDepId());
+					Station stationArr = stations.get(ep.getStationArrId());
+					Date dateHeureDepart = new Date(ep.getDateHeureDepart().getMillis());
+					Date dateHeureArrivee = new Date(ep.getDateHeureArrivee().getMillis());
+					Parcours parc = parcours.get(ep.getParcoursId());
+					ei.setDateHeureArrivee(dateHeureArrivee);
+					ei.setStationArr(stationArr);
+				} else {
+					Station stationDep = stations.get(ep.getStationDepId());
+					Station stationArr = stations.get(ep.getStationArrId());
+					Date dateHeureDepart = new Date(ep.getDateHeureDepart().getMillis());
+					Date dateHeureArrivee = new Date(ep.getDateHeureArrivee().getMillis());
+					Parcours parc = parcours.get(ep.getParcoursId());
+					ei = new ElementItineraire(stationDep, stationArr, dateHeureDepart,	dateHeureArrivee, parc);								
+				}
+			}
 
-			ei = new ElementItineraire(stationDep, stationArr, dateHeureDepart,
-					dateHeureArrivee, parc);
-
-			itineraireEI.add(ei);
+			
 
 		}
 
