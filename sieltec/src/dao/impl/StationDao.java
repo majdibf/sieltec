@@ -157,14 +157,21 @@ public class StationDao implements IStationDao, Serializable {
 	@Override
 	public HashMap<Long, Station> findByListId(List<Long> idList) {
 
+		HashMap<Long, Station>stations=new HashMap<Long, Station>();
+
+		
 		String query = "select * from station where id IN()";
 		Station st = null;
 		Connection conn = null;
 		Statement statement = null;
 		ResultSet rs = null;
-		HashMap<Long, Station>stations=new HashMap<Long, Station>();
 
 		String inClause = "";
+		
+		if(idList==null || idList.isEmpty()){
+			return stations;
+		}
+		
 		for(Long id : idList){
 			inClause = inClause + id + ",";
 		}

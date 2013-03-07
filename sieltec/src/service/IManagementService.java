@@ -20,7 +20,7 @@ public interface IManagementService {
 	
 	public List<ElementProgramme> buildElementsProgrammes(DateTime jour);
 
-	public HashMap<Long, Station> getStationsByList(List<Long> idStations);
+	public HashMap<Long, Station> getStationsByIdList(List<Long> idStations);
 
 	public HashMap<Long, Parcours> getParcoursbyIdList(List<Long> idParcours);
 	
