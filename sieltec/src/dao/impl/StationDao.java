@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -28,7 +31,7 @@ public class StationDao implements IStationDao, Serializable {
 		super();
 		System.out.println("ManagementService instanciated");
 	}
-	
+
 	public DBLoader getDbLoader() {
 		return dbLoader;
 	}
@@ -36,7 +39,6 @@ public class StationDao implements IStationDao, Serializable {
 	public void setDbLoader(DBLoader dbLoader) {
 		this.dbLoader = dbLoader;
 	}
-	
 
 	@Override
 	public Long insert(Station station) {
@@ -82,11 +84,20 @@ public class StationDao implements IStationDao, Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error+this.getClass().getName());
+			System.out.println(error + this.getClass().getName());
 		} finally {
-			try {rs.close();} catch (Exception e){}
-			try {statement.close();} catch (Exception e){}
-			try {conn.close();} catch (Exception e){}
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
 		}
 
 		return stations;
@@ -98,13 +109,14 @@ public class StationDao implements IStationDao, Serializable {
 		Connection conn = null;
 		Statement statement = null;
 		ResultSet rs = null;
-		
+
 		try {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 
-			String query = "select * from station where lower(nom) = lower('" + name + "')";
-			
+			String query = "select * from station where lower(nom) = lower('"
+					+ name + "')";
+
 			System.out.println("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
 			System.out.println("query executed successfuly :\n" + query);
@@ -123,16 +135,87 @@ public class StationDao implements IStationDao, Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error+this.getClass().getName());
+			System.out.println(error + this.getClass().getName());
 		} finally {
-			try {rs.close();} catch (Exception e){}
-			try {statement.close();} catch (Exception e){}
-			try {conn.close();} catch (Exception e){}
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
 		}
-		
+
 		return result;
 	}
 
+	@Override
+	public HashMap<Long, Station> findByListId(List<Long> list) {
 
-	
+		String query = "select * from station where id IN(";
+		Station st = null;
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		HashMap<Long, Station>stations=new HashMap<Long, Station>();
+
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+
+			Iterator i = list.iterator();
+			while (i.hasNext()) {
+				long id =   (long) i.next();
+				if (i.next < list.size()-1) {
+					query = +id + ",";
+				} else {
+					query = +id + ")";
+				}
+			}
+			
+			
+			System.out.println("query = "+query);
+			
+			
+			System.out.println("trying to execute :\n" + query);
+			rs = statement.executeQuery(query);
+			System.out.println("query executed successfuly :\n" + query);
+
+			while (rs.next()) {
+				Long id = rs.getLong("id");
+				String nom = rs.getString("nom");
+				String longitude = rs.getString("longitude");
+				String latitude = rs.getString("latitude");
+				int version = rs.getInt("version");
+				st = new Station(id, nom, longitude, latitude, version);
+				stations.put(id, st);
+				
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+
+		return stations;
+	}
 }

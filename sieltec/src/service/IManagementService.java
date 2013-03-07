@@ -1,11 +1,13 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.joda.time.DateTime;
 
 import db.ElementProgramme;
 import db.Ligne;
+import db.Parcours;
 import db.Station;
 
 
@@ -17,5 +19,9 @@ public interface IManagementService {
 	public List<Station> getAllStations();
 	
 	public List<ElementProgramme> buildElementsProgrammes(DateTime jour);
+
+	public HashMap<Long, Station> getStationsByList(List<Long> idStations);
+
+	public HashMap<Long, Parcours> getParcoursbyList(List<Long> idParcours);
 	
 }
