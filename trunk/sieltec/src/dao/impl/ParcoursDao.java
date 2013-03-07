@@ -125,28 +125,24 @@ public class ParcoursDao implements IParcoursDao {
 		return result;	}
 
 	@Override
-	public HashMap<Long, Parcours> findByListId(List<Long> list) {
-		String query = "select * from parcours where id IN(";
+	public HashMap<Long, Parcours> findByListId(List<Long> idList) {
+		String query = "select * from parcours where id IN()";
 		Parcours parc = null;
 		Connection conn = null;
 		Statement statement = null;
 		ResultSet rs = null;
-		HashMap<Long, Parcours>parcours=new HashMap<Long, Parcours>();
+		HashMap<Long, Parcours> parcours = new HashMap<Long, Parcours>();
 
+		String inClause = "";
+		for(Long id : idList){
+			inClause = inClause + id + ",";
+		}
+		inClause = inClause.substring(0, inClause.length() - 1);
+		query.replace("()", "(" + inClause + ")");
+		
 		try {
 			conn = dbLoader.getDs().getConnection();
-			statement = conn.createStatement();
-
-			Iterator i = list.iterator();
-			while (i.hasNext()) {
-				long id =   (long) i.next();
-				if (i.next < list.size()-1) {
-					query = +id + ",";
-				} else {
-					query = +id + ")";
-				}
-			}
-			
+			statement = conn.createStatement();			
 			
 			System.out.println("query = "+query);
 			
