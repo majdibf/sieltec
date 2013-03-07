@@ -81,13 +81,13 @@ public class ManagementServiceTest {
 		idParcoursList.add(2L);
 		idParcoursList.add(6L);
 		HashMap<Long, Parcours> result = ms.getParcoursbyIdList(idParcoursList);
-		Parcours p = result.get(1);
+		Parcours p = result.get(1L);
 		assertTrue(p.getId() == 1L);
-		p = result.get(2);
+		p = result.get(2L);
 		assertTrue(p.getId() == 2L);
-		p = result.get(3);
+		p = result.get(3L);
 		assertTrue(p.getId() == 3L);
-		p = result.get(6);
+		p = result.get(6L);
 		assertTrue(p.getId() == 6L);
 
 	}
