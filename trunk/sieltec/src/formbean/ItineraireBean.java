@@ -220,8 +220,9 @@ public class ItineraireBean {
 			}
 			
 		}
+		if(ei!=null){
 		itineraireEI.add(ei);
-		
+		}
 		this.itineraire = itineraireEI;
 
 		return "itineraire";
