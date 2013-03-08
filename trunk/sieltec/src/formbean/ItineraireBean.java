@@ -202,8 +202,7 @@ public class ItineraireBean {
 				Date dateHeureArrivee = new Date(ep.getDateHeureArrivee().getMillis());
 				Parcours parc = parcours.get(ep.getParcoursId());
 				ei = new ElementItineraire(stationDep, stationArr, dateHeureDepart,	dateHeureArrivee, parc);								
-			} else {
-				if(ei != null){
+			} else if(ei != null){
 					Station stationDep = stations.get(ep.getStationDepId());
 					Station stationArr = stations.get(ep.getStationArrId());
 					Date dateHeureDepart = new Date(ep.getDateHeureDepart().getMillis());
@@ -211,20 +210,18 @@ public class ItineraireBean {
 					Parcours parc = parcours.get(ep.getParcoursId());
 					ei.setDateHeureArrivee(dateHeureArrivee);
 					ei.setStationArr(stationArr);
-				} else {
+			} else {
 					Station stationDep = stations.get(ep.getStationDepId());
 					Station stationArr = stations.get(ep.getStationArrId());
 					Date dateHeureDepart = new Date(ep.getDateHeureDepart().getMillis());
 					Date dateHeureArrivee = new Date(ep.getDateHeureArrivee().getMillis());
 					Parcours parc = parcours.get(ep.getParcoursId());
 					ei = new ElementItineraire(stationDep, stationArr, dateHeureDepart,	dateHeureArrivee, parc);								
-				}
 			}
-
 			
-
 		}
-
+		itineraireEI.add(ei);
+		
 		this.itineraire = itineraireEI;
 
 		return "itineraire";
