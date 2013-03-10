@@ -18,6 +18,8 @@ public interface IParcoursDao {
 	public Parcours find(Long parcoursId);
 	
 	public HashMap<Long, Parcours> findByIdList(List<Long> list);
+	
+	public List<Parcours> findParcoursByIdLigne(long idLigne);
 
 
 }

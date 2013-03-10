@@ -186,4 +186,59 @@ public class ParcoursDao implements IParcoursDao {
 		return parcours;
 
 	}
+
+	@Override
+	public List<Parcours> findParcoursByIdLigne(long idLigne) {
+		
+		List<Parcours> parcours = new ArrayList<Parcours>();
+		
+		String query = "select * from parcours where id_ligne="+idLigne;
+		Parcours parc = null;
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+
+			
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();			
+			
+			System.out.println("query = "+query);
+			
+			
+			System.out.println("trying to execute :\n" + query);
+			rs = statement.executeQuery(query);
+			System.out.println("query executed successfuly :\n" + query);
+
+			while (rs.next()) {
+				Long id = rs.getLong("ID");
+				String nom = rs.getString("NOM");
+				Long ligneId = rs.getLong("ID_LIGNE");
+				int version = rs.getInt("VERSION");
+				parc = new Parcours(id, nom, ligneId, version);
+				parcours.add(parc);
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+
+		return parcours;
+
+	}
 }

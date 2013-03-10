@@ -10,5 +10,7 @@ public interface ILigneDao {
 	public Long delete(Ligne ligne);
 
 	public List<Ligne> findAll();
-
+	
+	public List<Ligne> findLignesByNameStation(String startStation);
+					   
 }
