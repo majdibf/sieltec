@@ -23,10 +23,12 @@ import dao.IParcoursDao;
 import dao.IProgrammeDao;
 import dao.IStationDao;
 import dao.impl.ElementParcoursDao;
+import dao.impl.LigneDao;
 import dao.impl.ParcoursDao;
 import dao.impl.ProgrammeDao;
 import dao.impl.StationDao;
 import db.ElementProgramme;
+import db.Ligne;
 import db.Parcours;
 import db.Station;
 
@@ -46,11 +48,16 @@ public class ManagementServiceTest {
 		ParcoursDao parcoursDao = new ParcoursDao();
 		parcoursDao.setDbLoader(dbLoader);
 		
+		LigneDao ligneDao = new LigneDao();
+		ligneDao.setDbLoader(dbLoader);
+		
 		ms.setDbLoader(dbLoader);
 		ms.setStationDao(stationDao);
 		ms.setProgrammeDao(programmeDao);
 		ms.setElementParcoursDao(elementParcoursDao);
 		ms.setParcoursDao(parcoursDao);
+		
+		ms.setLigneDao(ligneDao);
 		
 	}
 
@@ -109,4 +116,42 @@ public class ManagementServiceTest {
 
 	}
 
+	@Test
+	public void testGetLignesByNameStation() {
+		String startStation="Station1";
+		List<Ligne> result = ms.getLignesByNameStation(startStation);
+		assertTrue(!result.isEmpty());
+		
+		Ligne l1 = result.get(0);
+		assertTrue(l1.getId() == 1);
+		assertTrue(l1.getNom().equals("bleu"));
+		
+		Ligne l2 = result.get(1);
+		assertTrue(l2.getId() == 2);
+		assertTrue(l2.getNom().equals("rouge"));
+
+	}
+	
+
+	
+	@Test
+	public void testGetParcoursByIdLigne() {
+		int idLigne=1;
+		List<Parcours> result = ms.getParcoursByIdLigne(idLigne);
+		assertTrue(!result.isEmpty());
+		
+		Parcours p1 = result.get(0);
+		assertTrue(p1.getId() == 1);
+		assertTrue(p1.getNom().equals("bleu_aller"));
+		
+		Parcours p2 = result.get(1);
+		assertTrue(p2.getId() == 7);
+		assertTrue(p2.getNom().equals("bleu_retour"));
+
+	}
+
+	
+	
+	
+	
 }
