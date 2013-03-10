@@ -15,6 +15,7 @@ import commun.DBLoader;
 
 import dao.ILigneDao;
 import db.Ligne;
+import db.Parcours;
 
 @ManagedBean(name = "LigneDao", eager = true)
 @ApplicationScoped
@@ -72,6 +73,57 @@ public class LigneDao implements ILigneDao {
 
 	public void setDbLoader(DBLoader dbLoader) {
 		this.dbLoader = dbLoader;
+	}
+
+	@Override
+	public List<Ligne> findLignesByNameStation(String startStation) {
+		List<Ligne> lignes=new ArrayList<Ligne>();
+		
+		String query = "select  l.id,l.nom,l.version from ligne l, parcours p, element_parcours ep, station s where (l.id=p.id_ligne and p.id= ep.id_parcours and s.id=ep.id_station_dep and s.nom='"+startStation+"')";
+		Ligne ligne = null;
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();			
+			
+			System.out.println("query = "+query);
+			
+			
+			System.out.println("trying to execute :\n" + query);
+			rs = statement.executeQuery(query);
+			System.out.println("query executed successfuly :\n" + query);
+
+			while (rs.next()) {
+				Long id = rs.getLong("ID");
+				String nom = rs.getString("NOM");
+				int version = rs.getInt("VERSION");
+				ligne = new Ligne(id, nom, version);
+				lignes.add(ligne);
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		
+		return lignes;
 	}
 
 

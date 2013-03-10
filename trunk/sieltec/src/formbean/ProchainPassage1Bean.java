@@ -18,24 +18,17 @@ public class ProchainPassage1Bean {
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
 
+	private String namePage = "Prochain passae à l'arrêt";
+
 	// input
 	private String startStation = "Station1";
 
 	// output
-	private List<Ligne> resLignes;
+	private List<Ligne> lignes;
 
 	public ProchainPassage1Bean() {
-
 		super();
-		System.out.println("ProchainPassage1Bean instanciated");
-	}
-
-	public IManagementService getManagementService() {
-		return managementService;
-	}
-
-	public void setManagementService(IManagementService managementService) {
-		this.managementService = managementService;
+		System.out.println("ProchainPassageBean instanciated");
 	}
 
 	public String getStartStation() {
@@ -46,18 +39,28 @@ public class ProchainPassage1Bean {
 		this.startStation = startStation;
 	}
 
-	public List<Ligne> getResLignes() {
-		return resLignes;
+	public List<Ligne> getLignes() {
+		return lignes;
 	}
 
-	public void setResLignes(List<Ligne> resLignes) {
-		this.resLignes = resLignes;
+	public void setLignes(List<Ligne> lignes) {
+		this.lignes = lignes;
 	}
 
-	// searchLigne :
-	public String searchLignes() {
-//		this.resLignes = managementService.findLignes(startStation);
-		return "resLignes";
+	public IManagementService getManagementService() {
+		return managementService;
+	}
+
+	public void setManagementService(IManagementService managementService) {
+		this.managementService = managementService;
+	}
+
+	public String getNamePage() {
+		return namePage;
+	}
+
+	public void setNamePage(String namePage) {
+		this.namePage = namePage;
 	}
 
 	// auto completion
@@ -77,12 +80,19 @@ public class ProchainPassage1Bean {
 			}
 		} else {
 			for (int i = 0; i < stations.size(); i++) {
-				
-					Station s = stations.get(i);
-					suggestedStations.add(s.getNom());
-				
+
+				Station s = stations.get(i);
+				suggestedStations.add(s.getNom());
+
 			}
 		}
 		return suggestedStations;
 	}
+
+	public String searchLignes() {
+		lignes = managementService.getLignesByNameStation(startStation);
+		return "prochain_passage1";
+
+	}
+
 }
