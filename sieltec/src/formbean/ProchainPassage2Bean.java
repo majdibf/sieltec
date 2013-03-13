@@ -32,6 +32,7 @@ public class ProchainPassage2Bean {
 	//output
 	private List<SelectItem> parcoursItems;
 	private String idStation;
+	private String idLigne;
 
 	
 	public ProchainPassage2Bean(){
@@ -39,13 +40,33 @@ public class ProchainPassage2Bean {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
 		String idStation =  (params.get("idStation")); 
+		String idLigne =  (params.get("idLigne")); 
 		System.out.println("idStation="+idStation);
 		this.idStation=idStation;
+		this.idLigne=idLigne;
 		
 	}
 	
 	
 	
+	
+	
+	public String getIdLigne() {
+		return idLigne;
+	}
+
+
+
+
+
+	public void setIdLigne(String idLigne) {
+		this.idLigne = idLigne;
+	}
+
+
+
+
+
 	public String getIdStation() {
 		return idStation;
 	}
@@ -93,12 +114,9 @@ public class ProchainPassage2Bean {
 	
 	public List<SelectItem> getParcoursItems() {
 		
-		FacesContext fc = FacesContext.getCurrentInstance();
-		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-		long idLigne =  Long.parseLong(params.get("idLigne")); 
 		
 		
-		List<Parcours> parcours= managementService.getParcoursByIdLigne(idLigne);
+		List<Parcours> parcours= managementService.getParcoursByIdLigne(Long.parseLong(this.idLigne));
 		parcoursItems=new ArrayList<SelectItem>();
 		for(Parcours p:parcours){
 			parcoursItems.add( new SelectItem(p.getNom()));
