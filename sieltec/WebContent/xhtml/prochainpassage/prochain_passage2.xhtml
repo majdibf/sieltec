@@ -2,7 +2,8 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:o="http://openfaces.org/">
 
 <h:head>
 	<meta charset="utf-8" />
@@ -98,22 +99,32 @@
 				<form>
 					<section class="download" id="components">
 					<div class="page-header">
-						<h3>#{prochainPassageBean.namePage}</h3>
+						<h3>#{prochainPassage2Bean.namePage}</h3>
 					</div>
 					<div class="row download-builder">
 
 
 						<div class="span3">
-							<br /> <br /> <br />
-
 
 							<h:form >
 								<h:panelGrid columns="2">
-									<h:outputText value="Id : #{param.id} " />
-									<h:outputText value="Nom : #{param.nom} " />
+									<h:outputLabel value="Date :" />
+									
+									<o:dateChooser id="dateDepart" value="#{prochainPassage2Bean.date}"
+												   pattern="MM/dd/yyyy" styleClass="defaultWidth"
+										           dayStyle="border: 1px solid white;" noneText="" />
+									
+									<h:outputLabel value="Destination :" />
+									
+									<o:selectOneRadio layout="pageDirection"  id="radio" value="#{prochainPassage2Bean.destination}">
+										<f:selectItems value="#{prochainPassage2Bean.parcoursItems}" var="parcours"
+                      							       itemLabel="#{parcours.getNom()}" itemValue="#{parcours}" />
+									</o:selectOneRadio>
+									
+									
 									
 									<h:commandButton value="Submit"
-										action="#{prochainPassage2bean.searchPassage()}" />
+										action="#{prochainPassage2Bean.searchPassage}" />
 								</h:panelGrid>
 							</h:form>
 
