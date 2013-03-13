@@ -117,9 +117,9 @@ public class ManagementServiceTest {
 	}
 
 	@Test
-	public void testGetLignesByNameStation() {
-		String startStation="Station1";
-		List<Ligne> result = ms.getLignesByNameStation(startStation);
+	public void testGetLignesByIdStation() {
+		long idStartStation=1;
+		List<Ligne> result = ms.getLignesByIdStation(idStartStation);
 		assertTrue(!result.isEmpty());
 		
 		Ligne l1 = result.get(0);
@@ -136,7 +136,7 @@ public class ManagementServiceTest {
 	
 	@Test
 	public void testGetParcoursByIdLigne() {
-		int idLigne=1;
+		long idLigne=1;
 		List<Parcours> result = ms.getParcoursByIdLigne(idLigne);
 		assertTrue(!result.isEmpty());
 		
@@ -148,6 +148,20 @@ public class ManagementServiceTest {
 		assertTrue(p2.getId() == 7);
 		assertTrue(p2.getNom().equals("bleu_retour"));
 
+	}
+
+	
+	@Test
+	public void testFindProchainPassage(){
+		DateTime d=new DateTime(2012, 1, 1,8,0) ;
+		long idParcours=1;
+		long idStation=1;
+		
+		List<ElementProgramme> result = ms.FindProchainPassage(idStation, idParcours, d);
+		assertTrue(!result.isEmpty());
+		
+		
+		
 	}
 
 	
