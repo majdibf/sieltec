@@ -95,7 +95,6 @@
 
 				<!-- Customize form
         ================================================== -->
-				<form>
 					<section class="download" id="components">
 					<div class="title-header">
 						<h3>#{prochainPassage1Bean.namePage}</h3>
@@ -137,16 +136,15 @@
 										<f:facet name="header">
 											<h:outputText value="Ligne" />
 										</f:facet>
-								
-								<h:inputHidden value="#{prochainPassage1Bean.idStartStation}"/>
-								
+																
+								<h:form>
 								<h:outputLink value="prochain_passage2.jsf">
 									<h:outputText value="#{ligne.getNom()}" />
-										<f:param value="#{ligne.getId()}" name="id" /> 
-										<f:param value="#{ligne.getNom()}" name="nom" /> 
+										<f:param value="#{ligne.getId()}" name="idLigne" /> 
+										<f:param value="#{ligne.getNom()}" name="nomLigne" /> 
 										<f:param value="#{prochainPassage1Bean.idStartStation}" name="idStation" /> 
 	   							</h:outputLink>
-								
+								</h:form>
 									</o:column>
 
 						</o:dataTable>
@@ -154,10 +152,6 @@
 
 					</div>
 					<!-- /row --> </section>
-
-				</form>
-
-
 
 			</div>
 		</div>
