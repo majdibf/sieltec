@@ -17,7 +17,7 @@ import dao.ILigneDao;
 import db.Ligne;
 import db.Parcours;
 
-@ManagedBean(name = "LigneDao", eager = true)
+@ManagedBean(name = "ligneDao", eager = true)
 @ApplicationScoped
 public class LigneDao implements ILigneDao {
 
