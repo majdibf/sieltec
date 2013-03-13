@@ -312,7 +312,7 @@ public class ManagementService implements IManagementService, Serializable {
 	@Override
 	public Station getStationByName(String startStation) {
 		
-		return stationDao.findStationByName(startStation);
+		return stationDao.findByName(startStation);
 
 	}
 	
