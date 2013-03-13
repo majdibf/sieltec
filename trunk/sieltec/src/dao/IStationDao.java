@@ -16,7 +16,7 @@ public interface IStationDao {
 
 	public List<Station> findAll();
 
-	public Station findStationByName(String name);
+	public Station findByName(String name);
 
 	public HashMap<Long, Station> findByListId(List<Long> list);
 
