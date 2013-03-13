@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 
@@ -27,11 +28,36 @@ public class ProchainPassage2Bean {
 	private Date date;
 	private String destination;
 	
-	
 
 	//output
 	private List<SelectItem> parcoursItems;
+	private String idStation;
+
 	
+	public ProchainPassage2Bean(){
+		super();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+		String idStation =  (params.get("idStation")); 
+		System.out.println("idStation="+idStation);
+		this.idStation=idStation;
+		
+	}
+	
+	
+	
+	public String getIdStation() {
+		return idStation;
+	}
+
+
+	public void setIdStation(String idStation) {
+		this.idStation = idStation;
+	}
+
+
+
+
 	public IManagementService getManagementService() {
 		return managementService;
 	}
@@ -64,14 +90,15 @@ public class ProchainPassage2Bean {
 		this.destination = destination;
 	}
 
+	
 	public List<SelectItem> getParcoursItems() {
 		
-	//	 FacesContext fc = FacesContext.getCurrentInstance();
-	//	Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-	//	long idLigne =  Long.parseLong(params.get("idLigne")); 
+		FacesContext fc = FacesContext.getCurrentInstance();
+		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+		long idLigne =  Long.parseLong(params.get("idLigne")); 
 		
 		
-		List<Parcours> parcours= managementService.getParcoursByIdLigne(1);
+		List<Parcours> parcours= managementService.getParcoursByIdLigne(idLigne);
 		parcoursItems=new ArrayList<SelectItem>();
 		for(Parcours p:parcours){
 			parcoursItems.add( new SelectItem(p.getNom()));
@@ -84,5 +111,10 @@ public class ProchainPassage2Bean {
 		this.parcoursItems = parcoursItems;
 	}
 	
+	public String searchPassage(){
+		
+		return "prochain_passage2";
+	}
+	 
 	
 }
