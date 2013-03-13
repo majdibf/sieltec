@@ -25,6 +25,18 @@ public class ProchainPassage1Bean {
 
 	// output
 	private List<Ligne> lignes;
+	private long idStartStation;
+	
+	
+	public long getIdStartStation() {
+		Station s =managementService.getStationByName(startStation);
+		idStartStation=s.getId();
+		return idStartStation;
+	}
+
+	public void setIdStartStation(long idStartStation) {
+		this.idStartStation = idStartStation;
+	}
 
 	public ProchainPassage1Bean() {
 		super();
@@ -90,7 +102,8 @@ public class ProchainPassage1Bean {
 	}
 
 	public String searchLignes() {
-		lignes = managementService.getLignesByNameStation(startStation);
+		Station stationDep = managementService.getStationByName(startStation);
+		lignes = managementService.getLignesByIdStation(stationDep.getId());
 		return "prochain_passage1";
 
 	}

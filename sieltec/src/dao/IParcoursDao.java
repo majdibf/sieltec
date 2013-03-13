@@ -21,5 +21,7 @@ public interface IParcoursDao {
 	
 	public List<Parcours> findParcoursByIdLigne(long idLigne);
 
+	public Parcours findByNameParcours(String nom);
+
 
 }

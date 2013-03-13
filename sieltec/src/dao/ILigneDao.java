@@ -11,6 +11,6 @@ public interface ILigneDao {
 
 	public List<Ligne> findAll();
 	
-	public List<Ligne> findLignesByNameStation(String startStation);
+	public List<Ligne> findLignesByIdStation(float startStation);
 					   
 }

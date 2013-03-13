@@ -241,4 +241,37 @@ public class ParcoursDao implements IParcoursDao {
 		return parcours;
 
 	}
+
+	@Override
+	public Parcours findByNameParcours(String name) {
+		
+		Parcours p=null;
+		
+		try {
+			Connection ds = dbLoader.getDs().getConnection();
+			Statement statement = ds.createStatement();
+
+			String query = "select * from parcours where nom='"+ name +"'";
+			ResultSet rs = statement.executeQuery(query);
+
+			
+
+			while (rs.next()) {
+
+				Long id = rs.getLong("id");
+				String nom = rs.getString("nom");
+				Long ligneId = rs.getLong("ID_LIGNE");
+				int version = rs.getInt("version");
+				p = new Parcours(id, nom, ligneId, version);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		}
+
+		return p;
+	}
 }

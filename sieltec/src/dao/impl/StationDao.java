@@ -104,7 +104,7 @@ public class StationDao implements IStationDao, Serializable {
 	}
 
 	@Override
-	public Station findByName(String name) {
+	public Station findStationByName(String name) {
 		Station result = null;
 		Connection conn = null;
 		Statement statement = null;

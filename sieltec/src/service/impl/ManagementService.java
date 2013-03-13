@@ -294,9 +294,9 @@ public class ManagementService implements IManagementService, Serializable {
 	}
 	
 	@Override
-	public List<Ligne> getLignesByNameStation(String startStation) {
+	public List<Ligne> getLignesByIdStation(long idStation) {
 		
-		return ligneDao.findLignesByNameStation(startStation);
+		return ligneDao.findLignesByIdStation(idStation);
 	
 
 	
@@ -308,12 +308,28 @@ public class ManagementService implements IManagementService, Serializable {
 		return parcoursDao.findParcoursByIdLigne(idLigne);
 	}
 
+	
 	@Override
-	public List<ElementProgramme> FindProchainPassage(String startStation,long idParcours,DateTime dateHeure) {
-		Station stationDep = stationDao.findByName(startStation);
+	public Station getStationByName(String startStation) {
 		
-		return null;
+		return stationDao.findStationByName(startStation);
+
 	}
-
-
+	
+	
+	@Override
+	public List<ElementProgramme> FindProchainPassage(long idStation,long idParcours,DateTime date) {
+		List <ElementProgramme> elementProgrammes = buildElementsProgrammes(date);
+		List<ElementProgramme> result=new ArrayList<ElementProgramme>();
+		
+		for(ElementProgramme ep : elementProgrammes){
+			if((ep.getStationDepId()==idStation || ep.getStationArrId()==idStation) && ep.getParcoursId()== idParcours && ep.getDateHeureArrivee().isAfter(date.getMillis())){
+				
+				result.add(ep);
+			}
+		
+		}
+		return result;	
+	}
+	
 }
