@@ -24,10 +24,12 @@ public interface IManagementService {
 
 	public HashMap<Long, Parcours> getParcoursByIdList(List<Long> idParcours);
 
-	public List<Ligne> getLignesByNameStation(String startStation);
+	public List<Ligne> getLignesByIdStation(long idStation);
 	
 	public List<Parcours> getParcoursByIdLigne(long idLigne);
 	
-	public List<ElementProgramme>FindProchainPassage(String startStation,long idParcours,DateTime dateHeure);
+	public List<ElementProgramme>FindProchainPassage(long idStation,long idParcours,DateTime date);
+
+	public Station getStationByName(String startStation);
 	
 }

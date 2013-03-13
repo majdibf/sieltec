@@ -76,10 +76,10 @@ public class LigneDao implements ILigneDao {
 	}
 
 	@Override
-	public List<Ligne> findLignesByNameStation(String startStation) {
+	public List<Ligne> findLignesByIdStation(float idStartStation) {
 		List<Ligne> lignes=new ArrayList<Ligne>();
 		
-		String query = "select  l.id,l.nom,l.version from ligne l, parcours p, element_parcours ep, station s where (l.id=p.id_ligne and p.id= ep.id_parcours and s.id=ep.id_station_dep and s.nom='"+startStation+"')";
+		String query = "select distinct l.id,l.nom,l.version from ligne l, parcours p, element_parcours ep, station s where (l.id=p.id_ligne and p.id= ep.id_parcours and (s.id=ep.id_station_dep or s.id=ep.id_station_arr) and s.id="+idStartStation+")";
 		Ligne ligne = null;
 		Connection conn = null;
 		Statement statement = null;
