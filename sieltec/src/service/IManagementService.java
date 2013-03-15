@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import db.ElementProgramme;
 import db.Ligne;
 import db.Parcours;
+import db.Programme;
 import db.Station;
 
 
@@ -31,5 +32,7 @@ public interface IManagementService {
 	public List<ElementProgramme>FindProchainPassage(long idStation,long idParcours,DateTime date);
 
 	public Station getStationByName(String startStation);
+	
+	public List<ElementProgramme> findElementsProgrammes(long idParcours ,DateTime date);
 	
 }
