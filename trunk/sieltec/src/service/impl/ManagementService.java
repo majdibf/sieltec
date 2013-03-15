@@ -319,17 +319,31 @@ public class ManagementService implements IManagementService, Serializable {
 	
 	@Override
 	public List<ElementProgramme> FindProchainPassage(long idStation,long idParcours,DateTime date) {
-		List <ElementProgramme> elementProgrammes = buildElementsProgrammes(date);
+		List <ElementProgramme> elementProgrammes = findElementsProgrammes(idParcours, date);
 		List<ElementProgramme> result=new ArrayList<ElementProgramme>();
 		
 		for(ElementProgramme ep : elementProgrammes){
-			if((ep.getStationDepId()==idStation || ep.getStationArrId()==idStation) && ep.getParcoursId()== idParcours && ep.getDateHeureArrivee().isAfter(date.getMillis())){
+			if(((ep.getStationDepId()==idStation && ep.getDateHeureDepart().isAfter(date))) || (ep.getStationArrId()== idStation && ep.getDateHeureArrivee().isAfter(date))){
 				
 				result.add(ep);
 			}
 		
 		}
 		return result;	
+	}
+
+	@Override
+	public List<ElementProgramme> findElementsProgrammes(long idParcours ,DateTime date) {
+		
+		List<ElementProgramme> elementsProgrammes = new ArrayList<ElementProgramme>();
+		List<ElementParcours> elementsParcours = elementParcoursDao.findByIdParcours(idParcours);
+		List<Programme> programmes = programmeDao.findByDateAndIdParcours(date, idParcours);
+		
+		for (Programme progr : programmes) {
+			elementsProgrammes.addAll(executeProgramme(progr, elementsParcours));
+		}
+
+		return elementsProgrammes;
 	}
 	
 }

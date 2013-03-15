@@ -12,5 +12,7 @@ public interface IElementParcoursDao {
 	public Long delete(ElementParcours ep);
 
 	public List<ElementParcours> findAll();
+	
+	public List<ElementParcours> findByIdParcours(long idParcours);
 
 }
