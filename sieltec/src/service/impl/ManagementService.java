@@ -22,12 +22,14 @@ import dao.IElementParcoursDao;
 import dao.ILigneDao;
 import dao.IParcoursDao;
 import dao.IProgrammeDao;
+import dao.ISouscriptionAlerteDao;
 import dao.IStationDao;
 import db.ElementParcours;
 import db.ElementProgramme;
 import db.Ligne;
 import db.Parcours;
 import db.Programme;
+import db.SouscriptionAlerte;
 import db.Station;
 
 @ManagedBean(name = "managementService", eager = true)
@@ -51,11 +53,29 @@ public class ManagementService implements IManagementService, Serializable {
 
 	@ManagedProperty(value = "#{ligneDao}")
 	private ILigneDao ligneDao;
+	
+	@ManagedProperty(value = "#{souscriptionAlerteDao}")
+	private ISouscriptionAlerteDao souscriptionAlerteDao;
 
 	public ManagementService() {
 		super();
 		System.out.println("ManagementService instanciated");
 	}
+
+	
+	
+	public ISouscriptionAlerteDao getSouscriptionAlerteDao() {
+		return souscriptionAlerteDao;
+	}
+
+
+
+	public void setSouscriptionAlerteDao(
+			ISouscriptionAlerteDao souscriptionAlerteDao) {
+		this.souscriptionAlerteDao = souscriptionAlerteDao;
+	}
+
+
 
 	public IStationDao getStationDao() {
 		return stationDao;
@@ -345,5 +365,28 @@ public class ManagementService implements IManagementService, Serializable {
 
 		return elementsProgrammes;
 	}
-	
+
+	@Override
+	public Parcours getParcoursByName(String destination) {
+		return parcoursDao.findByNameParcours(destination);
+		
+	}
+
+	@Override
+	public List<Ligne> getAllLignes() {
+		return ligneDao.findAll();
+	}
+
+	@Override
+	public Long insertSouscriptionAlerte(SouscriptionAlerte souscriptionAlerte) {
+		return souscriptionAlerteDao.insert(souscriptionAlerte);
+	}
+
+	@Override
+	public Ligne findLigneByName(String nomLigne) {
+		
+		return ligneDao.findByName(nomLigne);
+	}
+
+
 }
