@@ -3,7 +3,9 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:o="http://openfaces.org/">
+	
   
   <h:head>
     <meta charset="utf-8"/>
@@ -100,22 +102,31 @@
               
             
               <div class="span3">
-                <br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
+                
+                
+                
+            <h:form>
+				<h:panelGrid>
+					<h:outputLabel for="ligne" value="Taper le nom de votre ligne :"/>
+
+					<o:dropDownField id="ligne" suggestionMode="custom"
+									autoComplete="true" customValueAllowed="false"
+									value="#{alerteBean.ligne}"
+									listItemStyle="white-space: nowrap;" >
+										
+						<o:dropDownItems value="#{alerteBean.suggestedLignes}" />
+					</o:dropDownField>
+				</h:panelGrid>
+				
+				<h:outputLabel for="mail" value="Votre adresse mail :"/>
+				<h:inputText id="mail" value="#{alerteBean.adresseMail}"/>
+							
+				<h:commandButton value="Valider" action="#{alerteBean.saveSouscription}" />
+				<h:commandButton value="Réinitialiser" type="reset" />								
+			</h:form>
+
+
+                
 		
               </div><!-- /span -->
             </div><!-- /row -->

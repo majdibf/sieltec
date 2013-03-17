@@ -132,8 +132,27 @@
 										action="#{prochainPassage2Bean.searchPassage}" />
 								</h:panelGrid>
 							</h:form>
+														
+								<o:dataTable var="pass"
+							value="#{prochainPassage2Bean.passages}"
+							style="width: 100%; table-layout: fixed;">
+							<o:column styleClass="hintLabel_column">
+								<f:facet name="header">
+									<h:outputText value="N° passage" />
+								</f:facet>
+								<h:outputText value="#{pass.getNum()}" />
+							</o:column>
 
-							<br /> <br /> <br /> <br /> <br /> <br />
+							<o:column styleClass="hintLabel_column">
+								<f:facet name="header">
+									<h:outputText value="Heure" />
+								</f:facet>
+								<h:outputText value="#{pass.getDateHeure()}" >
+									<f:convertDateTime type="time" pattern="hh:mm"/>
+								</h:outputText>								
+							</o:column>
+
+						</o:dataTable>
 
 						</div>
 						<!-- /span -->
