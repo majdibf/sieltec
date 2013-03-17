@@ -9,6 +9,7 @@ import db.ElementProgramme;
 import db.Ligne;
 import db.Parcours;
 import db.Programme;
+import db.SouscriptionAlerte;
 import db.Station;
 
 
@@ -34,5 +35,14 @@ public interface IManagementService {
 	public Station getStationByName(String startStation);
 	
 	public List<ElementProgramme> findElementsProgrammes(long idParcours ,DateTime date);
+
+	public Parcours getParcoursByName(String destination);
+
+	public List<Ligne> getAllLignes();
+	
+	public Long insertSouscriptionAlerte(SouscriptionAlerte souscriptionAlerte);
+
+	public Ligne findLigneByName(String ligne);
+
 	
 }

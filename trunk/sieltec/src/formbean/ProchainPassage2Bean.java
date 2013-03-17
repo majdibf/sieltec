@@ -13,8 +13,10 @@ import javax.faces.model.SelectItem;
 
 import org.joda.time.DateTime;
 
+import db.ElementProgramme;
 import db.Parcours;
 
+import screenbean.Passage;
 import service.IManagementService;
 
 @ManagedBean
@@ -33,7 +35,7 @@ public class ProchainPassage2Bean {
 	private List<SelectItem> parcoursItems;
 	private String idStation;
 	private String idLigne;
-
+	private List<Passage> passages;
 	
 	public ProchainPassage2Bean(){
 		super();
@@ -46,38 +48,23 @@ public class ProchainPassage2Bean {
 		this.idLigne=idLigne;
 		
 	}
-	
-	
-	
-	
-	
+			
 	public String getIdLigne() {
 		return idLigne;
 	}
-
-
-
-
 
 	public void setIdLigne(String idLigne) {
 		this.idLigne = idLigne;
 	}
 
 
-
-
-
 	public String getIdStation() {
 		return idStation;
 	}
 
-
 	public void setIdStation(String idStation) {
 		this.idStation = idStation;
 	}
-
-
-
 
 	public IManagementService getManagementService() {
 		return managementService;
@@ -114,8 +101,6 @@ public class ProchainPassage2Bean {
 	
 	public List<SelectItem> getParcoursItems() {
 		
-		
-		
 		List<Parcours> parcours= managementService.getParcoursByIdLigne(Long.parseLong(this.idLigne));
 		parcoursItems=new ArrayList<SelectItem>();
 		for(Parcours p:parcours){
@@ -129,10 +114,26 @@ public class ProchainPassage2Bean {
 		this.parcoursItems = parcoursItems;
 	}
 	
+	public List<Passage> getPassages() {
+		return passages;
+	}
+
+	public void setPassages(List<Passage> passages) {
+		this.passages = passages;
+	}
+
 	public String searchPassage(){
+		passages=new ArrayList<Passage>();
+		Parcours parc=managementService.getParcoursByName(destination);
+		List<ElementProgramme> elementProgrammes=managementService.FindProchainPassage(Long.parseLong(idStation), parc.getId(), new DateTime(date.getTime()));
+		int i=0;
+		for(ElementProgramme ep : elementProgrammes){
+			i++;
+			Date d=new  Date(ep.getDateHeureDepart().getMillis());
+			passages.add(new Passage(i,d));	
+		}
 		
 		return "prochain_passage2";
 	}
-	 
 	
 }

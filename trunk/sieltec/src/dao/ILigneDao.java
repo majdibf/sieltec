@@ -12,5 +12,7 @@ public interface ILigneDao {
 	public List<Ligne> findAll();
 	
 	public List<Ligne> findLignesByIdStation(float startStation);
+
+	public Ligne findByName(String nomLigne);
 					   
 }

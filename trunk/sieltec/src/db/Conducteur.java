@@ -1,7 +1,5 @@
 package db;
 
-import java.util.Date;
-
 public class Conducteur {
 	private Long id;
 	private String nom;
