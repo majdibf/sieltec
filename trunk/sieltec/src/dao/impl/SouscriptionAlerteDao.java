@@ -69,8 +69,6 @@ public class SouscriptionAlerteDao implements ISouscriptionAlerteDao {
 			} else {
 			    // do what you have to do
 			}
-			
-			 
 			 
 			System.out.println("query executed successfuly :\n" + query);
 	
