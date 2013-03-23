@@ -142,6 +142,10 @@ insert into programme(date_heure_debut,id_parcours,id_vehicule,id_conducteur,ver
 --EVENEMENT*/
 
 
+--ALERTE*/
+
+
+--ABONNES*/
 
 
 
