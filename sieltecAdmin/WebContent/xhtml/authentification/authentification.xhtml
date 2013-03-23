@@ -1,0 +1,118 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:o="http://openfaces.org/">
+	
+  
+  <h:head>
+    <meta charset="utf-8"/>
+    <title>Authentification · SIELTEC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+	
+    <!-- Le styles -->
+    
+	<style type="text/css">
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
+      .form-signin {
+        max-width: 450px;
+        padding: 29px 50px 50px;
+        margin: 50px auto 29px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+      </style>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap-responsive.css" rel="stylesheet"/>
+    <link href="../../css/docs.css" rel="stylesheet"/>
+    <link href="../../js/google-code-prettify/prettify.css" rel="stylesheet"/>
+    
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../ico/apple-touch-icon-144-precomposed.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../ico/apple-touch-icon-114-precomposed.png"/>
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../ico/apple-touch-icon-72-precomposed.png"/>
+                    <link rel="apple-touch-icon-precomposed" href="../../ico/apple-touch-icon-57-precomposed.png"/>
+                                   <link rel="shortcut icon" href="../../ico/favicon.png"/>
+
+  </h:head>
+  <body>
+
+<!-- Masthead
+================================================== -->
+<header class="jumbotron subhead" id="overview"  style="margin-top: -50px;">
+  <div class="container">
+    <h1>SIEL TEC Admin</h1>
+    <p class="lead">Système d'Information En Ligne pour Transport En Commun Admin.</p>
+  </div>
+</header>
+
+	
+    <div class="container">
+
+      <h:form class="form-signin">
+        <h2 class="form-signin-heading">Se connecter</h2>
+        
+        <h:outputLabel for="log" value="Nom d'utilisateur"/>
+        <h:inputText id="log" class="input-block-level" placeholder="Nom d'utilisateur" value="#{authentificationBean.login}"/>
+        
+      	<h:outputLabel for="pwd" value="Mot de passe"/>
+        <h:inputSecret id="pwd" class="input-block-level" placeholder="Mot de passe" value="#{authentificationBean.password}"/>
+        
+        <h:commandButton class="btn btn-large btn-primary" value="Connexion" action="#{authentificationBean.connexion}"/>    
+        
+		<h:outputLabel value="#{authentificationBean.errorMessage}"/>
+      </h:form>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery.js"></script>
+    <script src="../../js/bootstrap-transition.js"></script>
+    <script src="../../js/bootstrap-alert.js"></script>
+    <script src="../../js/bootstrap-modal.js"></script>
+    <script src="../../js/bootstrap-dropdown.js"></script>
+    <script src="../../js/bootstrap-scrollspy.js"></script>
+    <script src="../../js/bootstrap-tab.js"></script>
+    <script src="../../js/bootstrap-tooltip.js"></script>
+    <script src="../../js/bootstrap-popover.js"></script>
+    <script src="../../js/bootstrap-button.js"></script>
+    <script src="../../js/bootstrap-collapse.js"></script>
+    <script src="../../js/bootstrap-carousel.js"></script>
+    <script src="../../js/bootstrap-typeahead.js"></script>
+
+  </body>
+</html>

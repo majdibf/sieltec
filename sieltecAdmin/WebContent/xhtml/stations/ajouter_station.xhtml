@@ -1,0 +1,170 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:o="http://openfaces.org/">
+	
+  
+  <h:head>
+    <meta charset="utf-8"/>
+    <title>Ajouter station · SIELTEC Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap-responsive.css" rel="stylesheet"/>
+    <link href="../../css/docs.css" rel="stylesheet"/>
+    <link href="../../js/google-code-prettify/prettify.css" rel="stylesheet"/>
+    
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../ico/apple-touch-icon-144-precomposed.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../ico/apple-touch-icon-114-precomposed.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../ico/apple-touch-icon-72-precomposed.png"/>
+                    <link rel="apple-touch-icon-precomposed" href="../../ico/apple-touch-icon-57-precomposed.png"/>
+                                   <link rel="shortcut icon" href="../../ico/favicon.png"/>
+
+  </h:head>
+
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+
+    <!-- Navbar
+    ================================================== -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="../itineraire/itineraire.jsf">SIEL TEC</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+            
+            <h:form>
+             <h:commandLink value="Deconnexion" action="#{authentificationBean.logout}" />
+            </h:form>
+            
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Masthead
+================================================== -->
+<header class="jumbotron subhead" id="overview">
+  <div class="container">
+    <h1>SIEL TEC Admin</h1>
+    <p class="lead">Système d'information en ligne pour transport en commun Admin.</p>
+  </div>
+</header>
+
+  <div class="container">
+
+    <!-- Docs nav
+    ================================================== -->
+      <div class="row">
+       <div class="span3 bs-docs-sidebar">
+        <ul class="nav nav-list bs-docs-sidenav">
+          <li><a href="../authentification/accueil.jsf"><i class="icon-chevron-right"></i> 1. Accueil</a></li>
+          <li ><a href="../lignes/liste_lignes.jsf"><i class="icon-chevron-right"></i> 2. Lignes</a></li>
+          <li class="active"><a href="../stations/liste_stations.jsf"><i class="icon-chevron-right"></i> 3. Stations</a></li>
+          <li ><a href="../parcours/liste_parcours.jsf"><i class="icon-chevron-right"></i> 4. Parcours</a></li>
+		  <li ><a href="../programmes/liste_programmes.jsf"><i class="icon-chevron-right"></i> 5.Programmes</a></li>
+		  <li><a href="../vehicules/liste_vehicules.jsf"><i class="icon-chevron-right"></i> 6.Véhicules</a></li>
+		  <li ><a href="../conducteurs/liste_conducteurs.jsf"><i class="icon-chevron-right"></i> 7.Conducteur</a></li>
+        </ul>
+      </div>
+      <div class="span9">
+
+        <!-- Customize form
+        ================================================== -->
+        <form>
+          <section class="download" id="components">
+            <div class="page-header">
+              <h3> Ajouter station </h3>
+            </div>
+            <div class="row download-builder">
+              
+              <div class="span3">
+                
+                 	<h:form>
+                		
+                			<h:outputLabel for="nomStation" value="Nom Station"/>
+                			<h:inputText id="nomStation" value="#{ajouterStationBean.nomStation}" />
+                			
+                			<h:outputLabel for="longitude" value="Longitude"/>
+                			<o:spinner id="longitude" value="#{ajouterStationBean.longitude}"   minValue="00" />
+                			
+                			<h:outputLabel for="latitude" value="Latitude"/>
+                			<o:spinner id="latitude" value="#{ajouterStationBean.latitude}"  minValue="00" />
+                			
+                	
+                		<h:commandButton value="Inserer" action="#{ajouterStationBean.ajouter}" styleClass="btn"/>
+                		<h:commandButton value="Réinitialiser" type="reset" styleClass="btn"/>
+                	</h:form>
+                 			 
+              </div><!-- /span -->
+            </div><!-- /row -->
+          </section>
+      
+        </form>
+        
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- Footer
+    ================================================== -->
+    <footer class="footer">
+      <div class="container">
+        <p>Designed and built by <a href="http://twitter.com/mdo" target="_blank">@mdo</a> and <a href="http://twitter.com/fat" target="_blank">@fat</a>.</p>
+        <p>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>, documentation under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+        <p><a href="http://glyphicons.com">Glyphicons Free</a> licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+        
+      </div>
+    </footer>
+
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <script src="../../js/jquery.js"></script>
+    <script src="../../js/bootstrap-transition.js"></script>
+    <script src="../../js/bootstrap-alert.js"></script>
+    <script src="../../js/bootstrap-modal.js"></script>
+    <script src="../../js/bootstrap-dropdown.js"></script>
+    <script src="../../js/bootstrap-scrollspy.js"></script>
+    <script src="../../js/bootstrap-tab.js"></script>
+    <script src="../../js/bootstrap-tooltip.js"></script>
+    <script src="../../js/bootstrap-popover.js"></script>
+    <script src="../../js/bootstrap-button.js"></script>
+    <script src="../../js/bootstrap-collapse.js"></script>
+    <script src="../../js/bootstrap-carousel.js"></script>
+    <script src="../../js/bootstrap-typeahead.js"></script>
+    <script src="../../js/bootstrap-affix.js"></script>
+
+    <script src="../../js/holder/holder.js"></script>
+    <script src="../../js/google-code-prettify/prettify.js"></script>
+
+    <script src="../../js/application.js"></script>
+
+
+
+  </body>
+</html>
