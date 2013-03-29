@@ -9,7 +9,7 @@
   
   <h:head>
     <meta charset="utf-8"/>
-    <title>Liste des programmes · SIELTEC Admin</title>
+    <title>Liste des stations · SIELTEC Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
@@ -75,7 +75,6 @@
     <!-- Docs nav
     ================================================== -->
     <div class="row">
-      <<div class="row">
        <div class="span3 bs-docs-sidebar">
         <ul class="nav nav-list bs-docs-sidenav">
           <li><a href="../authentification/accueil.jsf"><i class="icon-chevron-right"></i> 1. Accueil</a></li>
@@ -94,27 +93,59 @@
         <form>
           <section class="download" id="components">
             <div class="page-header">
-              <h3> Liste des programmes </h3>
+              <h3> Liste des programmes</h3>
             </div>
             <div class="row download-builder">
               
-            <o:dataTable var="ligne"
-							value="#{listeProgrammeBean.programmes}"
+
+
+			<a href="../programmes/ajouter_programme.jsf">Ajouter un programme</a>
+			
+			
+						<o:dataTable var="programme"
+							value="#{listeProgrammeBean.screenProgrammes}"
 							style="width: 100%; table-layout: fixed;">
 							<o:column styleClass="hintLabel_column">
 								<f:facet name="header">
-									<h:outputText value="id" />
+									<h:outputText value="Id" />
 								</f:facet>
-								<h:outputText value="#{ligne.getId()}" />
+								<h:outputText value="#{programme.getId()}" />
 							</o:column>
 
 							<o:column styleClass="hintLabel_column">
 								<f:facet name="header">
-									<h:outputText value="Nom" />
+									<h:outputText value="Heure de début" />
 								</f:facet>
-								<h:outputText value="#{ligne.getNom()}" />
+								<h:outputText value="#{programme.getDateHeureDebut()}" >
+									<f:convertDateTime dateStyle="medium" />
+								</h:outputText>
+								
 							</o:column>
+
+							<o:column styleClass="hintLabel_column">
+								<f:facet name="header">
+									<h:outputText value="Parcours" />
+								</f:facet>
+								<h:outputText value="#{programme.getParcours().getNom()}" />
+							</o:column>
+
+							<o:column styleClass="hintLabel_column">
+								<f:facet name="header">
+									<h:outputText value="Vehicule" />
+								</f:facet>
+								<h:outputText value="#{programme.getVehicule().getImmatriculation()}" />
+							</o:column>
+						
+							<o:column styleClass="hintLabel_column">
+								<f:facet name="header">
+									<h:outputText value="Conducteur" />
+								</f:facet>
+								<h:outputText value="#{programme.getConducteur().getNom()}" />
+							</o:column>
+						
+
 						</o:dataTable>
+			
             </div><!-- /row -->
           </section>
       

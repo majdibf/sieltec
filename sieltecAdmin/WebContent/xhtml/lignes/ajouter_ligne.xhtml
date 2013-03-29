@@ -96,16 +96,22 @@
               <h3> Ajouter ligne </h3>
             </div>
             <div class="row download-builder">
-              
-              <div class="span3">
-                
-                 	
-                 	
-                 	
-                 	
-                 			 
-              </div><!-- /span -->
-            </div><!-- /row -->
+
+
+						<h:form>
+							<h:panelGrid columns="2">
+								<h:outputLabel for="nom" value="Nom de la ligne" />
+								<h:inputText id="nom" value="#{ajouterLigneBean.nom}" />
+
+								<h:commandButton value="Inserer"
+									action="#{ajouterLigneBean.ajouter}" styleClass="btn" />
+								<h:commandButton value="Réinitialiser" type="reset"
+									styleClass="btn" />
+							</h:panelGrid>
+						</h:form>
+
+
+					</div><!-- /row -->
           </section>
       
         </form>

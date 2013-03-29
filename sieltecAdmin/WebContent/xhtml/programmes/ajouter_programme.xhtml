@@ -96,17 +96,61 @@
               <h3> Ajouter programme </h3>
             </div>
             <div class="row download-builder">
-              
-              <div class="span3">
-                
-                
-                
-                
-                
-                
-                             			 
-              </div><!-- /span -->
-            </div><!-- /row -->
+
+				<h:form>
+					<h:panelGrid columns="2">
+						<h:outputLabel for="date" value="Date" />
+						<o:dateChooser id="date" value="#{ajouterProgrammeBean.date}"
+										pattern="dd/M/yyyy" styleClass="defaultWidth"
+										dayStyle="border: 1px solid white;" noneText="" />
+										
+										
+						<h:outputLabel for="date" value="Heure de début" />			
+						<h:panelGrid id="heureDepart" columns="3">
+										<o:spinner value="#{ajouterProgrammeBean.heure}" minValue="00"
+											maxValue="23" step="1" type="hour" />
+										<h:outputText value=":" />
+										<o:spinner value="#{ajouterProgrammeBean.minute}" minValue="00"
+											maxValue="59" step="1" />
+						</h:panelGrid>
+						
+						<h:outputLabel for="parcours" value="Parcours" />
+						<o:dropDownField id="parcours" suggestionMode="custom"
+										autoComplete="true" customValueAllowed="false"
+										value="#{ajouterProgrammeBean.parcours}"
+										listItemStyle="white-space: nowrap;">
+
+									<o:dropDownItems value="#{ajouterProgrammeBean.suggestedParcours}" />
+						</o:dropDownField>
+						
+										
+						<h:outputLabel for="conducteur" value="Conducteur" />
+						<o:dropDownField id="conducteur" suggestionMode="custom"
+										autoComplete="true" customValueAllowed="false"
+										value="#{ajouterProgrammeBean.conducteur}"
+										listItemStyle="white-space: nowrap;">
+
+									<o:dropDownItems value="#{ajouterProgrammeBean.suggestedConducteur}" />
+						</o:dropDownField>
+						
+						<h:outputLabel for="vehicule" value="Vehicule" />
+						<o:dropDownField id="vehicule" suggestionMode="custom"
+										autoComplete="true" customValueAllowed="false"
+										value="#{ajouterProgrammeBean.vehicule}"
+										listItemStyle="white-space: nowrap;">
+
+									<o:dropDownItems value="#{ajouterProgrammeBean.suggestedVehicule}" />
+						</o:dropDownField>
+
+
+						<h:commandButton value="Inserer" action="#{ajouterProgrammeBean.ajouter}" styleClass="btn" />
+						<h:commandButton value="Réinitialiser" type="reset" styleClass="btn" />
+					</h:panelGrid>
+				</h:form>
+
+
+
+			</div><!-- /row -->
           </section>
       
         </form>

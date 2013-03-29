@@ -96,15 +96,42 @@
               <h3> Liste des parcours </h3>
             </div>
             <div class="row download-builder">
-              
-              <div class="span3">
+            
+			<a href="../parcours/ajouter_parcours.jsf">Ajouter un parcours</a>
+			
+			
+						<o:dataTable var="parcours"
+							value="#{listeParcoursBean.screenParcours}"
+							style="width: 100%; table-layout: fixed;">
+							<o:column styleClass="hintLabel_column">
+								<f:facet name="header">
+									<h:outputText value="Id" />
+								</f:facet>
+								<h:outputText value="#{parcours.getId()}" />
+							</o:column>
 
+							<o:column styleClass="hintLabel_column">
+								<f:facet name="header">
+									<h:outputText value="Nom" />
+								</f:facet>
+								<h:outputText value="#{parcours.getNom()}" >
+									<f:convertDateTime dateStyle="medium" />
+								</h:outputText>
+								
+							</o:column>
 
+							<o:column styleClass="hintLabel_column">
+								<f:facet name="header">
+									<h:outputText value="Ligne" />
+								</f:facet>
+								<h:outputText value="#{parcours.getLigne().getNom()}" />
+							</o:column>
 
-
-
-
-						</div><!-- /span -->
+							
+						</o:dataTable>
+            
+            
+            
             </div><!-- /row -->
           </section>
       

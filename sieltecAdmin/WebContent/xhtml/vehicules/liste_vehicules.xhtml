@@ -97,6 +97,25 @@
             </div>
             <div class="row download-builder">
               
+              			<a href="../vehicules/ajouter_vehicule.jsf">Ajouter une véhicule</a>
+
+						<o:dataTable var="vehicule"
+							value="#{listeVehiculeBean.vehicules}"
+							style="width: 100%; table-layout: fixed;">
+							<o:column styleClass="hintLabel_column">
+								<f:facet name="header">
+									<h:outputText value="id" />
+								</f:facet>
+								<h:outputText value="#{vehicule.getId()}" />
+							</o:column>
+
+							<o:column styleClass="hintLabel_column">
+								<f:facet name="header">
+									<h:outputText value="Immatriculation" />
+								</f:facet>
+								<h:outputText value="#{vehicule.getImmatriculation()}" />
+							</o:column>
+						</o:dataTable>
             
             </div><!-- /row -->
           </section>

@@ -96,19 +96,25 @@
               <h3> Ajouter conducteur </h3>
             </div>
             <div class="row download-builder">
-              
-        
-                
                  	
+                 	<h:form>
+                		<h:panelGrid columns="2">
+                			<h:outputLabel for="nom" value="Nom"/>
+                			<h:inputText id="nom" value="#{ajouterConducteurBean.nom}" />
+                			
+                			<h:outputLabel for="prenom" value="Prénom"/>
+							<h:inputText id="prenom" value="#{ajouterConducteurBean.prenom}" />                			
+                			
+                			<h:outputLabel for="contact" value="Contact"/>
+                			<h:inputText id="contact" value="#{ajouterConducteurBean.contact}" />
+                			
+                	
+                		<h:commandButton value="Inserer" action="#{ajouterConducteurBean.ajouter}" styleClass="btn"/>
+                		<h:commandButton value="Réinitialiser" type="reset" styleClass="btn"/>
+                	</h:panelGrid>
+                	</h:form>
                  	
-                 	
-                 	
-                 	
-                 	
-                 	
-                 	
-                 	
-       
+             
             </div><!-- /row -->
           </section>
       

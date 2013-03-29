@@ -97,25 +97,35 @@
             </div>
             <div class="row download-builder">
               
-              <div class="span3">
                 
                  	<h:form>
-                		
-                			<h:outputLabel for="nomStation" value="Nom Station"/>
-                			<h:inputText id="nomStation" value="#{ajouterStationBean.nomStation}" />
+             		<h:panelGrid columns="2">
+                			<h:outputLabel for="Ligne" value="Ligne"/>
+                			<h:inputText id="Ligne" value="#{ajouterParcours1Bean.ligne}" />
                 			
-                			<h:outputLabel for="longitude" value="Longitude"/>
-                			<o:spinner id="longitude" value="#{ajouterStationBean.longitude}"   minValue="00" />
-                			
-                			<h:outputLabel for="latitude" value="Latitude"/>
-                			<o:spinner id="latitude" value="#{ajouterStationBean.latitude}"  minValue="00" />
-                			
+                			<h:outputLabel for="nomParcours" value="Nom du parcours"/>
+                			<h:inputText id="nomParcours" value="#{ajouterParcours1Bean.nomParcours}"  />
+                	</h:panelGrid>
                 	
-                		<h:commandButton value="Inserer" action="#{ajouterStationBean.ajouter}" styleClass="btn"/>
+                		<div class="title-header">
+							<h4>choisir les stations qui construisent le parcours</h4>
+						</div>
+
+							<o:twoListSelection leftListboxHeader="Stations disponibles"
+								rightListboxHeader="Stations sélectionnés" allowSorting="true"
+								value="#{ajouterParcours1Bean.selectedStations}" >
+								
+								<f:selectItems value="#{ajouterParcours1Bean.stationsItems}" var="st" itemValue="#{st}"  itemLabel="#{st.nom}"/>
+							</o:twoListSelection>
+
+							<h:commandButton value="Suivant" action="#{ajouterParcours1Bean.ajouter}" styleClass="btn" type="submit">
+								<f:attribute></f:attribute>
+							</h:commandButton>
+								
+							
                 		<h:commandButton value="Réinitialiser" type="reset" styleClass="btn"/>
                 	</h:form>
-                 			 
-              </div><!-- /span -->
+                	
             </div><!-- /row -->
           </section>
       

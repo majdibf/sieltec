@@ -97,15 +97,19 @@
             </div>
             <div class="row download-builder">
               
-              <div class="span3">
-                
-               
-               
-               
-               
-               
-                 			 
-              </div><!-- /span -->
+            
+                 	<h:form>
+                		<h:panelGrid columns="2">
+                			<h:outputLabel for="immatriculation" value="Immatriculation"/>
+                			<h:inputText id="nomStation" value="#{ajouterVehiculeBean.immatriculation}" />	
+                	
+                		<h:commandButton value="Inserer" action="#{ajouterVehiculeBean.ajouter}" styleClass="btn"/>
+                		<h:commandButton value="Réinitialiser" type="reset" styleClass="btn"/>
+                	</h:panelGrid>
+                	</h:form>
+            
+            
+            
             </div><!-- /row -->
           </section>
       

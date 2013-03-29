@@ -97,10 +97,10 @@
             </div>
             <div class="row download-builder">
               
-              <div class="span3">
+          
                 
                  	<h:form>
-                		
+                		<h:panelGrid columns="2">
                 			<h:outputLabel for="nomStation" value="Nom Station"/>
                 			<h:inputText id="nomStation" value="#{ajouterStationBean.nomStation}" />
                 			
@@ -113,9 +113,10 @@
                 	
                 		<h:commandButton value="Inserer" action="#{ajouterStationBean.ajouter}" styleClass="btn"/>
                 		<h:commandButton value="Réinitialiser" type="reset" styleClass="btn"/>
+                	</h:panelGrid>
                 	</h:form>
                  			 
-              </div><!-- /span -->
+             
             </div><!-- /row -->
           </section>
       
