@@ -1,5 +1,6 @@
 package service;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import db.Programme;
 import db.SouscriptionAlerte;
 import db.Station;
 import db.Utilisateur;
+import db.Vehicule;
 
 
 public interface IManagementService {
@@ -53,6 +55,30 @@ public interface IManagementService {
 	public List<Conducteur> getAllConducteurs();
 
 	public List<Programme> getAllProgrammes();
+
+	public long insertConducteur(Conducteur c);
+
+	public long insertLigne(Ligne l);
+
+	public List<Vehicule> getAllVehicules();
+
+	public long insertVehicule(Vehicule v);
+
+	public Parcours getParcoursById(Long parcoursId);
+
+	public Vehicule getVehiculeById(Long vehiculeId);
+
+	public Conducteur getConducteurById(Long conducteurId);
+
+	public List<Parcours> getAllParcours();
+
+	public Vehicule getVehiculeByImmatriculation(String vehicule);
+
+	public Conducteur getConducteurByName(String nom, String prenom);
+
+	public void insertProgramme(Programme programme);
+
+	public Ligne getLignesById(Long ligneId);
 
 	
 }

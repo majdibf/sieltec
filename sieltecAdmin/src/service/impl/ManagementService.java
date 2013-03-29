@@ -1,6 +1,7 @@
 package service.impl;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ import dao.IProgrammeDao;
 import dao.ISouscriptionAlerteDao;
 import dao.IStationDao;
 import dao.IUtilisateurDao;
+import dao.IVehiculeDao;
 import db.Conducteur;
 import db.ElementParcours;
 import db.ElementProgramme;
@@ -35,6 +37,7 @@ import db.Programme;
 import db.SouscriptionAlerte;
 import db.Station;
 import db.Utilisateur;
+import db.Vehicule;
 
 @ManagedBean(name = "managementService", eager = true)
 @ApplicationScoped
@@ -45,6 +48,9 @@ public class ManagementService implements IManagementService, Serializable {
 
 	@ManagedProperty(value = "#{stationDao}")
 	private IStationDao stationDao;
+	
+	@ManagedProperty(value = "#{vehiculeDao}")
+	private IVehiculeDao vehiculeDao;
 	
 	@ManagedProperty(value = "#{conducteurDao}")
 	private IConducteurDao conducteurDao;
@@ -87,6 +93,15 @@ public class ManagementService implements IManagementService, Serializable {
 	public void setSouscriptionAlerteDao(
 			ISouscriptionAlerteDao souscriptionAlerteDao) {
 		this.souscriptionAlerteDao = souscriptionAlerteDao;
+	}
+	
+
+	public IVehiculeDao getVehiculeDao() {
+		return vehiculeDao;
+	}
+
+	public void setVehiculeDao(IVehiculeDao vehiculeDao) {
+		this.vehiculeDao = vehiculeDao;
 	}
 
 	public IStationDao getStationDao() {
@@ -433,5 +448,67 @@ public class ManagementService implements IManagementService, Serializable {
 		return programmeDao.findAll();
 	}
 
+	@Override
+	public long insertConducteur(Conducteur c) {
+		return conducteurDao.insert(c);
+	}
+
+	@Override
+	public long insertLigne(Ligne l) {
+		return ligneDao.insert(l);
+		
+	}
+
+	@Override
+	public List<Vehicule> getAllVehicules() {
+		return vehiculeDao.findAll();
+	}
+
+	@Override
+	public long insertVehicule(Vehicule v) {
+		return vehiculeDao.insert(v);
+	}
+
+	@Override
+	public Parcours getParcoursById(Long parcoursId) {
+		return parcoursDao.findById(parcoursId);
+	}
+
+	@Override
+	public Vehicule getVehiculeById(Long vehiculeId) {
+		return vehiculeDao.findById(vehiculeId);
+		
+	}
+
+	@Override
+	public Conducteur getConducteurById(Long conducteurId) {
+		return conducteurDao.findById(conducteurId);
+	}
+
+	@Override
+	public List<Parcours> getAllParcours() {
+		return parcoursDao.findAll();
+	}
+
+	@Override
+	public Vehicule getVehiculeByImmatriculation(String vehicule) {
+		return vehiculeDao.findByImmatriculation(vehicule);
+	}
+
+	@Override
+	public Conducteur getConducteurByName(String nom, String prenom) {
+		return conducteurDao.findByName(nom,prenom);
+	}
+
+	@Override
+	public void insertProgramme(Programme programme) {
+		programmeDao.insert(programme);
+		
+	}
+
+	@Override
+	public Ligne getLignesById(Long ligneId) {
+		return ligneDao.findLignesById(ligneId);
+	}
 
 }

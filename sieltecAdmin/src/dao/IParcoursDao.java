@@ -15,7 +15,7 @@ public interface IParcoursDao {
 
 	public List<Parcours> findAll();
 	
-	public Parcours find(Long parcoursId);
+	public Parcours findById(Long parcoursId);
 	
 	public HashMap<Long, Parcours> findByIdList(List<Long> list);
 	

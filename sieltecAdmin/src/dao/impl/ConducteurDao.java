@@ -1,6 +1,7 @@
 package dao.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,6 +16,7 @@ import commun.DBLoader;
 
 import dao.IConducteurDao;
 import db.Conducteur;
+import db.Parcours;
 
 @ManagedBean(name = "conducteurDao", eager = true)
 @ApplicationScoped
@@ -25,8 +27,51 @@ public class ConducteurDao implements IConducteurDao {
 
 	@Override
 	public Long insert(Conducteur conducteur) {
-		// TODO Auto-generated method stub
-		return 0l;
+		String query = "insert into sieltec.Conducteur(nom,prenom,contact,version) values('"+conducteur.getNom()+"','"+conducteur.getPrenom()+"','"+conducteur.getContact()+"',"+conducteur.getVersion()+")";
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		long id = 0;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
+			rs=statement.getGeneratedKeys();
+
+			if (rs.next()) {
+			    id = rs.getLong(1);
+			} else {
+			    // do what you have to do
+			}
+			 
+			System.out.println("query executed successfuly :\n" + query);
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		
+		return id;
 	}
 
 	@Override
@@ -75,5 +120,90 @@ public class ConducteurDao implements IConducteurDao {
 	public void setDbLoader(DBLoader dbLoader) {
 		this.dbLoader = dbLoader;
 	}
+
+	@Override
+	public Conducteur findById(Long conducteurId) {
+		Conducteur result = null;
+		Connection conn = null;
+		PreparedStatement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			String query = "select * from conducteur where id = ?";
+			statement = conn.prepareStatement(query);
+			statement.setLong(1, conducteurId);
+			
+			System.out.println("trying to execute :\n" + query);
+			System.out.println(conducteurId);
+			rs = statement.executeQuery();
+			System.out.println("query executed successfuly :\n" + query);
+			System.out.println(conducteurId);
+
+			if (rs.next()) {
+				Long id = rs.getLong("ID");
+				String nom = rs.getString("NOM");
+				String prenom = rs.getString("PRENOM");
+				String contact = rs.getString("CONTACT");
+				int version = rs.getInt("VERSION");
+				result = new Conducteur(id, nom, prenom, contact, version);
+			} else {
+				// pas de resultat
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error+this.getClass().getName());
+		} finally {
+			try {rs.close();} catch (Exception e){}
+			try {statement.close();} catch (Exception e){}
+			try {conn.close();} catch (Exception e){}
+		}
+		
+		return result;	
+		
+	}
+
+	@Override
+	public Conducteur findByName(String nom, String prenom) {
+		Conducteur result = null;
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			String query = "select * from conducteur where nom='"+nom+"' and prenom='"+prenom+"'";
+			statement = conn.createStatement();
+			
+			System.out.println("trying to execute :\n" + query);
+			rs = statement.executeQuery(query);
+			System.out.println("query executed successfuly :\n" + query);
+			
+			if (rs.next()) {
+				Long id = rs.getLong("ID");
+				String nomC = rs.getString("NOM");
+				String prenomC = rs.getString("PRENOM");
+				String contact = rs.getString("CONTACT");
+				int version = rs.getInt("VERSION");
+				result = new Conducteur(id, nomC, prenomC, contact, version);
+			} else {
+				// pas de resultat
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error+this.getClass().getName());
+		} finally {
+			try {rs.close();} catch (Exception e){}
+			try {statement.close();} catch (Exception e){}
+			try {conn.close();} catch (Exception e){}
+		}
+		
+		return result;	
+	}
+
 
 }

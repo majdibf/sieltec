@@ -1,23 +1,20 @@
 package formbean;
 
-import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import db.Ligne;
 import db.Station;
 
 import service.IManagementService;
 
 @ManagedBean
-public class ListeStationBean {
+public class AjouterLigneBean {
 
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
-	
-	//output
-	private List<Station> stations;
-	
+
+	private String nom;
 
 	public IManagementService getManagementService() {
 		return managementService;
@@ -26,16 +23,20 @@ public class ListeStationBean {
 	public void setManagementService(IManagementService managementService) {
 		this.managementService = managementService;
 	}
-	
-	
-	public List<Station> getStations() {
-		stations = managementService.getAllStations();
-		return stations;
+
+	public String getNom() {
+		return nom;
 	}
 
-	public void setStations(List<Station> stations) {
-		this.stations = stations;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
+	public String ajouter() {
+
+		Ligne l = new Ligne(null, nom, 0);
+		managementService.insertLigne(l);
+		return "liste_lignes";
+	}
 
 }

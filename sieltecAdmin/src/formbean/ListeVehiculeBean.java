@@ -6,17 +6,18 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import db.Station;
+import db.Vehicule;
 
 import service.IManagementService;
 
 @ManagedBean
-public class ListeStationBean {
+public class ListeVehiculeBean {
 
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
 	
 	//output
-	private List<Station> stations;
+	private List<Vehicule> vehicules;
 	
 
 	public IManagementService getManagementService() {
@@ -28,14 +29,15 @@ public class ListeStationBean {
 	}
 	
 	
-	public List<Station> getStations() {
-		stations = managementService.getAllStations();
-		return stations;
+	public List<Vehicule> getVehicules() {
+		vehicules = managementService.getAllVehicules();
+		return vehicules;
 	}
 
-	public void setStations(List<Station> stations) {
-		this.stations = stations;
+	public void setVehicules(List<Vehicule> vehicules) {
+		this.vehicules = vehicules;
 	}
 
 
+	
 }

@@ -1,12 +1,20 @@
 package formbean;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.joda.time.DateTime;
+
+import screenbean.ScreenProgramme;
 import service.IManagementService;
+import db.Conducteur;
+import db.Parcours;
 import db.Programme;
+import db.Vehicule;
 
 @ManagedBean
 public class ListeProgrammeBean {
@@ -15,7 +23,7 @@ public class ListeProgrammeBean {
 	private IManagementService managementService;
 	
 	//output
-	private List<Programme> programmes;
+	private List<ScreenProgramme> screenProgrammes;
 
 	public IManagementService getManagementService() {
 		return managementService;
@@ -25,15 +33,27 @@ public class ListeProgrammeBean {
 		this.managementService = managementService;
 	}
 
-	public List<Programme> getProgrammes() {
-		programmes=managementService.getAllProgrammes();
-		return programmes;
+	
+	public void setScreenProgrammes(List<ScreenProgramme> screenProgrammes) {
+		this.screenProgrammes = screenProgrammes;
 	}
 
-	public void setProgrammes(List<Programme> programmes) {
-		this.programmes = programmes;
+	public List<ScreenProgramme> getScreenProgrammes() {
+		
+		List <ScreenProgramme> screenProrammes=new ArrayList<ScreenProgramme>();
+		List<Programme> programmes=managementService.getAllProgrammes();
+		for(Programme p:programmes){
+			Parcours parc=managementService.getParcoursById(p.getParcoursId());
+			Vehicule vehic=managementService.getVehiculeById(p.getVehiculeId());
+			Conducteur conduc=managementService.getConducteurById(p.getConducteurId());
+			
+			ScreenProgramme sp=new ScreenProgramme(p.getId(), new Date(p.getDateHeureDebut().getMillis()), parc, vehic, conduc);
+			
+			screenProrammes.add(sp);
+		}
+		return screenProrammes;
+		
 	}
-	
 
 	
 }

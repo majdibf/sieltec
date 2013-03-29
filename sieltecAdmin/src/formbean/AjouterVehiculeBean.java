@@ -1,23 +1,21 @@
 package formbean;
 
-import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import db.Station;
+import db.Vehicule;
 
 import service.IManagementService;
 
 @ManagedBean
-public class ListeStationBean {
+public class AjouterVehiculeBean {
 
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
-	
-	//output
-	private List<Station> stations;
-	
+
+	//input
+	private String immatriculation;
 
 	public IManagementService getManagementService() {
 		return managementService;
@@ -26,15 +24,21 @@ public class ListeStationBean {
 	public void setManagementService(IManagementService managementService) {
 		this.managementService = managementService;
 	}
-	
-	
-	public List<Station> getStations() {
-		stations = managementService.getAllStations();
-		return stations;
+
+	public String getImmatriculation() {
+		return immatriculation;
 	}
 
-	public void setStations(List<Station> stations) {
-		this.stations = stations;
+	public void setImmatriculation(String immatriculation) {
+		this.immatriculation = immatriculation;
+	}
+	
+	public String ajouter(){
+		
+		Vehicule v=new Vehicule(null, immatriculation, 0);
+		managementService.insertVehicule(v);
+		
+		return "liste_vehicules";
 	}
 
 

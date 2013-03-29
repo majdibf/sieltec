@@ -83,7 +83,7 @@ public class ParcoursDao implements IParcoursDao {
 	}
 
 	@Override
-	public Parcours find(Long parcoursId) {
+	public Parcours findById(Long parcoursId) {
 
 		Parcours result = null;
 		Connection conn = null;

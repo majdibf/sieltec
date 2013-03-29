@@ -14,5 +14,7 @@ public interface ILigneDao {
 	public List<Ligne> findLignesByIdStation(float startStation);
 
 	public Ligne findByName(String nomLigne);
+
+	public Ligne findLignesById(Long ligneId);
 					   
 }

@@ -12,4 +12,8 @@ public interface IVehiculeDao {
 
 	public List<Vehicule> findAll();
 
+	public Vehicule findById(Long vehiculeId);
+
+	public Vehicule findByImmatriculation(String vehicule);
+
 }
