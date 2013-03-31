@@ -30,8 +30,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../ico/apple-touch-icon-144-precomposed.png"/>
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../ico/apple-touch-icon-114-precomposed.png"/>
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../ico/apple-touch-icon-72-precomposed.png"/>
-                    <link rel="apple-touch-icon-precomposed" href="../../ico/apple-touch-icon-57-precomposed.png"/>
-                                   <link rel="shortcut icon" href="../../ico/favicon.png"/>
+	<link rel="apple-touch-icon-precomposed" href="../../ico/apple-touch-icon-57-precomposed.png"/>
+    <link rel="shortcut icon" href="../../ico/favicon.png"/>
 
   </h:head>
 
@@ -90,47 +90,41 @@
 
         <!-- Customize form
         ================================================== -->
-        <form>
           <section class="download" id="components">
             <div class="page-header">
               <h3> Ajouter parcours </h3>
             </div>
             <div class="row download-builder">
-              
-                
-                 	<h:form>
+				<h:form>
              		<h:panelGrid columns="2">
-                			<h:outputLabel for="Ligne" value="Ligne"/>
-                			<h:inputText id="Ligne" value="#{ajouterParcours1Bean.ligne}" />
-                			
-                			<h:outputLabel for="nomParcours" value="Nom du parcours"/>
-                			<h:inputText id="nomParcours" value="#{ajouterParcours1Bean.nomParcours}"  />
+						<h:outputLabel for="ligne" value="ligne"/>
+						<h:inputText id="ligne" value="#{ajouterParcours1Bean.ligne}" />
+						
+						<h:outputLabel for="nomParcours" value="Nom du parcours"/>
+						<h:inputText id="nomParcours" value="#{ajouterParcours1Bean.nomParcours}"  />
                 	</h:panelGrid>
                 	
-                		<div class="title-header">
-							<h4>choisir les stations qui construisent le parcours</h4>
-						</div>
+               		<div class="title-header">
+						<h4>choisir les stations desservies par le parcours</h4>
+					</div>
 
-							<o:twoListSelection leftListboxHeader="Stations disponibles"
-								rightListboxHeader="Stations sélectionnés" allowSorting="true"
-								value="#{ajouterParcours1Bean.selectedStations}" >
-								
-								<f:selectItems value="#{ajouterParcours1Bean.stationsItems}" var="st" itemValue="#{st}"  itemLabel="#{st.nom}"/>
-							</o:twoListSelection>
-
-							<h:commandButton value="Suivant" action="#{ajouterParcours1Bean.ajouter}" styleClass="btn" type="submit">
-								<f:attribute></f:attribute>
-							</h:commandButton>
-								
-							
-                		<h:commandButton value="Réinitialiser" type="reset" styleClass="btn"/>
-                	</h:form>
+					<o:twoListSelection 
+						leftListboxHeader="Stations disponibles"
+						rightListboxHeader="Stations sélectionnées" 
+						allowSorting="true"
+						value="#{ajouterParcours1Bean.selectedStations}" >
+						
+						<f:selectItems value="#{ajouterParcours1Bean.stationsItems}"/>
+					</o:twoListSelection>
+					
+					<h:commandButton value="Suivant" action="#{ajouterParcours1Bean.ajouter}" styleClass="btn" type="submit"></h:commandButton>
+						
+					
+	         		<h:commandButton value="Réinitialiser" type="reset" styleClass="btn"/>
+				</h:form>
                 	
             </div><!-- /row -->
-          </section>
-      
-        </form>
-        
+          </section>        
       </div>
     </div>
 
