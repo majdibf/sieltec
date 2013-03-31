@@ -22,7 +22,7 @@ public class AjouterParcours1Bean {
 	//input
 	private String ligne;
 	private String nomParcours;
-	private List<SelectItem> selectedStations;
+	private Long[] selectedStations = new Long[]{2L,5L};
 	
 	//output
 	private List<SelectItem> stationsItems;
@@ -54,11 +54,12 @@ public class AjouterParcours1Bean {
 		this.nomParcours = nomParcours;
 	}
 	
-	public List<SelectItem> getSelectedStations() {
+
+	public Long[] getSelectedStations() {
 		return selectedStations;
 	}
 
-	public void setSelectedStations(List<SelectItem> selectedStations) {
+	public void setSelectedStations(Long[] selectedStations) {
 		this.selectedStations = selectedStations;
 	}
 
@@ -66,7 +67,7 @@ public class AjouterParcours1Bean {
 		List<Station> stations= managementService.getAllStations();
 		stationsItems=new ArrayList<SelectItem>();
 		for(Station s:stations){
-			stationsItems.add( new SelectItem(s, s.getNom()));
+			stationsItems.add( new SelectItem(s.getId(), s.getNom(), "Description_" + s.getNom()));
 			
 		}        
        
