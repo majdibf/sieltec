@@ -9,7 +9,7 @@
   
   <h:head>
     <meta charset="utf-8"/>
-    <title>Liste des parcours · SIELTEC Admin</title>
+    <title>Ajouter parcours · SIELTEC Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
@@ -30,8 +30,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../ico/apple-touch-icon-144-precomposed.png"/>
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../ico/apple-touch-icon-114-precomposed.png"/>
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../ico/apple-touch-icon-72-precomposed.png"/>
-                    <link rel="apple-touch-icon-precomposed" href="../../ico/apple-touch-icon-57-precomposed.png"/>
-                                   <link rel="shortcut icon" href="../../ico/favicon.png"/>
+	<link rel="apple-touch-icon-precomposed" href="../../ico/apple-touch-icon-57-precomposed.png"/>
+    <link rel="shortcut icon" href="../../ico/favicon.png"/>
 
   </h:head>
 
@@ -75,7 +75,7 @@
     <!-- Docs nav
     ================================================== -->
     <div class="row">
-       <div class="span3 bs-docs-sidebar">
+      <div class="span3 bs-docs-sidebar">
         <ul class="nav nav-list bs-docs-sidenav">
           <li><a href="../authentification/accueil.jsf"><i class="icon-chevron-right"></i> 1. Accueil</a></li>
           <li ><a href="../lignes/liste_lignes.jsf"><i class="icon-chevron-right"></i> 2. Lignes</a></li>
@@ -90,60 +90,20 @@
 
         <!-- Customize form
         ================================================== -->
-        <form>
           <section class="download" id="components">
             <div class="page-header">
-              <h3> Liste des parcours </h3>
+              <h3> Ajouter parcours 2 </h3>
             </div>
             <div class="row download-builder">
-            
-			<a href="../parcours/ajouter_parcours.jsf">Ajouter un parcours</a>
-			
-			
-						<o:dataTable id="parcoursTable" var="parcours"
-							value="#{listeParcoursBean.screenParcours}"
-							style="width: 100%; table-layout: fixed;" pageSize="2" >
-							
-							<o:column styleClass="hintLabel_column">
-								<f:facet name="header">
-									<h:outputText value="Id" />
-								</f:facet>
-								<h:outputText value="#{parcours.getId()}" />
-							</o:column>
-
-							<o:column styleClass="hintLabel_column">
-								<f:facet name="header">
-									<h:outputText value="Nom" />
-								</f:facet>
-								<h:outputText value="#{parcours.getNom()}" >
-									<f:convertDateTime dateStyle="medium" />
-								</h:outputText>
-								
-							</o:column>
-
-							<o:column styleClass="hintLabel_column">
-								<f:facet name="header">
-									<h:outputText value="Ligne" />
-								</f:facet>
-								<h:outputText value="#{parcours.getLigne().getNom()}" />
-							</o:column>
-							
-							<f:facet name="below">
-								<o:dataTablePaginator id="paginator"/>
-							</f:facet>
-
-							
-						</o:dataTable>
-						              <o:ajax render=":form:parcourssTable"/>
-						
-            
-            
-            
+				<h:form>
+             		
+					<h:commandButton value="Suivant" action="#{ajouterParcours2Bean.ajouter}" styleClass="btn" type="submit"></h:commandButton>
+					
+	         		<h:commandButton value="Réinitialiser" type="reset" styleClass="btn"/>
+				</h:form>
+                	
             </div><!-- /row -->
-          </section>
-      
-        </form>
-        
+          </section>        
       </div>
     </div>
 

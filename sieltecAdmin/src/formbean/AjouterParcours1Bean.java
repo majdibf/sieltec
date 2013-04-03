@@ -1,9 +1,11 @@
 package formbean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
@@ -13,8 +15,9 @@ import db.Station;
 
 import service.IManagementService;
 
-@ManagedBean
-public class AjouterParcours1Bean {
+@ManagedBean (name="ajouterParcours1Bean")
+@ApplicationScoped
+public class AjouterParcours1Bean implements Serializable{
 
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
@@ -26,7 +29,6 @@ public class AjouterParcours1Bean {
 	
 	//output
 	private List<SelectItem> stationsItems;
-		
 	
 	
 	
@@ -78,8 +80,8 @@ public class AjouterParcours1Bean {
 		this.stationsItems = stationsItems;
 	}
 
-	public String ajouter(){
-		return "liste_parcours";
+	public String ajouter(){		
+		return "ajouter_parcours2";
 	}
 	
 }
