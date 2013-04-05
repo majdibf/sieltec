@@ -80,5 +80,9 @@ public interface IManagementService {
 
 	public Ligne getLignesById(Long ligneId);
 
+	public Ligne getLigneByName(String ligne);
+
+	public Long insertParcours(Parcours parc);
+
 	
 }

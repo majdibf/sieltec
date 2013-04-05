@@ -511,4 +511,14 @@ public class ManagementService implements IManagementService, Serializable {
 		return ligneDao.findLignesById(ligneId);
 	}
 
+	@Override
+	public Ligne getLigneByName(String ligne) {
+		return ligneDao.findByName(ligne);
+	}
+
+	@Override
+	public Long insertParcours(Parcours parc) {
+		return parcoursDao.insert(parc);
+	}
+
 }

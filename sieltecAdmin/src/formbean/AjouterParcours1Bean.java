@@ -2,21 +2,29 @@ package formbean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.openfaces.util.Faces;
+
+import db.ElementParcours;
+import db.Ligne;
+import db.Parcours;
 import db.Station;
 
 import service.IManagementService;
 
 @ManagedBean (name="ajouterParcours1Bean")
-@ApplicationScoped
+@SessionScoped
 public class AjouterParcours1Bean implements Serializable{
 
 	@ManagedProperty(value = "#{managementService}")
@@ -29,9 +37,8 @@ public class AjouterParcours1Bean implements Serializable{
 	
 	//output
 	private List<SelectItem> stationsItems;
-	
-	
-	
+	List<ElementParcours> elementsParcours;
+
 	public IManagementService getManagementService() {
 		return managementService;
 	}
@@ -80,7 +87,67 @@ public class AjouterParcours1Bean implements Serializable{
 		this.stationsItems = stationsItems;
 	}
 
-	public String ajouter(){		
+	
+	
+	
+	// auto completion parcours
+		public List<String> getSuggestedLignes() {
+			List<String> suggestedLignes = new ArrayList<String>();
+			List<Ligne> lignes = new ArrayList<Ligne>();
+			lignes = managementService.getAllLignes();
+
+			String typedValue = Faces.var("searchString", String.class);
+			if (typedValue != null) {
+
+				for (Ligne l : lignes) {
+					String ligneForComparison = l.getNom().toLowerCase();
+					String typedValueForComparison = typedValue.toLowerCase();
+					if (ligneForComparison.startsWith(typedValueForComparison))
+						suggestedLignes.add(l.getNom());
+				}
+			} else {
+				for (int i = 0; i < lignes.size(); i++) {
+
+					Ligne l = lignes.get(i);
+					suggestedLignes.add(l.getNom());
+
+				}
+			}
+			return suggestedLignes;
+		}
+	
+	
+	
+	
+	public String ajouter(){	
+		//inserer une dans la table parcours 
+		Ligne l=managementService.getLigneByName(ligne);
+		Parcours parc=new Parcours(null,nomParcours,l.getId(), 0);
+		Long idParc=managementService.insertParcours(parc);
+		
+		
+		//covertir Long[] en List<Long>
+		List<Long> idStations=new ArrayList<Long>();
+		for(Long id:selectedStations){
+			idStations.add(id);
+		}
+		
+		HashMap<Long, Station> stations=managementService.getStationsByIdList(idStations);
+		elementsParcours=new ArrayList<ElementParcours>();
+	
+		Long stDep=null;
+		for(Long stArr:idStations){
+			Station stationDep;
+			Station stationArr;
+			if (stDep!=null){
+				stationDep = stations.get(stDep);
+				stationArr = stations.get(stArr);
+				ElementParcours ep= new ElementParcours(null, idParc,stationDep.getId() ,stationArr.getId() , null, null, 0);
+				elementsParcours.add(ep);
+			}
+		stDep=stArr;		
+		}
+		
 		return "ajouter_parcours2";
 	}
 	

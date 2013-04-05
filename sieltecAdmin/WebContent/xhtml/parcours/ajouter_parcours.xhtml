@@ -97,8 +97,15 @@
             <div class="row download-builder">
 				<h:form>
              		<h:panelGrid columns="2">
-						<h:outputLabel for="ligne" value="ligne"/>
-						<h:inputText id="ligne" value="#{ajouterParcours1Bean.ligne}" />
+						<h:outputLabel for="ligne" value="Ligne"/>
+						
+						<o:dropDownField id="ligne" suggestionMode="custom"
+										autoComplete="true" customValueAllowed="false"
+										value="#{ajouterParcours1Bean.ligne}"
+										listItemStyle="white-space: nowrap;">
+
+									<o:dropDownItems value="#{ajouterParcours1Bean.suggestedLignes}" />
+						</o:dropDownField>
 						
 						<h:outputLabel for="nomParcours" value="Nom du parcours"/>
 						<h:inputText id="nomParcours" value="#{ajouterParcours1Bean.nomParcours}"  />
