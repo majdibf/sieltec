@@ -98,39 +98,51 @@
             <div class="row download-builder">
 				
 				<h:form>
-						<o:forEach items="#{ajouterParcours2Bean.stations}" var="station" varStatus="status">
-							 <h:outputText value="#{status.first}"/><br/>
-				 
-							<c:if test="#{status.first=='true'}">
-										<h:outputText value="#{status.first}"/><br/>
-							</c:if>
-							
-							
-							
-							<!-- 
+				    <table>
+    
+						<c:forEach items="#{ajouterParcours2Bean.stations}" var="station" varStatus="status">
 							<c:choose>
-								<c:when test="#{status.first == true}" >
-									 <h:outputText value="first"/><br/>
-								</c:when>
-
-								<c:when test=" #{status.last == true}">
-									 <h:outputText value="last"/><br/>
-								</c:when>
-								<c:otherwise>
-									 <h:outputText value="other"/>
-								</c:otherwise>
-							</c:choose>
- -->
-
-<!--  
-
-							<c:if test="#{status.count} > 0">
-
-							<h:panelGrid columns="2">
-								<h:outputText value="#{status.count}. #{station.nom}" />
-								<o:spinner></o:spinner>
+								<c:when test="#{status.first=='true'}" >
+										<tr>
+										 <td> <h:outputText value="#{status.count}. #{station.nom}" /></td>
+										 <td></td>
+										</tr>
+										
+										<tr>
+											<td>
+												<h:panelGroup>
+												<i class=" icon-arrow-down"></i>
+												<br/>
+												<i class=" icon-arrow-down"></i>	
+												<br/>
+												<i class=" icon-arrow-down"></i>
+												<br/>
+												<i class=" icon-arrow-down"></i>
+												<br/>
+												</h:panelGroup>
+											</td>
+										
+											<td><o:spinner></o:spinner></td>
+										</tr>
 						
+								</c:when>
+
+								<c:when test="#{status.last =='true'}">
+								<tr>
+								<td><h:outputText value="#{status.count}. #{station.nom}" /></td>
+								<td></td>
+								</tr>
+								</c:when>
+								
+								
+								<c:otherwise>
+								<tr>
+									<td><h:outputText value="#{status.count}. #{station.nom}" /></td>
+									<td><o:spinner></o:spinner></td>
+								</tr>
 							
+								<tr>
+								<td>
 								<h:panelGroup>
 								<i class=" icon-arrow-down"></i>
 								<br/>
@@ -140,13 +152,17 @@
 								<br/>
 								<i class=" icon-arrow-down"></i>
 								<br/>
-							</h:panelGroup>
-							<o:spinner></o:spinner>
-							</h:panelGrid>
-							
-							</c:if>
-							-->
-						</o:forEach>
+								</h:panelGroup>
+								</td>
+							<td><o:spinner></o:spinner></td>
+							</tr>
+								
+								</c:otherwise>
+							</c:choose>
+
+						</c:forEach>
+						</table>
+						
 						
 						<h:commandButton value="Suivant" action="#{ajouterParcours2Bean.ajouter}" styleClass="btn" type="submit"></h:commandButton>
 					
