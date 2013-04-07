@@ -37,7 +37,7 @@ public class AjouterParcours1Bean implements Serializable{
 	
 	//output
 	private List<SelectItem> stationsItems;
-	List<ElementParcours> elementsParcours;
+	private List<ElementParcours> elementsParcours;
 
 	public IManagementService getManagementService() {
 		return managementService;
@@ -45,6 +45,16 @@ public class AjouterParcours1Bean implements Serializable{
 
 	public void setManagementService(IManagementService managementService) {
 		this.managementService = managementService;
+	}
+	
+	
+
+	public List<ElementParcours> getElementsParcours() {
+		return elementsParcours;
+	}
+
+	public void setElementsParcours(List<ElementParcours> elementsParcours) {
+		this.elementsParcours = elementsParcours;
 	}
 
 	public String getLigne() {
@@ -86,11 +96,8 @@ public class AjouterParcours1Bean implements Serializable{
 	public void setStationsItems(List<SelectItem> stationsItems) {
 		this.stationsItems = stationsItems;
 	}
-
 	
-	
-	
-	// auto completion parcours
+	// auto completion ligne
 		public List<String> getSuggestedLignes() {
 			List<String> suggestedLignes = new ArrayList<String>();
 			List<Ligne> lignes = new ArrayList<Ligne>();
@@ -116,10 +123,9 @@ public class AjouterParcours1Bean implements Serializable{
 			return suggestedLignes;
 		}
 	
-	
-	
-	
+		
 	public String ajouter(){	
+		/*
 		//inserer une dans la table parcours 
 		Ligne l=managementService.getLigneByName(ligne);
 		Parcours parc=new Parcours(null,nomParcours,l.getId(), 0);
@@ -147,7 +153,7 @@ public class AjouterParcours1Bean implements Serializable{
 			}
 		stDep=stArr;		
 		}
-		
+		*/
 		return "ajouter_parcours2";
 	}
 	

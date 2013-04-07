@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:o="http://openfaces.org/">
+		xmlns:o="http://openfaces.org/"
+		 xmlns:c="http://java.sun.com/jstl/core">
 	
   
   <h:head>
@@ -95,9 +96,51 @@
               <h3> Ajouter parcours 2 </h3>
             </div>
             <div class="row download-builder">
+				
 				<h:form>
-             		
-					<h:commandButton value="Suivant" action="#{ajouterParcours2Bean.ajouter}" styleClass="btn" type="submit"></h:commandButton>
+						<o:forEach items="#{ajouterParcours2Bean.stations}" var="station" varStatus="status" begin="0">
+
+							<c:choose>
+								<c:when test="#{status.current} == #{status.first} " >
+									 <h:outputText value="first"/>
+								</c:when>
+
+								<c:when test=" #{status.current} ==  #{status.last}">
+									 <h:outputText value="last"/>
+								</c:when>
+								<c:otherwise>
+									 <h:outputText value="other"/>
+								</c:otherwise>
+							</c:choose>
+
+
+<!--  
+
+							<c:if test="#{status.count} > 0">
+
+							<h:panelGrid columns="2">
+								<h:outputText value="#{status.count}. #{station.nom}" />
+								<o:spinner></o:spinner>
+						
+							
+								<h:panelGroup>
+								<i class=" icon-arrow-down"></i>
+								<br/>
+								<i class=" icon-arrow-down"></i>	
+								<br/>
+								<i class=" icon-arrow-down"></i>
+								<br/>
+								<i class=" icon-arrow-down"></i>
+								<br/>
+							</h:panelGroup>
+							<o:spinner></o:spinner>
+							</h:panelGrid>
+							
+							</c:if>
+							-->
+						</o:forEach>
+						
+						<h:commandButton value="Suivant" action="#{ajouterParcours2Bean.ajouter}" styleClass="btn" type="submit"></h:commandButton>
 					
 	         		<h:commandButton value="Réinitialiser" type="reset" styleClass="btn"/>
 				</h:form>

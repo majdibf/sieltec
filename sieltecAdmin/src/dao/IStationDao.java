@@ -20,4 +20,6 @@ public interface IStationDao {
 
 	public HashMap<Long, Station> findByListId(List<Long> list);
 
+	public Station findById(Long stationDepId);
+
 }

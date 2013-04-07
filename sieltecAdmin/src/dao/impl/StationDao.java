@@ -264,4 +264,55 @@ public class StationDao implements IStationDao, Serializable {
 
 		return stations;
 	}
+
+	@Override
+	public Station findById(Long stationDepId) {
+		Station result = null;
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+
+			String query = "select * from station where id ="+ stationDepId;
+
+			System.out.println("trying to execute :\n" + query);
+			rs = statement.executeQuery(query);
+			System.out.println("query executed successfuly :\n" + query);
+
+			if (rs.next()) {
+				Long id = rs.getLong("id");
+				String nom = rs.getString("nom");
+				String longitude = rs.getString("longitude");
+				String latitude = rs.getString("latitude");
+				int version = rs.getInt("version");
+				result = new Station(id, nom, longitude, latitude, version);
+			} else {
+				// pas de resultat
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+
+		return result;
+
+	}
 }

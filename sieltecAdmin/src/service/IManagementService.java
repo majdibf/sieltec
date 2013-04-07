@@ -84,5 +84,7 @@ public interface IManagementService {
 
 	public Long insertParcours(Parcours parc);
 
+	public Station getStationsById(Long stationDepId);
+
 	
 }
