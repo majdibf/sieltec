@@ -4,10 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:o="http://openfaces.org/"
-		 xmlns:c="http://java.sun.com/jstl/core">
+	xmlns:o="http://openfaces.org/"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	
-  
+   
   <h:head>
     <meta charset="utf-8"/>
     <title>Ajouter parcours · SIELTEC Admin</title>
@@ -98,21 +98,29 @@
             <div class="row download-builder">
 				
 				<h:form>
-						<o:forEach items="#{ajouterParcours2Bean.stations}" var="station" varStatus="status" begin="0">
-
+						<o:forEach items="#{ajouterParcours2Bean.stations}" var="station" varStatus="status">
+							 <h:outputText value="#{status.first}"/><br/>
+				 
+							<c:if test="#{status.first=='true'}">
+										<h:outputText value="#{status.first}"/><br/>
+							</c:if>
+							
+							
+							
+							<!-- 
 							<c:choose>
-								<c:when test="#{status.current} == #{status.first} " >
-									 <h:outputText value="first"/>
+								<c:when test="#{status.first == true}" >
+									 <h:outputText value="first"/><br/>
 								</c:when>
 
-								<c:when test=" #{status.current} ==  #{status.last}">
-									 <h:outputText value="last"/>
+								<c:when test=" #{status.last == true}">
+									 <h:outputText value="last"/><br/>
 								</c:when>
 								<c:otherwise>
 									 <h:outputText value="other"/>
 								</c:otherwise>
 							</c:choose>
-
+ -->
 
 <!--  
 
