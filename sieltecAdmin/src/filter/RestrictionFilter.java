@@ -38,8 +38,9 @@ public class RestrictionFilter implements Filter {
        if ( session.getAttribute( "userConnected" ) != null && pageRequested.contains("authentification.jsf")) {
            // Redirection vers la page publique 
            response.sendRedirect( request.getContextPath() + "/xhtml/authentification/accueil.jsf" );
-       }else if ( session.getAttribute( "userConnected" ) == null && !pageRequested.contains("authentification.jsf")) {
+       }else if ( session.getAttribute( "userConnected" ) == null && !pageRequested.contains("authentification.jsf") && !pageRequested.endsWith(".css") && !pageRequested.endsWith(".js") && !pageRequested.endsWith(".png") && !pageRequested.contains(".js.jsf") && !pageRequested.contains(".gif.jsf")) {
             // Redirection vers la page publique 
+    	   System.out.println(pageRequested +"is redirected to Authentification.jsf");
             response.sendRedirect( request.getContextPath() + "/xhtml/authentification/authentification.jsf" );
         } else {
             // Affichage de la page restreinte 
