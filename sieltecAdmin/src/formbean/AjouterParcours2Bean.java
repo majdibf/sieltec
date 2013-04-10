@@ -89,7 +89,7 @@ public class AjouterParcours2Bean {
 		System.out.println(ajouterParcours1Bean.getNomParcours());
 		Long[] selectedStations = ajouterParcours1Bean.getSelectedStations();
 
-		return "ajouter_parcours2";
+		return "ajouter_parcours3";
 	}
 	
 }
