@@ -66,7 +66,7 @@ public class AjouterParcours2Bean {
 				GraphicText gt=new GraphicText();
 				gt.setId("gt"+i);
 				gt.setValue("--------------->");
-				//gt.setDirection(270);
+				gt.setDirection(10);
 				grid.getChildren().add(gt);
 				
 				Spinner spinner= new Spinner();
@@ -92,8 +92,6 @@ public class AjouterParcours2Bean {
 				spinner1.setValue(0);
 				grid.getChildren().add(spinner1);
 			
-				
-				
 				GraphicText gt=new GraphicText();
 				gt.setId("gt"+i);
 				gt.setValue("--------------->");
@@ -118,8 +116,7 @@ public class AjouterParcours2Bean {
 				UIOutput output2=new UIOutput();
 				output2.setId("output2"+i);
 				output2.setValue("");
-				grid.getChildren().add(output2);
-				
+				grid.getChildren().add(output2);	
 			}
 		}
 		
