@@ -7,8 +7,15 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.component.UIOutput;
+import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+
+import org.jfree.chart.needle.PinNeedle;
+import org.openfaces.component.input.Spinner;
+import org.openfaces.component.output.GraphicText;
+import org.primefaces.component.graphicimage.GraphicImageRenderer;
 
 import db.ElementParcours;
 import db.Parcours;
@@ -28,12 +35,99 @@ public class AjouterParcours2Bean {
 	private IManagementService managementService;
 	
 	//input
+	private HtmlPanelGrid grid=new HtmlPanelGrid();
 	
 	//output
 	
 	
+	
+	public AjouterParcours2Bean() {
+	}
+	
 	public AjouterParcours1Bean getAjouterParcours1Bean() {
 		return ajouterParcours1Bean;
+	}
+
+	public HtmlPanelGrid getGrid() {
+		List<Station> stations = getStations();
+		for(int i=0; i<stations.size();i++){
+			
+			if(i==0){
+				UIOutput output1=new UIOutput();
+				output1.setId("output1"+i);
+				output1.setValue(stations.get(i).getNom());
+				grid.getChildren().add(output1);
+				
+				UIOutput output2=new UIOutput();
+				output1.setId("output2"+i);
+				output2.setValue("");
+				grid.getChildren().add(output2);
+				
+				GraphicText gt=new GraphicText();
+				gt.setId("gt"+i);
+				gt.setValue("--------------->");
+				//gt.setDirection(270);
+				grid.getChildren().add(gt);
+				
+				Spinner spinner= new Spinner();
+				spinner.setId("spinner"+i);
+				spinner.setMinValue(0);
+				spinner.setMaxValue(59);
+				spinner.setValue(0);
+				grid.getChildren().add(spinner);
+				
+			}
+			
+			if(i>0 && i<stations.size()-1){
+				UIOutput output1=new UIOutput();
+				output1.setId("output1"+i);
+				output1.setValue(stations.get(i).getNom());
+				grid.getChildren().add(output1);
+				
+			
+				Spinner spinner1= new Spinner();
+				spinner1.setId("spinner1"+i);
+				spinner1.setMinValue(0);
+				spinner1.setMaxValue(59);
+				spinner1.setValue(0);
+				grid.getChildren().add(spinner1);
+			
+				
+				
+				GraphicText gt=new GraphicText();
+				gt.setId("gt"+i);
+				gt.setValue("--------------->");
+				//gt.setDirection(270);
+				grid.getChildren().add(gt);
+				
+				Spinner spinner2= new Spinner();
+				spinner2.setId("spinner2"+i);
+				spinner2.setMinValue(0);
+				spinner2.setMaxValue(59);
+				spinner2.setValue(0);
+				grid.getChildren().add(spinner2);
+				
+			}
+			
+			if(i==stations.size()-1){
+				UIOutput output1=new UIOutput();
+				output1.setId("output1"+i);
+				output1.setValue(stations.get(i).getNom());
+				grid.getChildren().add(output1);
+			
+				UIOutput output2=new UIOutput();
+				output2.setId("output2"+i);
+				output2.setValue("");
+				grid.getChildren().add(output2);
+				
+			}
+		}
+		
+		return grid;
+	}
+
+	public void setGrid(HtmlPanelGrid grid) {
+		this.grid = grid;
 	}
 
 	public void setAjouterParcours1Bean(AjouterParcours1Bean ajouterParcours1Bean) {
