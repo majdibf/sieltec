@@ -34,7 +34,6 @@ public class ElementParcoursDao implements IElementParcoursDao {
 
 	@Override
 	public Long insert(ElementParcours ep) {
-		// TODO Auto-generated method stub
 		return 0l;
 	}
 

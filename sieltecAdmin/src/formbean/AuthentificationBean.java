@@ -100,10 +100,10 @@ public class AuthentificationBean {
 	
 	public String logout(){
 		String nomPage;
-			 nomPage="authentification";
+			 nomPage="/xhtml/authentification/authentification";
 			 FacesContext facesContext = FacesContext.getCurrentInstance();
 			 //HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false).removeAttribute("userConnected");
-			 
+
 			  ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
 			  
 				

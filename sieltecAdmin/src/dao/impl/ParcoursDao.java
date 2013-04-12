@@ -18,6 +18,7 @@ import javax.faces.bean.ManagedProperty;
 import commun.DBLoader;
 
 import dao.IParcoursDao;
+import db.ElementParcours;
 import db.Parcours;
 import db.Station;
 
@@ -39,7 +40,6 @@ public class ParcoursDao implements IParcoursDao {
 		try {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
-			
 			System.out.println("query = "+query);
 			
 			System.out.println("trying to execute :\n" + query);
@@ -53,7 +53,6 @@ public class ParcoursDao implements IParcoursDao {
 			}
 			 
 			System.out.println("query executed successfuly :\n" + query);
-	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -76,6 +75,94 @@ public class ParcoursDao implements IParcoursDao {
 		
 		return id;
 	}
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public void insert(Parcours p, List<ElementParcours> elementsParcours) {
+		String queryParcours = "insert into sieltec.Parcours(nom,id_ligne,version) values('"+p.getNom()+"',"+p.getLigneId()+","+p.getVersion()+")";
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		Long idParcours = 0L;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			conn.setAutoCommit(false);
+			
+			System.out.println("query = "+queryParcours);
+			
+			System.out.println("trying to execute :\n" + queryParcours);
+			statement.executeUpdate(queryParcours,Statement.RETURN_GENERATED_KEYS);
+			rs=statement.getGeneratedKeys();
+
+			if (rs.next()) {
+			    idParcours = rs.getLong(1);
+			}
+			 
+			System.out.println("queryParcours executed successfuly :\n" + queryParcours);
+			
+			for(ElementParcours ep:elementsParcours){
+				String queryElementParcours="insert into ELEMENT_PARCOURS(id_station_dep , id_station_arr , duree , duree_arret ,id_parcours , version) values("+ep.getStationDepId()+","+ep.getStationArrId()+","+ep.getDuree().getMinutes()+","+ep.getDureeArret().getMinutes()+","+idParcours+","+ep.getVersion()+")";
+				
+				System.out.println("query = "+queryElementParcours);
+				
+				System.out.println("trying to execute :\n" + queryElementParcours);
+				statement.executeUpdate(queryElementParcours);
+			}
+			conn.commit();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	@Override

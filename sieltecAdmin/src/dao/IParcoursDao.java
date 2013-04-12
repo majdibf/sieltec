@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import db.ElementParcours;
 import db.Parcours;
 import db.Station;
 
@@ -22,6 +23,8 @@ public interface IParcoursDao {
 	public List<Parcours> findParcoursByIdLigne(long idLigne);
 
 	public Parcours findByNameParcours(String nom);
+
+	public void insert(Parcours p, List<ElementParcours> elementsParcours);
 
 
 }

@@ -99,25 +99,33 @@
             
 			<a href="../parcours/ajouter_parcours.jsf">Ajouter un parcours</a>
 			
-			
+		
 						<o:dataTable id="parcoursTable" var="parcours"
 							value="#{listeParcoursBean.screenParcours}"
-							style="width: 100%; table-layout: fixed;" pageSize="2" >
-							
+							style="width: 100%; table-layout: fixed;" >
 							<o:column styleClass="hintLabel_column">
 								<f:facet name="header">
 									<h:outputText value="Id" />
 								</f:facet>
+								
+								<h:outputLink>
 								<h:outputText value="#{parcours.getId()}" />
+								<f:param value="#{parcours.getId()}"/>
+								</h:outputLink>
 							</o:column>
 
+							
 							<o:column styleClass="hintLabel_column">
 								<f:facet name="header">
 									<h:outputText value="Nom" />
 								</f:facet>
+								
+								<h:outputLink>
 								<h:outputText value="#{parcours.getNom()}" >
 									<f:convertDateTime dateStyle="medium" />
 								</h:outputText>
+								<f:param value="#{parcours.getId()}"/>
+								</h:outputLink>
 								
 							</o:column>
 
@@ -125,13 +133,16 @@
 								<f:facet name="header">
 									<h:outputText value="Ligne" />
 								</f:facet>
+								<h:outputLink>
 								<h:outputText value="#{parcours.getLigne().getNom()}" />
+								
+								<f:param value="#{parcours.getId()}"/>
+								</h:outputLink>
 							</o:column>
 							
-							<f:facet name="below">
+							<!-- <f:facet name="below">
 								<o:dataTablePaginator id="paginator"/>
-							</f:facet>
-
+							</f:facet> -->
 							
 						</o:dataTable>
 						

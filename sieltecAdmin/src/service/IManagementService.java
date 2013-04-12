@@ -7,6 +7,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import db.Conducteur;
+import db.ElementParcours;
 import db.ElementProgramme;
 import db.Ligne;
 import db.Parcours;
@@ -85,6 +86,8 @@ public interface IManagementService {
 	public Long insertParcours(Parcours parc);
 
 	public Station getStationsById(Long stationDepId);
+
+	public void insertParcours(Parcours p, List<ElementParcours> elementsParcours);
 
 	
 }

@@ -526,4 +526,9 @@ public class ManagementService implements IManagementService, Serializable {
 		return stationDao.findById(stationDepId);
 	}
 
+	@Override
+	public void insertParcours(Parcours p, List<ElementParcours> elementsParcours) {
+		parcoursDao.insert(p, elementsParcours);
+	}
+
 }
