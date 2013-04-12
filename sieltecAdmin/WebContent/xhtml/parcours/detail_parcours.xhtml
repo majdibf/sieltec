@@ -1,10 +1,10 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:o="http://openfaces.org/">
+	xmlns:o="http://openfaces.org/"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	
   
   <h:head>
@@ -90,69 +90,108 @@
 
         <!-- Customize form
         ================================================== -->
-       
+        <form>
           <section class="download" id="components">
             <div class="page-header">
               <h3> Liste des parcours </h3>
             </div>
             <div class="row download-builder">
             
-			<a href="../parcours/ajouter_parcours.jsf">Ajouter un parcours</a>
+			<h:panelGrid columns="2" >
+				<h:outputText value="Nom Parcours :"/>
+				<h:outputText value="#{detailParcoursBean.screenParcours.nom}"/>
+				
+				<h:outputText value="Ligne :"/>
+				<h:outputText value="#{detailParcoursBean.screenParcours.ligne.nom}"/>
+			</h:panelGrid>
 			
-		<h:form>
-						<o:dataTable id="parcoursTable" var="parcours"
-							value="#{listeParcoursBean.screenParcours}"
-							style="width: 100%; table-layout: fixed;" >
-							<o:column styleClass="hintLabel_column">
-								<f:facet name="header">
-									<h:outputText value="Id" />
-								</f:facet>
-								
-								<h:commandLink action="#{detailParcoursBean.afficherDetailParcours}">
-								<h:outputText value="#{parcours.getId()}" />
-								<f:param name="idParcours" value="#{parcours.getId()}"/>
-								</h:commandLink>
-							</o:column>
+				    
+			
+			
+				    <table>
+    
+						<c:forEach items="#{detailParcoursBean.screenElementsParcours}" var="elementParcours" varStatus="status">
+							<c:choose>
+								<c:when test="#{status.first=='true'}" >
+										<tr>
+										 <td> <h:outputText value="#{elementParcours.stationDep.nom}" /></td>
+										 <td></td>
+										</tr>
+										
+										<tr>
+											<td>
+												<o:graphicText value="x---------------" direction="90"/>
+											</td>
+										
+											<td> <h:outputText value="#{elementParcours.duree.minutes}" /> </td>
+										</tr>
+										
+										
+										<tr>
+											<td>
+												<h:outputText value="#{elementParcours.stationArr.nom}" />
+											</td>
+										
+											<td> <h:outputText value="#{elementParcours.dureeArret.minutes}" /> </td>
+										</tr>
+		
+								</c:when>
 
-							
-							<o:column styleClass="hintLabel_column">
-								<f:facet name="header">
-									<h:outputText value="Nom" />
-								</f:facet>
-								
-								<h:commandLink action="#{detailParcoursBean.afficherDetailParcours}">
-								<h:outputText value="#{parcours.getNom()}" >
-									<f:convertDateTime dateStyle="medium" />
-								</h:outputText>
-								<f:param name="idParcours" value="#{parcours.getId()}"/>
-								</h:commandLink>
-								
-							</o:column>
 
-							<o:column styleClass="hintLabel_column">
-								<f:facet name="header">
-									<h:outputText value="Ligne" />
-								</f:facet>
+								<c:when test="#{status.last =='true'}">
+									<tr>
+											<td>
+												<o:graphicText value="x---------------" direction="90"></o:graphicText>
+											</td>
+										
+											<td> <h:outputText value="#{elementParcours.duree.minutes}" /> </td>
+									</tr>
+									
+									<tr>
+									
+											<td>
+												<h:outputText value="#{elementParcours.stationArr.nom}" />
+											</td>
+											
+											<td></td>
+									
+									</tr>
+								</c:when>
 								
-								<h:commandLink action="#{detailParcoursBean.afficherDetailParcours}">
-									<h:outputText value="#{parcours.getLigne().getNom()}" />
-									<f:param name="idParcours" value="#{parcours.getId()}"/>
-								</h:commandLink>
-							
-							</o:column>
-							
-							<!-- <f:facet name="below">
-								<o:dataTablePaginator id="paginator"/>
-							</f:facet> -->
-							
-						</o:dataTable>
-						
-           </h:form>
-            
-            
+								
+								<c:otherwise>
+									
+									<tr>
+											<td>
+												<o:graphicText value="x---------------" direction="90"></o:graphicText>
+											</td>
+										
+											<td> <h:outputText value="#{elementParcours.duree.minutes}" /> </td>
+									</tr>
+									
+									
+										<tr>
+									
+											<td>
+												<h:outputText value="#{elementParcours.stationArr.nom}" />
+											</td>
+											
+											<td> 
+												<h:outputText value="#{elementParcours.dureeArret.minutes}" />
+											</td>
+									
+									</tr>
+									
+								</c:otherwise>
+							</c:choose>
+
+						</c:forEach>
+						</table>
+			            
             </div><!-- /row -->
           </section>
       
+        </form>
         
       </div>
     </div>
