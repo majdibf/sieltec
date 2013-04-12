@@ -89,5 +89,7 @@ public interface IManagementService {
 
 	public void insertParcours(Parcours p, List<ElementParcours> elementsParcours);
 
+	public List<ElementParcours> getElementParcoursByIdParcours(Long idParcours);
+
 	
 }
