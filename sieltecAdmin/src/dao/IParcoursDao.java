@@ -26,5 +26,7 @@ public interface IParcoursDao {
 
 	public void insert(Parcours p, List<ElementParcours> elementsParcours);
 
+	public void update(Parcours p, List<ElementParcours> elementsParcours);
+
 
 }

@@ -536,4 +536,9 @@ public class ManagementService implements IManagementService, Serializable {
 		return trierElementsParcours(elementParcoursDao.findByIdParcours(idParcours));
 	}
 
+	@Override
+	public void updateParcours(Parcours p, List<ElementParcours> elementsParcours) {
+		parcoursDao.update(p, elementsParcours);
+	}
+
 }
