@@ -82,13 +82,16 @@ public class LigneDao implements ILigneDao {
 	@Override
 	public List<Ligne> findAll() {
 		List<Ligne> lignes = new ArrayList<Ligne>();
+		Connection conn=null;
+		Statement statement=null;
+		ResultSet rs =null;
 		try {
-			Connection ds = dbLoader.getDs().getConnection();
-			Statement statement = ds.createStatement();
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
 
 			String query = "select * from ligne";
 
-			ResultSet rs = statement.executeQuery(query);
+			rs = statement.executeQuery(query);
 
 			while (rs.next()) {
 				Long id = rs.getLong("id");
@@ -104,7 +107,21 @@ public class LigneDao implements ILigneDao {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
 			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
 		}
+		
 
 		return lignes;
 	}
