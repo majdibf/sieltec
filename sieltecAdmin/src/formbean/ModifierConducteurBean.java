@@ -99,7 +99,7 @@ public class ModifierConducteurBean {
 		managementService.updateConducteur(c);
 		
 
-		return "liste_conducteur";
+		return "liste_conducteurs";
 	}
 	
 
