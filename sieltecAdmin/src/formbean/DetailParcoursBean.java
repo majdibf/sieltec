@@ -18,7 +18,6 @@ import screenbean.ScreenElementParcours;
 import screenbean.ScreenParcours;
 import service.IManagementService;
 
-
 @ManagedBean(name="detailParcoursBean")
 @SessionScoped
 public class DetailParcoursBean {

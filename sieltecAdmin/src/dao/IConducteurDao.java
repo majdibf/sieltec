@@ -17,5 +17,7 @@ public interface IConducteurDao {
 	public Conducteur findById(Long conducteurId);
 
 	public Conducteur findByName(String nom, String prenom);
+
+	public void update(Conducteur c);
 	
 }

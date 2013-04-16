@@ -221,5 +221,46 @@ public class ConducteurDao implements IConducteurDao {
 		return result;	
 	}
 
+	@Override
+	public void update(Conducteur c) {
+		String query = "update sieltec.Conducteur set nom ='"+c.getNom()+"',prenom='"+c.getPrenom()+"',contact='"+c.getContact()+"',version= "+(c.getVersion()+1)+" where id= "+c.getId()+"and version= "+c.getVersion();
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		long id = 0;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			statement.executeUpdate(query);
+			 
+			System.out.println("query executed successfuly :\n" + query);
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		
+	}
+
 
 }

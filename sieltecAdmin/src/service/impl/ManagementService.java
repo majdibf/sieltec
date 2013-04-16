@@ -541,4 +541,10 @@ public class ManagementService implements IManagementService, Serializable {
 		parcoursDao.update(p, elementsParcours);
 	}
 
+	@Override
+	public void updateConducteur(Conducteur c) {
+		conducteurDao.update(c);
+		
+	}
+
 }

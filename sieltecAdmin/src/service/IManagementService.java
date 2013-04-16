@@ -93,5 +93,6 @@ public interface IManagementService {
 
 	public void updateParcours(Parcours p, List<ElementParcours> elementsParcours);
 
+	public void updateConducteur(Conducteur c);
 	
 }
