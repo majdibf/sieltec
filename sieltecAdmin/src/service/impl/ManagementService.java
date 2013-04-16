@@ -537,8 +537,8 @@ public class ManagementService implements IManagementService, Serializable {
 	}
 
 	@Override
-	public void updateParcours(Parcours p, List<ElementParcours> elementsParcours) {
-		parcoursDao.update(p, elementsParcours);
+	public boolean updateParcours(Parcours p, List<ElementParcours> elementsParcours) {
+		return parcoursDao.update(p, elementsParcours);
 	}
 
 	@Override

@@ -91,7 +91,7 @@ public interface IManagementService {
 
 	public List<ElementParcours> getElementParcoursByIdParcours(Long idParcours);
 
-	public void updateParcours(Parcours p, List<ElementParcours> elementsParcours);
+	public boolean updateParcours(Parcours p, List<ElementParcours> elementsParcours);
 
 	public void updateConducteur(Conducteur c);
 	
