@@ -14,6 +14,9 @@ public class ListeConducteurBean {
 
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
+
+	@ManagedProperty(value = "#{errorBean}")
+	private ErrorBean errorBean;
 	
 	//output
 	private List<Conducteur> conducteurs;
@@ -34,6 +37,14 @@ public class ListeConducteurBean {
 
 	public void setConducteurs(List<Conducteur> conducteurs) {
 		this.conducteurs = conducteurs;
+	}
+
+	public ErrorBean getErrorBean() {
+		return errorBean;
+	}
+
+	public void setErrorBean(ErrorBean errorBean) {
+		this.errorBean = errorBean;
 	}
 
 
