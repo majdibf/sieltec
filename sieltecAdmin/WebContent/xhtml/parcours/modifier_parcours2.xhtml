@@ -93,17 +93,18 @@
         ================================================== -->
           <section class="download" id="components">
             <div class="page-header">
-              <h3> Modifier parcours 2 </h3>
+              <h3> Modifier parcours</h3>
             </div>
             <div class="row download-builder">
+	
 				
 				<h:form>
-								<h:panelGrid binding="#{modifierParcours2Bean.grid}" columns="2"></h:panelGrid>
-						
-						<h:commandButton value="Suivant" action="#{modifierParcours2Bean.update}" styleClass="btn" type="submit"></h:commandButton>
-					
-	         		<h:commandButton value="Réinitialiser" type="reset" styleClass="btn"/>
+					<h:panelGrid binding="#{modifierParcours2Bean.grid}" columns="2"></h:panelGrid>	
+	         		<h:commandButton value="Retour" type="submit" action="#{modifierParcours2Bean.retour}" styleClass="btn"/>
+					<h:commandButton value="Suivant" action="#{modifierParcours2Bean.update}" styleClass="btn" type="submit"/>
 				</h:form>
+				
+				
                 	
             </div><!-- /row -->
           </section>        
