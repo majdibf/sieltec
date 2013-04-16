@@ -144,7 +144,8 @@ public class ParcoursDao implements IParcoursDao {
 	
 
 	@Override
-	public void update(Parcours p, List<ElementParcours> elementsParcours) {
+	public boolean update(Parcours p, List<ElementParcours> elementsParcours) {
+		boolean result = false;
 		String queryParcours = "update sieltec.Parcours set nom ='"+p.getNom()+"',id_ligne="+p.getLigneId()+",version= "+(p.getVersion()+1)+" where id= "+p.getId()+"and version= "+p.getVersion();
 		String queryDeleteElementParcours="delete from sieltec.element_parcours where id_parcours="+p.getId();
 		
@@ -160,25 +161,28 @@ public class ParcoursDao implements IParcoursDao {
 			
 			System.out.println("query = "+queryParcours);
 			System.out.println("trying to execute :\n" + queryParcours);
-			statement.executeUpdate(queryParcours);	 
+			int rowsUpdated = statement.executeUpdate(queryParcours);	 
 			System.out.println("queryParcours executed successfuly :\n" + queryParcours);
 		
 		
-			System.out.println("query = "+queryDeleteElementParcours);
-			System.out.println("trying to execute :\n" + queryDeleteElementParcours);
-			statement.executeUpdate(queryDeleteElementParcours);	 
-			System.out.println("queryParcours executed successfuly :\n" + queryDeleteElementParcours);
-			
-			
-			for(ElementParcours ep:elementsParcours){
-				String queryElementParcours="insert into ELEMENT_PARCOURS(id_station_dep , id_station_arr , duree , duree_arret ,id_parcours , version) values("+ep.getStationDepId()+","+ep.getStationArrId()+","+ep.getDuree().getMinutes()+","+ep.getDureeArret().getMinutes()+","+idParcours+","+ep.getVersion()+")";
+			if(rowsUpdated > 0){
+				System.out.println("query = "+queryDeleteElementParcours);
+				System.out.println("trying to execute :\n" + queryDeleteElementParcours);
+				statement.executeUpdate(queryDeleteElementParcours);	 
+				System.out.println("queryParcours executed successfuly :\n" + queryDeleteElementParcours);
 				
-				System.out.println("query = "+queryElementParcours);
 				
-				System.out.println("trying to execute :\n" + queryElementParcours);
-				statement.executeUpdate(queryElementParcours);
+				for(ElementParcours ep:elementsParcours){
+					String queryElementParcours="insert into ELEMENT_PARCOURS(id_station_dep , id_station_arr , duree , duree_arret ,id_parcours , version) values("+ep.getStationDepId()+","+ep.getStationArrId()+","+ep.getDuree().getMinutes()+","+ep.getDureeArret().getMinutes()+","+idParcours+","+ep.getVersion()+")";
+					
+					System.out.println("query = "+queryElementParcours);
+					
+					System.out.println("trying to execute :\n" + queryElementParcours);
+					statement.executeUpdate(queryElementParcours);
+				}
 			}
 			conn.commit();
+			result = rowsUpdated > 0;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -204,6 +208,7 @@ public class ParcoursDao implements IParcoursDao {
 			} catch (Exception e) {
 			}
 		}
+		return result;
 
 	}
 	
