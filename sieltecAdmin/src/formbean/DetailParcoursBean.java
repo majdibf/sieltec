@@ -89,4 +89,10 @@ public class DetailParcoursBean {
 		return "detail_parcours";
 	}
 	
+	
+	public String retour(){
+		return"liste_parcours";
+		
+	}
+	
 }

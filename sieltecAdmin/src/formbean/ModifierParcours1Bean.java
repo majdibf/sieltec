@@ -132,13 +132,17 @@ public class ModifierParcours1Bean {
 					this.selectedStations[i+1]=elementsParcours.get(i).getStationArrId();
 				}
 			}
+			
 			return "modifier_parcours1";
 		}
 		
 		
-		public String modifier(){
+		public String suivant(){
 			return"modifier_parcours2";
-			
+		}
+		
+		public String retour(){
+			return"detail_parcours";
 		}
 		
 }

@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIOutput;
 import javax.faces.component.html.HtmlPanelGrid;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.joda.time.Minutes;
 import org.openfaces.component.output.GraphicText;
@@ -26,6 +28,10 @@ public class ModifierParcours2Bean {
 	private ModifierParcours1Bean modifierParcours1Bean;
 	
 
+	@ManagedProperty(value="#{detailParcoursBean}")
+	private DetailParcoursBean detailParcoursBean;
+	
+	
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
 	
@@ -117,6 +123,15 @@ public class ModifierParcours2Bean {
 	public void setModifierParcours1Bean(ModifierParcours1Bean modifierParcours1Bean) {
 		this.modifierParcours1Bean = modifierParcours1Bean;
 	}
+	
+
+	public DetailParcoursBean getDetailParcoursBean() {
+		return detailParcoursBean;
+	}
+
+	public void setDetailParcoursBean(DetailParcoursBean detailParcoursBean) {
+		this.detailParcoursBean = detailParcoursBean;
+	}
 
 	public void setGrid(HtmlPanelGrid grid) {
 		this.grid = grid;
@@ -155,7 +170,7 @@ public class ModifierParcours2Bean {
 		Long selectedStations []=modifierParcours1Bean.getSelectedStations();
 		Ligne l=managementService.getLigneByName(modifierParcours1Bean.getLigne());
 		
-		Parcours p=new Parcours(modifierParcours1Bean.getIdparcours(), modifierParcours1Bean.getNomParcours(), l.getId(), 0);
+		Parcours p=new Parcours(detailParcoursBean.getParc().getId(), modifierParcours1Bean.getNomParcours(), l.getId(), detailParcoursBean.getParc().getVersion());
 		
 		for(int i=0;i<selectedStations.length-1;i++){
 			Long idStationDep=selectedStations[i];
@@ -189,7 +204,16 @@ public class ModifierParcours2Bean {
 		
 		managementService.updateParcours(p,elementsParcours);
 		
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).removeAttribute("detailParcoursBean");
+		((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).removeAttribute("modifierParcours1Bean");
+		
+		
 		return "liste_parcours";
+	}
+	
+	public String retour(){	
+		return"modifier_parcours1";
 	}
 	
 }

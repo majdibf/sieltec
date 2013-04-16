@@ -145,7 +145,7 @@ public class ParcoursDao implements IParcoursDao {
 
 	@Override
 	public void update(Parcours p, List<ElementParcours> elementsParcours) {
-		String queryParcours = "update sieltec.Parcours set nom ='"+p.getNom()+"',id_ligne="+p.getLigneId()+",version="+(p.getVersion()+1)+" where id="+p.getId()+"and version="+p.getVersion();
+		String queryParcours = "update sieltec.Parcours set nom ='"+p.getNom()+"',id_ligne="+p.getLigneId()+",version= "+(p.getVersion()+1)+" where id= "+p.getId()+"and version= "+p.getVersion();
 		String queryDeleteElementParcours="delete from sieltec.element_parcours where id_parcours="+p.getId();
 		
 		Connection conn = null;
@@ -206,16 +206,6 @@ public class ParcoursDao implements IParcoursDao {
 		}
 
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@Override
 	public Long delete(Parcours parcours) {
