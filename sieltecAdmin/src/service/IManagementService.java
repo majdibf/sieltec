@@ -96,5 +96,9 @@ public interface IManagementService {
 	public void updateConducteur(Conducteur c);
 
 	public void updateLigne(Ligne l);
+
+	public void updateStation(Station s);
+
+	public void updateVehicule(Vehicule v);
 	
 }

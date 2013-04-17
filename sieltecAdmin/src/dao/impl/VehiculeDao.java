@@ -215,9 +215,47 @@ public class VehiculeDao implements IVehiculeDao {
 		}
 		
 		return result;	
+	}
+
+	@Override
+	public void update(Vehicule v) {
+		String query = "update sieltec.vehicule set immatriculation ='"+v.getImmatriculation()+"',version= "+(v.getVersion()+1)+" where id= "+v.getId()+"and version= "+v.getVersion();
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		long id = 0;
 		
-		
-		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			statement.executeUpdate(query);
+			 
+			System.out.println("query executed successfuly :\n" + query);
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+
 	}
 
 }

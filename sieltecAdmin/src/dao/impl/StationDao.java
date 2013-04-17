@@ -315,4 +315,45 @@ public class StationDao implements IStationDao, Serializable {
 		return result;
 
 	}
+
+	@Override
+	public void update(Station s) {
+		String query = "update sieltec.station set nom ='"+s.getNom()+"',longitude='"+s.getLongitude()+"',latitude='"+s.getLatitude()+"',version= "+(s.getVersion()+1)+" where id= "+s.getId()+"and version= "+s.getVersion();
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			statement.executeUpdate(query);
+			 
+			System.out.println("query executed successfuly :\n" + query);
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+
+		
+	}
 }

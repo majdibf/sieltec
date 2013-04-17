@@ -30,7 +30,7 @@ public class LigneDao implements ILigneDao {
 		Connection conn = null;
 		Statement statement = null;
 		ResultSet rs = null;
-		long id = 0;
+		Long id = null;
 		
 		try {
 			conn = dbLoader.getDs().getConnection();
@@ -321,7 +321,6 @@ public class LigneDao implements ILigneDao {
 			}
 		}
 
-		
 	}
 
 

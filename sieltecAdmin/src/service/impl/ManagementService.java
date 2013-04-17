@@ -553,4 +553,14 @@ public class ManagementService implements IManagementService, Serializable {
 		
 	}
 
+	@Override
+	public void updateStation(Station s) {
+		stationDao.update(s);
+	}
+
+	@Override
+	public void updateVehicule(Vehicule v) {
+		vehiculeDao.update(v);
+	}
+
 }
