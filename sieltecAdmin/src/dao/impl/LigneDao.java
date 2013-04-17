@@ -283,5 +283,46 @@ public class LigneDao implements ILigneDao {
 		return ligne;
 	}
 
+	@Override
+	public void update(Ligne l) {
+		String query = "update sieltec.Ligne set nom ='"+l.getNom()+"',version= "+(l.getVersion()+1)+" where id= "+l.getId()+"and version= "+l.getVersion();
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			statement.executeUpdate(query);
+			 
+			System.out.println("query executed successfuly :\n" + query);
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+
+		
+	}
+
 
 }

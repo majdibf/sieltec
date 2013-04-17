@@ -16,5 +16,7 @@ public interface ILigneDao {
 	public Ligne findByName(String nomLigne);
 
 	public Ligne findLignesById(Long ligneId);
+
+	public void update(Ligne l);
 					   
 }

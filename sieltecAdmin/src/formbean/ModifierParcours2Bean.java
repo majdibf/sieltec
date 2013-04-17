@@ -27,6 +27,8 @@ public class ModifierParcours2Bean {
 	@ManagedProperty(value="#{modifierParcours1Bean}")
 	private ModifierParcours1Bean modifierParcours1Bean;
 	
+	@ManagedProperty(value="#{errorBean}")
+	private ErrorBean errorBean;
 
 	@ManagedProperty(value="#{detailParcoursBean}")
 	private DetailParcoursBean detailParcoursBean;
@@ -40,7 +42,9 @@ public class ModifierParcours2Bean {
 	
 	//output
 	
-	
+	public ModifierParcours2Bean() {
+		errorBean.setMessage(null);
+	}
 	
 	public HtmlPanelGrid getGrid() {
 		List<Station> stations = getStations();
@@ -115,6 +119,17 @@ public class ModifierParcours2Bean {
 		
 		return grid;
 	}
+
+	
+	public ErrorBean getErrorBean() {
+		return errorBean;
+	}
+
+
+	public void setErrorBean(ErrorBean errorBean) {
+		this.errorBean = errorBean;
+	}
+
 
 	public ModifierParcours1Bean getModifierParcours1Bean() {
 		return modifierParcours1Bean;
@@ -202,7 +217,11 @@ public class ModifierParcours2Bean {
 		}}
 		
 		
-		managementService.updateParcours(p,elementsParcours);
+		boolean updated= managementService.updateParcours(p,elementsParcours);
+		
+		if(updated==false){
+			errorBean.setMessage("error lors de modification du parcours!!");
+		}
 		
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).removeAttribute("detailParcoursBean");

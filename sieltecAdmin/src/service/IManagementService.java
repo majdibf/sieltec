@@ -94,5 +94,7 @@ public interface IManagementService {
 	public boolean updateParcours(Parcours p, List<ElementParcours> elementsParcours);
 
 	public void updateConducteur(Conducteur c);
+
+	public void updateLigne(Ligne l);
 	
 }

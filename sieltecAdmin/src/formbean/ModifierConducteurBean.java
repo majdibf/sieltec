@@ -97,12 +97,11 @@ public class ModifierConducteurBean {
 	public String update(){
 		Conducteur c =new Conducteur(detailConducteurBean.getConducteur().getId() , nom , prenom , contact , detailConducteurBean.getConducteur().getVersion());
 		managementService.updateConducteur(c);
-		
-
 		return "liste_conducteurs";
 	}
 	
+	public String retour(){
+		return "detail_conducteur";
+	}
 
-	
-	
 }

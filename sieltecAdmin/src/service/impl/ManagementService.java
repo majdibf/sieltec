@@ -547,4 +547,10 @@ public class ManagementService implements IManagementService, Serializable {
 		
 	}
 
+	@Override
+	public void updateLigne(Ligne l) {
+		ligneDao.update(l);
+		
+	}
+
 }
