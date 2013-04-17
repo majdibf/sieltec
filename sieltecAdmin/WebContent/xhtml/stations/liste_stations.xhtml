@@ -90,7 +90,6 @@
 
         <!-- Customize form
         ================================================== -->
-        <form>
           <section class="download" id="components">
             <div class="page-header">
               <h3> Liste des stations</h3>
@@ -100,7 +99,7 @@
 
 
 			<a href="../stations/ajouter_station.jsf">Ajouter ue station</a>
-
+						<h:form>
 						<o:dataTable var="station"
 							value="#{listeStationBean.stations}"
 							style="width: 100%; table-layout: fixed;">
@@ -108,35 +107,49 @@
 								<f:facet name="header">
 									<h:outputText value="id" />
 								</f:facet>
+								
+							<h:commandLink action="#{detailStationBean.afficherDetailStation}">							
 								<h:outputText value="#{station.getId()}" />
+								<f:param name="idStation" value="#{station.getId()}"/>
+							</h:commandLink>
 							</o:column>
 
 							<o:column styleClass="hintLabel_column">
 								<f:facet name="header">
 									<h:outputText value="Nom" />
 								</f:facet>
+								
+							<h:commandLink action="#{detailStationBean.afficherDetailStation}">							
 								<h:outputText value="#{station.getNom()}" />
+								<f:param name="idStation" value="#{station.getId()}"/>
+							</h:commandLink>
 							</o:column>
 
 							<o:column styleClass="hintLabel_column">
 								<f:facet name="header">
 									<h:outputText value="Longitude" />
 								</f:facet>
+								
+							<h:commandLink action="#{detailStationBean.afficherDetailStation}">							
 								<h:outputText value="#{station.getLongitude()}" />
+								<f:param name="idStation" value="#{station.getId()}"/>
+							</h:commandLink>
 							</o:column>
 
 							<o:column styleClass="hintLabel_column">
 								<f:facet name="header">
 									<h:outputText value="Latitude" />
 								</f:facet>
+							<h:commandLink action="#{detailStationBean.afficherDetailStation}">								
 								<h:outputText value="#{station.getLatitude()}" />
+							<f:param name="idStation" value="#{station.getId()}"/>
+							</h:commandLink>
 							</o:column>
 						</o:dataTable>
-
+					</h:form>
             </div><!-- /row -->
           </section>
       
-        </form>
         
       </div>
     </div>

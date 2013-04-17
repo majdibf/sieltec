@@ -1,15 +1,15 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:o="http://openfaces.org/">
+	xmlns:o="http://openfaces.org/"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	
   
   <h:head>
     <meta charset="utf-8"/>
-    <title>Liste des vehicules · SIELTEC Admin</title>
+    <title>Liste des parcours · SIELTEC Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
@@ -75,16 +75,16 @@
     <!-- Docs nav
     ================================================== -->
     <div class="row">
-      <div class="span3 bs-docs-sidebar">
+       <div class="span3 bs-docs-sidebar">
         <ul class="nav nav-list bs-docs-sidenav">
           <li><a href="../authentification/accueil.jsf"><i class="icon-chevron-right"></i> 1. Accueil</a></li>
           <li ><a href="../lignes/liste_lignes.jsf"><i class="icon-chevron-right"></i> 2. Lignes</a></li>
-          <li ><a href="../stations/liste_stations.jsf"><i class="icon-chevron-right"></i> 3. Stations</a></li>
-          <li ><a href="../parcours/liste_parcours.jsf"><i class="icon-chevron-right"></i> 4. Parcours</a></li>
-		  <li ><a href="../programmes/liste_programmes.jsf"><i class="icon-chevron-right"></i> 5.Programmes</a></li>
-		  <li class="active"><a href="../vehicules/liste_vehicules.jsf"><i class="icon-chevron-right"></i> 6.Véhicules</a></li>
+          <li ><a href="../stations/ajouter_stations.jsf"><i class="icon-chevron-right"></i> 3. Stations</a></li>
+          <li class="active"><a href="../parcours/liste_parcours.jsf"><i class="icon-chevron-right"></i> 4. Parcours</a></li>
+		  <li><a href="../programmes/liste_programmes.jsf"><i class="icon-chevron-right"></i> 5.Programmes</a></li>
+		  <li><a href="../vehicules/liste_vehicules.jsf"><i class="icon-chevron-right"></i> 6.Véhicules</a></li>
 		  <li ><a href="../conducteurs/liste_conducteurs.jsf"><i class="icon-chevron-right"></i> 7.Conducteur</a></li>
-		</ul>
+        </ul>
       </div>
       <div class="span9">
 
@@ -92,41 +92,34 @@
         ================================================== -->
           <section class="download" id="components">
             <div class="page-header">
-              <h3> Liste des vehicule</h3>
+              <h3> Détail de la station </h3>
             </div>
             <div class="row download-builder">
-              
-              			<a href="../vehicules/ajouter_vehicule.jsf">Ajouter une véhicule</a>
-							
- 					<h:form>
-						<o:dataTable var="vehicule"
-							value="#{listeVehiculeBean.vehicules}"
-							style="width: 100%; table-layout: fixed;">
-							<o:column styleClass="hintLabel_column">
-								<f:facet name="header">
-									<h:outputText value="id" />
-								</f:facet>
-							<h:commandLink action="#{detailVehiculeBean.afficherDetailVehicule}">
-								<h:outputText value="#{vehicule.getId()}" />
-								<f:param name="idVehicule" value="#{vehicule.getId()}"/>
-							</h:commandLink>
-							
-							</o:column>
-
-							<o:column styleClass="hintLabel_column">
-								<f:facet name="header">
-									<h:outputText value="Immatriculation" />
-								</f:facet>
-							<h:commandLink action="#{detailVehiculeBean.afficherDetailVehicule}">
-								<h:outputText value="#{vehicule.getImmatriculation()}" />
-								<f:param name="idVehicule" value="#{vehicule.getId()}"/>
-							</h:commandLink>
-							</o:column>
-						</o:dataTable>
-           </h:form>
+           
+				    <h:panelGrid columns="2">
+				    	<h:outputText value="id "/>
+				    	<h:outputText value="#{detailStationBean.station.id}"/>
+				    	
+				    	<h:outputText value="Nom station"/>
+				    	<h:outputText value="#{detailStationBean.station.nom}"/>
+				    	
+				    	<h:outputText value="Longitude "/>
+				    	<h:outputText value="#{detailStationBean.station.longitude}"/>
+				    	
+				    	<h:outputText value="Latitude "/>
+				    	<h:outputText value="#{detailStationBean.station.latitude}"/>
+				    	
+				    </h:panelGrid>
+									
+						<h:form>
+							<h:commandButton value="Retour" type="submit" action="#{detailStationBean.retour}" styleClass="btn"/>
+							<h:commandButton value="Modifier" action="#{modifierStationBean.initialiser}" type="submit" styleClass="btn"/>
+			            </h:form>
             </div><!-- /row -->
           </section>
-              
+      
+      
+        
       </div>
     </div>
 
