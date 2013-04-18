@@ -542,25 +542,35 @@ public class ManagementService implements IManagementService, Serializable {
 	}
 
 	@Override
-	public void updateConducteur(Conducteur c) {
-		conducteurDao.update(c);
+	public boolean updateConducteur(Conducteur c) {
+		return conducteurDao.update(c);
 		
 	}
 
 	@Override
-	public void updateLigne(Ligne l) {
-		ligneDao.update(l);
+	public boolean updateLigne(Ligne l) {
+		return ligneDao.update(l);
 		
 	}
 
 	@Override
-	public void updateStation(Station s) {
-		stationDao.update(s);
+	public boolean updateStation(Station s) {
+		return stationDao.update(s);
 	}
 
 	@Override
-	public void updateVehicule(Vehicule v) {
-		vehiculeDao.update(v);
+	public boolean updateVehicule(Vehicule v) {
+		return vehiculeDao.update(v);
+	}
+
+	@Override
+	public Programme getProgrammeById(Long idProgramme) {
+		return programmeDao.findById(idProgramme);
+	}
+
+	@Override
+	public boolean updateProgramme(Programme p) {
+		return programmeDao.update(p);
 	}
 
 }

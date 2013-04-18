@@ -93,12 +93,16 @@ public interface IManagementService {
 
 	public boolean updateParcours(Parcours p, List<ElementParcours> elementsParcours);
 
-	public void updateConducteur(Conducteur c);
+	public boolean updateConducteur(Conducteur c);
 
-	public void updateLigne(Ligne l);
+	public boolean updateLigne(Ligne l);
 
-	public void updateStation(Station s);
+	public boolean updateStation(Station s);
 
-	public void updateVehicule(Vehicule v);
+	public boolean updateVehicule(Vehicule v);
+
+	public Programme getProgrammeById(Long idProgramme);
+
+	public boolean updateProgramme(Programme p);
 	
 }

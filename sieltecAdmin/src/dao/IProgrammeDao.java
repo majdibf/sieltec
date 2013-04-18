@@ -16,4 +16,8 @@ public interface IProgrammeDao {
 	
 	public List<Programme> findByDateAndIdParcours(DateTime date,long idParcours);
 
+	public Programme findById(Long idProgramme);
+
+	public boolean update(Programme p);
+
 }

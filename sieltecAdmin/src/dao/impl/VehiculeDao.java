@@ -218,7 +218,8 @@ public class VehiculeDao implements IVehiculeDao {
 	}
 
 	@Override
-	public void update(Vehicule v) {
+	public boolean update(Vehicule v) {
+		boolean result = false;
 		String query = "update sieltec.vehicule set immatriculation ='"+v.getImmatriculation()+"',version= "+(v.getVersion()+1)+" where id= "+v.getId()+"and version= "+v.getVersion();
 		Connection conn = null;
 		Statement statement = null;
@@ -232,10 +233,11 @@ public class VehiculeDao implements IVehiculeDao {
 			System.out.println("query = "+query);
 			
 			System.out.println("trying to execute :\n" + query);
-			statement.executeUpdate(query);
+			int rowsUpdated = statement.executeUpdate(query);
 			 
 			System.out.println("query executed successfuly :\n" + query);
 	
+			result = rowsUpdated > 0;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -256,6 +258,7 @@ public class VehiculeDao implements IVehiculeDao {
 			}
 		}
 
+		return result;
 	}
 
 }

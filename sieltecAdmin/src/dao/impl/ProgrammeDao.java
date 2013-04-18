@@ -18,6 +18,7 @@ import commun.DBLoader;
 
 import dao.IProgrammeDao;
 import db.Conducteur;
+import db.ElementParcours;
 import db.Ligne;
 import db.Parcours;
 import db.Programme;
@@ -209,6 +210,114 @@ public class ProgrammeDao implements IProgrammeDao {
 			}
 		}
 		return programmes;
+	}
+
+	@Override
+	public Programme findById(Long idProgramme) {
+		String query = "select * from programme where id="+idProgramme;
+		Programme prog = null;
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();			
+			
+			System.out.println("query = "+query);
+			
+			
+			System.out.println("trying to execute :\n" + query);
+			rs = statement.executeQuery(query);
+			System.out.println("query executed successfuly :\n" + query);
+
+			while (rs.next()) {
+				Long id = rs.getLong("id");
+
+				Timestamp dateHeureDebutTS = rs.getTimestamp("DATE_HEURE_DEBUT");
+				
+				DateTime dateHeureDebut = new DateTime(dateHeureDebutTS.getTime());
+				Long parcoursId = rs.getLong("ID_PARCOURS");
+				
+				Long vehiculeId = rs.getLong("ID_VEHICULE");;
+				Long conducteurId = rs.getLong("ID_CONDUCTEUR");;
+				int version = rs.getInt("version");
+
+				prog = new Programme(id, dateHeureDebut, parcoursId, vehiculeId, conducteurId, version);
+				
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return prog;
+	}
+
+	@Override
+	public boolean update(Programme p) {
+		boolean result = false;
+		Timestamp d=new Timestamp(p.getDateHeureDebut().getMillis());
+		String query = "update sieltec.Programme set date_heure_debut ='"+d+"',id_parcours= "+p.getParcoursId()+", id_vehicule= "+p.getVehiculeId()+" , id_conducteur="+p.getConducteurId()+" , version= "+(p.getVersion()+1)+" where id= "+p.getId()+"and version= "+p.getVersion();
+		
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		Long idParcours = p.getId();
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			System.out.println("trying to execute :\n" + query);
+			int rowsUpdated = statement.executeUpdate(query);	 
+			System.out.println("queryParcours executed successfuly :\n" + query);
+		
+			result = rowsUpdated > 0;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return result;
+
+
+		
 	}
 
 }

@@ -18,6 +18,6 @@ public interface IConducteurDao {
 
 	public Conducteur findByName(String nom, String prenom);
 
-	public void update(Conducteur c);
+	public boolean update(Conducteur c);
 	
 }

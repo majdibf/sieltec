@@ -317,7 +317,8 @@ public class StationDao implements IStationDao, Serializable {
 	}
 
 	@Override
-	public void update(Station s) {
+	public boolean update(Station s) {
+		boolean result = false;
 		String query = "update sieltec.station set nom ='"+s.getNom()+"',longitude='"+s.getLongitude()+"',latitude='"+s.getLatitude()+"',version= "+(s.getVersion()+1)+" where id= "+s.getId()+"and version= "+s.getVersion();
 		Connection conn = null;
 		Statement statement = null;
@@ -330,10 +331,12 @@ public class StationDao implements IStationDao, Serializable {
 			System.out.println("query = "+query);
 			
 			System.out.println("trying to execute :\n" + query);
-			statement.executeUpdate(query);
+			int rowsUpdated =statement.executeUpdate(query);
 			 
 			System.out.println("query executed successfuly :\n" + query);
 	
+			result = rowsUpdated > 0;
+
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -353,7 +356,7 @@ public class StationDao implements IStationDao, Serializable {
 			} catch (Exception e) {
 			}
 		}
-
+		return result;
 		
 	}
 }

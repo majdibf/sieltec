@@ -222,7 +222,8 @@ public class ConducteurDao implements IConducteurDao {
 	}
 
 	@Override
-	public void update(Conducteur c) {
+	public boolean update(Conducteur c) {
+		boolean result = false;
 		String query = "update sieltec.Conducteur set nom ='"+c.getNom()+"',prenom='"+c.getPrenom()+"',contact='"+c.getContact()+"',version= "+(c.getVersion()+1)+" where id= "+c.getId()+"and version= "+c.getVersion();
 		Connection conn = null;
 		Statement statement = null;
@@ -236,10 +237,12 @@ public class ConducteurDao implements IConducteurDao {
 			System.out.println("query = "+query);
 			
 			System.out.println("trying to execute :\n" + query);
-			statement.executeUpdate(query);
+			int rowsUpdated =statement.executeUpdate(query);
 			 
 			System.out.println("query executed successfuly :\n" + query);
-	
+			
+			result = rowsUpdated > 0;
+
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -259,6 +262,7 @@ public class ConducteurDao implements IConducteurDao {
 			} catch (Exception e) {
 			}
 		}
+		return result;
 		
 	}
 

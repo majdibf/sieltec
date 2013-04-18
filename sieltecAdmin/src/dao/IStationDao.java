@@ -22,6 +22,6 @@ public interface IStationDao {
 
 	public Station findById(Long stationDepId);
 
-	public void update(Station s);
+	public boolean update(Station s);
 
 }

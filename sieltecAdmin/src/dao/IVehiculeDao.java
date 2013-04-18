@@ -16,6 +16,6 @@ public interface IVehiculeDao {
 
 	public Vehicule findByImmatriculation(String vehicule);
 
-	public void update(Vehicule v);
+	public boolean update(Vehicule v);
 
 }

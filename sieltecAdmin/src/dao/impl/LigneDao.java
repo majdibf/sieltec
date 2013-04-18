@@ -284,7 +284,8 @@ public class LigneDao implements ILigneDao {
 	}
 
 	@Override
-	public void update(Ligne l) {
+	public boolean update(Ligne l) {
+		boolean result = false;
 		String query = "update sieltec.Ligne set nom ='"+l.getNom()+"',version= "+(l.getVersion()+1)+" where id= "+l.getId()+"and version= "+l.getVersion();
 		Connection conn = null;
 		Statement statement = null;
@@ -297,10 +298,11 @@ public class LigneDao implements ILigneDao {
 			System.out.println("query = "+query);
 			
 			System.out.println("trying to execute :\n" + query);
-			statement.executeUpdate(query);
+			int rowsUpdated =statement.executeUpdate(query);
 			 
 			System.out.println("query executed successfuly :\n" + query);
 	
+			result = rowsUpdated > 0;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -320,6 +322,7 @@ public class LigneDao implements ILigneDao {
 			} catch (Exception e) {
 			}
 		}
+		return result;
 
 	}
 

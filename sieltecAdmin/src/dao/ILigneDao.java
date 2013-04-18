@@ -17,6 +17,6 @@ public interface ILigneDao {
 
 	public Ligne findLignesById(Long ligneId);
 
-	public void update(Ligne l);
+	public boolean update(Ligne l);
 					   
 }
