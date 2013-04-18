@@ -1,15 +1,15 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:o="http://openfaces.org/"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+		xmlns:o="http://openfaces.org/">
 	
   
   <h:head>
     <meta charset="utf-8"/>
-    <title>Liste des parcours · SIELTEC Admin</title>
+    <title>Ajouter programme · SIELTEC Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
@@ -80,8 +80,8 @@
           <li><a href="../authentification/accueil.jsf"><i class="icon-chevron-right"></i> 1. Accueil</a></li>
           <li ><a href="../lignes/liste_lignes.jsf"><i class="icon-chevron-right"></i> 2. Lignes</a></li>
           <li ><a href="../stations/liste_stations.jsf"><i class="icon-chevron-right"></i> 3. Stations</a></li>
-          <li class="active"><a href="../parcours/liste_parcours.jsf"><i class="icon-chevron-right"></i> 4. Parcours</a></li>
-		  <li><a href="../programmes/liste_programmes.jsf"><i class="icon-chevron-right"></i> 5.Programmes</a></li>
+          <li ><a href="../parcours/liste_parcours.jsf"><i class="icon-chevron-right"></i> 4. Parcours</a></li>
+		  <li class="active"><a href="../programmes/liste_programmes.jsf"><i class="icon-chevron-right"></i> 5.Programmes</a></li>
 		  <li><a href="../vehicules/liste_vehicules.jsf"><i class="icon-chevron-right"></i> 6.Véhicules</a></li>
 		  <li ><a href="../conducteurs/liste_conducteurs.jsf"><i class="icon-chevron-right"></i> 7.Conducteur</a></li>
         </ul>
@@ -92,108 +92,66 @@
         ================================================== -->
           <section class="download" id="components">
             <div class="page-header">
-              <h3> Détail du parcours </h3>
+              <h3> modifier programme </h3>
             </div>
             <div class="row download-builder">
-            
-			<h:panelGrid columns="2" >
-				<h:outputText value="Nom Parcours :"/>
-				<h:outputText value="#{detailParcoursBean.screenParcours.nom}"/>
-				
-				<h:outputText value="Ligne :"/>
-				<h:outputText value="#{detailParcoursBean.screenParcours.ligne.nom}"/>
-			</h:panelGrid>
-			
-				    
-			
-			
-				    <table>
-    
-						<c:forEach items="#{detailParcoursBean.screenElementsParcours}" var="elementParcours" varStatus="status">
-							<c:choose>
-								<c:when test="#{status.first=='true'}" >
-										<tr>
-										 <td> <h:outputText value="#{elementParcours.stationDep.nom}" /></td>
-										 <td></td>
-										</tr>
-										
-										<tr>
-											<td>
-												<o:graphicText value="x---------------" direction="90"/>
-											</td>
-										
-											<td> <h:outputText value="#{elementParcours.duree.minutes}" /> </td>
-										</tr>
-										
-										
-										<tr>
-											<td>
-												<h:outputText value="#{elementParcours.stationArr.nom}" />
-											</td>
-										
-											<td> <h:outputText value="#{elementParcours.dureeArret.minutes}" /> </td>
-										</tr>
-		
-								</c:when>
 
-
-								<c:when test="#{status.last =='true'}">
-									<tr>
-											<td>
-												<o:graphicText value="x---------------" direction="90"></o:graphicText>
-											</td>
+				<h:form>
+					<h:panelGrid columns="2">
+						<h:outputLabel for="date" value="Date" />
+						<o:dateChooser id="date" value="#{modifierProgrammeBean.date}"
+										pattern="dd/M/yyyy" styleClass="defaultWidth"
+										dayStyle="border: 1px solid white;" noneText="" />
 										
-											<td> <h:outputText value="#{elementParcours.duree.minutes}" /> </td>
-									</tr>
-									
-									<tr>
-									
-											<td>
-												<h:outputText value="#{elementParcours.stationArr.nom}" />
-											</td>
-											
-											<td></td>
-									
-									</tr>
-								</c:when>
-								
-								
-								<c:otherwise>
-									
-									<tr>
-											<td>
-												<o:graphicText value="x---------------" direction="90"></o:graphicText>
-											</td>
 										
-											<td> <h:outputText value="#{elementParcours.duree.minutes}" /> </td>
-									</tr>
-									
-									
-										<tr>
-									
-											<td>
-												<h:outputText value="#{elementParcours.stationArr.nom}" />
-											</td>
-											
-											<td> 
-												<h:outputText value="#{elementParcours.dureeArret.minutes}" />
-											</td>
-									
-									</tr>
-									
-								</c:otherwise>
-							</c:choose>
-
-						</c:forEach>
-						</table>
+						<h:outputLabel for="date" value="Heure de début" />			
+						<h:panelGrid id="heureDepart" columns="3">
+										<o:spinner value="#{modifierProgrammeBean.heure}" minValue="00"
+											maxValue="23" step="1" type="hour" />
+										<h:outputText value=":" />
+										<o:spinner value="#{modifierProgrammeBean.minute}" minValue="00"
+											maxValue="59" step="1" />
+						</h:panelGrid>
 						
-						<h:form>
-							<h:commandButton value="Retour" type="submit" action="#{detailParcoursBean.retour}" styleClass="btn"/>
-							<h:commandButton value="Modifier" action="#{modifierParcours1Bean.initialiser}" type="submit" styleClass="btn"/>
-			            </h:form>
-            </div><!-- /row -->
+						<h:outputLabel for="parcours" value="Parcours" />
+						<o:dropDownField id="parcours" suggestionMode="custom"
+										autoComplete="true" customValueAllowed="false"
+										value="#{modifierProgrammeBean.parcours}"
+										listItemStyle="white-space: nowrap;">
+
+									<o:dropDownItems value="#{modifierProgrammeBean.suggestedParcours}" />
+						</o:dropDownField>
+						
+										
+						<h:outputLabel for="conducteur" value="Conducteur" />
+						<o:dropDownField id="conducteur" suggestionMode="custom"
+										autoComplete="true" customValueAllowed="false"
+										value="#{modifierProgrammeBean.conducteur}"
+										listItemStyle="white-space: nowrap;">
+
+									<o:dropDownItems value="#{modifierProgrammeBean.suggestedConducteur}" />
+						</o:dropDownField>
+						
+						<h:outputLabel for="vehicule" value="Vehicule" />
+						<o:dropDownField id="vehicule" suggestionMode="custom"
+										autoComplete="true" customValueAllowed="false"
+										value="#{modifierProgrammeBean.vehicule}"
+										listItemStyle="white-space: nowrap;">
+
+									<o:dropDownItems value="#{modifierProgrammeBean.suggestedVehicule}" />
+						</o:dropDownField>
+
+					 </h:panelGrid>
+						
+						<h:commandButton value="Retour" type="submit" action="#{modifierProgrammeBean.retour}" styleClass="btn"/>
+						<h:commandButton value="Modifier" action="#{modifierProgrammeBean.update}" type="submit" styleClass="btn"/>
+			           
+				</h:form>
+
+
+
+			</div><!-- /row -->
           </section>
-      
       
         
       </div>

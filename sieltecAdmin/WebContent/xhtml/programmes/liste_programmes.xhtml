@@ -90,7 +90,6 @@
 
         <!-- Customize form
         ================================================== -->
-        <form>
           <section class="download" id="components">
             <div class="page-header">
               <h3> Liste des programmes</h3>
@@ -100,8 +99,7 @@
 
 
 			<a href="../programmes/ajouter_programme.jsf">Ajouter un programme</a>
-			
-			
+			<h:form>		
 						<o:dataTable var="programme"
 							value="#{listeProgrammeBean.screenProgrammes}"
 							style="width: 100%; table-layout: fixed;">
@@ -109,16 +107,25 @@
 								<f:facet name="header">
 									<h:outputText value="Id" />
 								</f:facet>
+			
+								<h:commandLink action="#{detailProgrammeBean.afficherDetailProgramme}">
 								<h:outputText value="#{programme.getId()}" />
+								<f:param name="idProgramme" value="#{programme.getId()}"/>
+								</h:commandLink>
+						
 							</o:column>
 
 							<o:column styleClass="hintLabel_column">
 								<f:facet name="header">
 									<h:outputText value="Heure de début" />
 								</f:facet>
+					
+								<h:commandLink action="#{detailProgrammeBean.afficherDetailProgramme}">
 								<h:outputText value="#{programme.getDateHeureDebut()}" >
-									<f:convertDateTime dateStyle="medium" />
+									<f:convertDateTime dateStyle="medium" type="both" timeStyle="short"/>
 								</h:outputText>
+								<f:param name="idProgramme" value="#{programme.getId()}"/>
+								</h:commandLink>
 								
 							</o:column>
 
@@ -126,31 +133,39 @@
 								<f:facet name="header">
 									<h:outputText value="Parcours" />
 								</f:facet>
+								<h:commandLink action="#{detailProgrammeBean.afficherDetailProgramme}">
 								<h:outputText value="#{programme.getParcours().getNom()}" />
+								<f:param name="idProgramme" value="#{programme.getId()}"/>
+								</h:commandLink>
+					
 							</o:column>
 
 							<o:column styleClass="hintLabel_column">
 								<f:facet name="header">
 									<h:outputText value="Vehicule" />
 								</f:facet>
+								<h:commandLink action="#{detailProgrammeBean.afficherDetailProgramme}">
 								<h:outputText value="#{programme.getVehicule().getImmatriculation()}" />
+								<f:param name="idProgramme" value="#{programme.getId()}"/>
+								</h:commandLink>
+					
 							</o:column>
 						
 							<o:column styleClass="hintLabel_column">
 								<f:facet name="header">
 									<h:outputText value="Conducteur" />
 								</f:facet>
+								<h:commandLink action="#{detailProgrammeBean.afficherDetailProgramme}">
 								<h:outputText value="#{programme.getConducteur().getNom()}" />
+								<f:param name="idProgramme" value="#{programme.getId()}"/>
+								</h:commandLink>
 							</o:column>
 						
-
 						</o:dataTable>
-			
+			</h:form>
             </div><!-- /row -->
           </section>
-      
-        </form>
-        
+ 
       </div>
     </div>
 
