@@ -1,11 +1,14 @@
 package formbean;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
 import service.IManagementService;
+import db.Conducteur;
 import db.Ligne;
 import db.Station;
 
@@ -34,6 +37,19 @@ public class ListeLigneBean {
 		this.lignes = lignes;
 	}
 
+	public String remove(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+		Long idLigne =  Long.parseLong((params.get("idLigne"))); 
+		Ligne l = managementService.getLignesById(idLigne);
+		
+		boolean result=managementService.removeLigne(l);
+		System.out.println(result);
+		//
+		//
+		return "liste_lignes";
+	}
+	
 	
 	
 }

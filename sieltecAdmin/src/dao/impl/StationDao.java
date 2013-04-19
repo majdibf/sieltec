@@ -90,9 +90,50 @@ public class StationDao implements IStationDao, Serializable {
 	}
 
 	@Override
-	public Long delete(Station station) {
-		// TODO Auto-generated method stub
-		return 0l;
+	public boolean delete(Station s) {
+		boolean result = false;
+		String query = "delete from sieltec.Station where id= "+s.getId()+"and version= "+s.getVersion();
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			int rowsUpdated =statement.executeUpdate(query);
+			 
+			System.out.println("query executed successfuly :\n" + query);
+			
+			result = rowsUpdated > 0;
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+			result=false;
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return result;
+
+
+		
 	}
 
 	@Override

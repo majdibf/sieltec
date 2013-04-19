@@ -10,7 +10,7 @@ public interface IProgrammeDao {
 
 	public Long insert(Programme programme);
 
-	public Long delete(Programme programme);
+	public boolean delete(Programme programme);
 
 	public List<Programme> findAll();
 	

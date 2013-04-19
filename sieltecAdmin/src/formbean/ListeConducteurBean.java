@@ -1,9 +1,11 @@
 package formbean;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
 import service.IManagementService;
 import db.Conducteur;
@@ -46,7 +48,20 @@ public class ListeConducteurBean {
 	public void setErrorBean(ErrorBean errorBean) {
 		this.errorBean = errorBean;
 	}
-
-
+	
+	public String remove(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+		Long idConducteur =  Long.parseLong((params.get("idConducteur"))); 
+		Conducteur c = managementService.getConducteurById(idConducteur);
+		
+		boolean result=managementService.removeConducteur(c);
+		System.out.println(result);
+		//
+		//
+		return "liste_conducteurs";
+	}
+	
+	
 	
 }

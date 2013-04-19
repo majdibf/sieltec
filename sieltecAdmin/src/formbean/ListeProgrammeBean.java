@@ -3,15 +3,18 @@ package formbean;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
 import org.joda.time.DateTime;
 
 import screenbean.ScreenProgramme;
 import service.IManagementService;
 import db.Conducteur;
+import db.Ligne;
 import db.Parcours;
 import db.Programme;
 import db.Vehicule;
@@ -55,5 +58,20 @@ public class ListeProgrammeBean {
 		
 	}
 
+	
+	public String remove(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+		Long idProgramme =  Long.parseLong((params.get("idProgramme"))); 
+		Programme p = managementService.getProgrammeById(idProgramme);
+		
+		boolean result=managementService.removeProgramme(p);
+		System.out.println(result);
+		//
+		//
+		return "liste_programmes";
+	}
+	
+	
 	
 }

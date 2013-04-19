@@ -12,7 +12,7 @@ public interface IStationDao {
 
 	public Long insert(Station station);
 
-	public Long delete(Station station);
+	public boolean delete(Station s);
 
 	public List<Station> findAll();
 

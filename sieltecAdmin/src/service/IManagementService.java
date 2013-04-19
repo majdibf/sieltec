@@ -104,5 +104,13 @@ public interface IManagementService {
 	public Programme getProgrammeById(Long idProgramme);
 
 	public boolean updateProgramme(Programme p);
+
+	public boolean removeConducteur(Conducteur c);
+
+	public boolean removeLigne(Ligne l);
+
+	public boolean removeProgramme(Programme p);
+
+	public boolean removeStation(Station s);
 	
 }

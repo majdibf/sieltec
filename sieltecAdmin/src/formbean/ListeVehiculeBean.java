@@ -1,9 +1,11 @@
 package formbean;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
 import db.Station;
 import db.Vehicule;
@@ -37,7 +39,19 @@ public class ListeVehiculeBean {
 	public void setVehicules(List<Vehicule> vehicules) {
 		this.vehicules = vehicules;
 	}
-
-
+	
+	public String remove(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+		Long idStation =  Long.parseLong((params.get("idStation"))); 
+		Station s = managementService.getStationsById(idStation);
+		
+		boolean result=managementService.removeStation(s);
+		System.out.println(result);
+		//
+		//
+		return "liste_vehicules";
+	}
+	
 	
 }

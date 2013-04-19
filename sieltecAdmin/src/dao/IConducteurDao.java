@@ -10,7 +10,7 @@ public interface IConducteurDao {
 	
 	public Long insert(Conducteur conducteur);
 	
-	public Long delete(Conducteur station);
+	public boolean delete(Conducteur station);
 
 	public List<Conducteur> findAll();
 
@@ -19,5 +19,6 @@ public interface IConducteurDao {
 	public Conducteur findByName(String nom, String prenom);
 
 	public boolean update(Conducteur c);
+
 	
 }
