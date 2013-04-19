@@ -149,6 +149,14 @@
 								<f:param name="idConducteur" value="#{cond.getId()}"/>
 							</h:commandLink>
 							</o:column>
+							
+							<o:column styleClass="hintLabel_column">
+								<h:commandLink action="#{listeConducteurBean.remove}">
+								<i class="icon-trash"></i>
+								<f:param name="idConducteur" value="#{cond.getId()}"/>
+							</h:commandLink>
+							</o:column>
+							
 						</o:dataTable>
 				</h:form>
             

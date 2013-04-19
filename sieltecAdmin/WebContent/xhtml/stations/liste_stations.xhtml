@@ -145,6 +145,14 @@
 							<f:param name="idStation" value="#{station.getId()}"/>
 							</h:commandLink>
 							</o:column>
+							
+							<o:column styleClass="hintLabel_column">
+								<h:commandLink action="#{listeStationBean.remove}">
+									<i class="icon-trash"></i>
+									<f:param name="idStation" value="#{station.getId()}"/>
+								</h:commandLink>
+							</o:column>
+							
 						</o:dataTable>
 					</h:form>
             </div><!-- /row -->

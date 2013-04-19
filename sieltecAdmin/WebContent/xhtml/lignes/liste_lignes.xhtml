@@ -123,6 +123,15 @@
 								<f:param name="idLigne" value="#{ligne.getId()}"/>
 						</h:commandLink>
 							</o:column>
+							
+							<o:column styleClass="hintLabel_column">
+								<h:commandLink action="#{listeLigneBean.remove}">
+									<i class="icon-trash"></i>
+									<f:param name="idLigne" value="#{ligne.getId()}"/>
+								</h:commandLink>
+							</o:column>
+						
+							
 						</o:dataTable>
             
           </h:form>    
