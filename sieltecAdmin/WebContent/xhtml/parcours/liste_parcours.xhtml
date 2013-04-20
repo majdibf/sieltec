@@ -141,6 +141,15 @@
 							
 							</o:column>
 							
+							<o:column styleClass="hintLabel_column">
+								<h:commandLink action="#{listeParcoursBean.remove}">
+									<i class="icon-trash"></i>
+									<f:param name="idParcours" value="#{parcours.getId()}"/>
+								</h:commandLink>
+							</o:column>
+							
+							
+							
 							<!-- <f:facet name="below">
 								<o:dataTablePaginator id="paginator"/>
 							</f:facet> -->
