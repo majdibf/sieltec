@@ -19,6 +19,7 @@ import service.IManagementService;
 
 import commun.DBLoader;
 
+import dao.IAlerteDao;
 import dao.IConducteurDao;
 import dao.IElementParcoursDao;
 import dao.ILigneDao;
@@ -28,6 +29,7 @@ import dao.ISouscriptionAlerteDao;
 import dao.IStationDao;
 import dao.IUtilisateurDao;
 import dao.IVehiculeDao;
+import db.Alerte;
 import db.Conducteur;
 import db.ElementParcours;
 import db.ElementProgramme;
@@ -48,6 +50,9 @@ public class ManagementService implements IManagementService, Serializable {
 
 	@ManagedProperty(value = "#{stationDao}")
 	private IStationDao stationDao;
+	
+	@ManagedProperty(value = "#{alerteDao}")
+	private IAlerteDao alerteDao;
 	
 	@ManagedProperty(value = "#{vehiculeDao}")
 	private IVehiculeDao vehiculeDao;
@@ -77,7 +82,15 @@ public class ManagementService implements IManagementService, Serializable {
 		super();
 		System.out.println("ManagementService instanciated");
 	}
-	
+			
+	public IAlerteDao getAlerteDao() {
+		return alerteDao;
+	}
+
+	public void setAlerteDao(IAlerteDao alerteDao) {
+		this.alerteDao = alerteDao;
+	}
+
 	public IUtilisateurDao getUtilisateurDao() {
 		return utilisateurDao;
 	}
@@ -602,6 +615,21 @@ public class ManagementService implements IManagementService, Serializable {
 	@Override
 	public boolean removeParcours(Parcours p) {
 		return parcoursDao.delete(p);
+	}
+
+	@Override
+	public List<Alerte> getAllAlertes() {
+		return alerteDao.findAll();
+	}
+
+	@Override
+	public void insertAlerte(Alerte a) {
+		alerteDao.insert(a);
+	}
+
+	@Override
+	public List<SouscriptionAlerte> getSouscriptionAlerteByIdLigne(Long ligneId) {
+		return souscriptionAlerteDao.findByIdLigne();
 	}
 
 }

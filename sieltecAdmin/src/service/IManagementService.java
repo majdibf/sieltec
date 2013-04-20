@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import db.Alerte;
 import db.Conducteur;
 import db.ElementParcours;
 import db.ElementProgramme;
@@ -116,5 +117,11 @@ public interface IManagementService {
 	public boolean removeVehicule(Vehicule v);
 
 	public boolean removeParcours(Parcours p);
+
+	public List<Alerte> getAllAlertes();
+
+	public void insertAlerte(Alerte a);
+
+	public List<SouscriptionAlerte> getSouscriptionAlerteByIdLigne(Long ligneId);
 	
 }
