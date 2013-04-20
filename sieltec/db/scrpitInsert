@@ -142,10 +142,14 @@ insert into programme(date_heure_debut,id_parcours,id_vehicule,id_conducteur,ver
 --EVENEMENT*/
 
 
+
 --ALERTE*/
+insert into ALERTE(nom,description,id_parcours) values('Alerte rouge_aller','Bonjour chers voyageurs,nous vous informons qu un probleme à eu sur le parcours Rouge_aller',2);
 
 
---ABONNES*/
+
+--SOUSCRIPTIONALERTE*/
+
 
 
 
