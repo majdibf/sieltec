@@ -213,9 +213,60 @@ public class ParcoursDao implements IParcoursDao {
 	}
 	
 	@Override
-	public Long delete(Parcours parcours) {
-		// TODO Auto-generated method stub
-		return 0l;
+	public boolean delete(Parcours p) {
+		boolean result = false;
+		String queryParcours = "delete from sieltec.Parcours where id= "+p.getId()+"and version= "+p.getVersion();
+		String queryDeleteElementParcours="delete from sieltec.element_parcours where id_parcours="+p.getId();
+		
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		Long idParcours = p.getId();
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			conn.setAutoCommit(false);
+		
+			System.out.println("query = "+queryDeleteElementParcours);
+			System.out.println("trying to execute :\n" + queryDeleteElementParcours);
+			statement.executeUpdate(queryDeleteElementParcours);	 
+			System.out.println("queryParcours executed successfuly :\n" + queryDeleteElementParcours);
+			
+			System.out.println("query = "+queryParcours);
+			System.out.println("trying to execute :\n" + queryParcours);
+			int rowsUpdated = statement.executeUpdate(queryParcours);	 
+			System.out.println("queryParcours executed successfuly :\n" + queryParcours);
+		
+			conn.commit();
+			result = rowsUpdated > 0;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return result;
+
 	}
 
 	@Override

@@ -3,9 +3,11 @@ package formbean;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
 import db.Conducteur;
 import db.Ligne;
@@ -53,5 +55,19 @@ public class ListeParcoursBean {
 		this.screenParcours = screenParcours;
 	}
 
+	
+	public String remove(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+		Long idParcours =  Long.parseLong((params.get("idParcours"))); 
+		Parcours p = managementService.getParcoursById(idParcours);
+		
+		boolean result=managementService.removeParcours(p);
+		System.out.println(result);
+		//
+		//
+		return "liste_parcours";
+	}
+	
 	
 }

@@ -112,5 +112,9 @@ public interface IManagementService {
 	public boolean removeProgramme(Programme p);
 
 	public boolean removeStation(Station s);
+
+	public boolean removeVehicule(Vehicule v);
+
+	public boolean removeParcours(Parcours p);
 	
 }

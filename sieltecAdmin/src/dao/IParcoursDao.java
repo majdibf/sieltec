@@ -12,7 +12,7 @@ public interface IParcoursDao {
 
 	public Long insert(Parcours parcours);
 
-	public Long delete(Parcours parcours);
+	public boolean delete(Parcours p);
 
 	public List<Parcours> findAll();
 	

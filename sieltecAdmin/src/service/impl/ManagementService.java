@@ -594,4 +594,14 @@ public class ManagementService implements IManagementService, Serializable {
 		return stationDao.delete(s);
 	}
 
+	@Override
+	public boolean removeVehicule(Vehicule v) {
+		return vehiculeDao.delete(v);
+	}
+
+	@Override
+	public boolean removeParcours(Parcours p) {
+		return parcoursDao.delete(p);
+	}
+
 }

@@ -43,10 +43,10 @@ public class ListeVehiculeBean {
 	public String remove(){
 		FacesContext fc = FacesContext.getCurrentInstance();
 		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-		Long idStation =  Long.parseLong((params.get("idStation"))); 
-		Station s = managementService.getStationsById(idStation);
+		Long idVehicule =  Long.parseLong((params.get("idVehicule"))); 
+		Vehicule v = managementService.getVehiculeById(idVehicule);
 		
-		boolean result=managementService.removeStation(s);
+		boolean result=managementService.removeVehicule(v);
 		System.out.println(result);
 		//
 		//
