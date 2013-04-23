@@ -1,5 +1,8 @@
 package formbean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
@@ -15,8 +18,37 @@ public class AjouterStationBean {
 
 	//input
 	private String nomStation;
-	private String longitude;
-	private String latitude;
+	private String longitude="10";
+	private String latitude="10";
+	private List<Station>stations;
+
+	
+	
+	
+	public List<Station> getStations() {
+		Station st;
+		stations=new ArrayList<Station>();
+		st=new Station(1L, "st1", "24", "6", 0);
+		stations.add(st);
+		
+		st=new Station(2L, "st2", "34", "7", 0);
+		stations.add(st);
+		
+		st=new Station(3L, "st3", "42", "5", 0);
+		stations.add(st);
+		
+		st=new Station(4L, "st4", "20", "6", 0);
+		stations.add(st);
+		
+		return stations;
+	}
+
+	public void setStations(List<Station> stations) {
+		this.stations = stations;
+	}
+
+
+	
 	
 	
 	public IManagementService getManagementService() {
