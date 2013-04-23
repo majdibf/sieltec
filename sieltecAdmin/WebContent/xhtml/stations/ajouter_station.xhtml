@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:o="http://openfaces.org/">
+		xmlns:o="http://openfaces.org/"
+		xmlns:m="http://code.google.com/p/gmaps4jsf/">
 	
   
   <h:head>
@@ -32,6 +33,25 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../ico/apple-touch-icon-72-precomposed.png"/>
                     <link rel="apple-touch-icon-precomposed" href="../../ico/apple-touch-icon-57-precomposed.png"/>
                                    <link rel="shortcut icon" href="../../ico/favicon.png"/>
+
+
+
+<!-- 	 <script  -->
+<!--           src="http://maps.google.com/maps?file=api&amp;v=3" -->
+<!--           key="AIzaSyAJR5IcUcIJOfdfFUs8r3voRTjIlvlbLig" -->
+<!--           type="text/javascript"> -->
+<!--      </script> -->
+    
+
+ <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?sensor=true">
+    </script> 
+
+<!--     <script type="text/javascript" -->
+<!--       src="https://maps.googleapis.com/maps/api/js?sensor=true"> -->
+<!--     </script>  -->
+
+
 
   </h:head>
 
@@ -91,7 +111,6 @@
 
         <!-- Customize form
         ================================================== -->
-        <form>
           <section class="download" id="components">
             <div class="page-header">
               <h3> Ajouter station </h3>
@@ -100,7 +119,7 @@
               
           
                 
-                 	<h:form>
+                 	<h:form id="form1">
                 		<h:panelGrid columns="2">
                 			<h:outputLabel for="nomStation" value="Nom Station"/>
                 			<h:inputText id="nomStation" value="#{ajouterStationBean.nomStation}" />
@@ -115,14 +134,36 @@
                 		<h:commandButton value="Inserer" action="#{ajouterStationBean.ajouter}" styleClass="btn"/>
                 		<h:commandButton value="Réinitialiser" type="reset" styleClass="btn"/>
                 	</h:panelGrid>
-                	</h:form>
-                 			 
-             
-            </div><!-- /row -->
+                	
+                	
+                	 <m:map width="500px" height="500px" latitude="30.01" longitude="31.14" >
+				 	
+				 	<m:marker latitude="30.01" longitude="31.14"/>
+				 	
+				 </m:map>
+                	
+</h:form>
+
+
+
+
+
+
+
+<!-- 						<h:panelGrid columns="2"> -->
+<!-- 							<h:outputText value="Enter your name:" /> -->
+<!-- 							<h:inputText id="txtName" value="#{ajouterStationBean.nomStation}"> -->
+<!-- 								<f:ajax render="txtEnteredName" /> -->
+<!-- 							</h:inputText> -->
+<!-- 							<h:outputText value="You entered: " /> -->
+<!-- 							<h:outputText id="txtEnteredName" value="#{ajouterStationBean.nomStation}" /> -->
+<!-- 						</h:panelGrid> -->
+
+
+				</div><!-- /row -->
+            
           </section>
-      
-        </form>
-        
+
       </div>
     </div>
 
