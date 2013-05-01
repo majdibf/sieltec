@@ -1,7 +1,11 @@
 .panelGridItineraire {
     width: 550px;
     margin: auto;
+}
 
+.centre {
+    width: 550px;
+    margin: auto;
 }
 
 .output-label{ 
