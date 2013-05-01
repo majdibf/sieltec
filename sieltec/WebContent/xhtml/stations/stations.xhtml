@@ -18,6 +18,8 @@
     <link href="../../css/bootstrap-responsive.css" rel="stylesheet"/>
     <link href="../../css/docs.css" rel="stylesheet"/>
     <link href="../../js/google-code-prettify/prettify.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet" />
+    
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -84,8 +86,7 @@
           <li><a href="../itineraire/itineraire.jsf"><i class="icon-chevron-right"></i> 1. Itinéraire</a></li>
           <li><a href="../prochainpassage/prochain_passage1.jsf"><i class="icon-chevron-right"></i> 2. Prochain passage à l'arrêt</a></li>
           <li class="active"><a href="stations.jsf"><i class="icon-chevron-right"></i> 3. Les stations</a></li>
-          <li><a href="../plan/plan.jsf"><i class="icon-chevron-right"></i> 4. Plan</a></li>
-		  <li><a href="../alertes/alerte.jsf"><i class="icon-chevron-right"></i> 5. Service des alertes</a></li>
+		  <li><a href="../alertes/alerte.jsf"><i class="icon-chevron-right"></i> 4. Service des alertes</a></li>
         </ul>
       </div>
       <div class="span9">
@@ -94,47 +95,32 @@
         <!-- Customize form
         ================================================== -->
           <section class="download" id="components">
-            <div class="page-header">
+            <div class="title-header">
               <h3>
 				#{stationBean.namePage}
               </h3>
             </div>
-            <div class="row download-builder">
-
-
-					<h:form id="form" >
-						<div>Repeat tag with several markers.</div>
-						<m:map width="500px" latitude="10.1" longitude="10.1"
-							height="500px" zoom="6" autoReshape="true">
-							<m:marker address="Jos, Nigeria">
-								<m:icon
-									imageURL="../../img/busstop.png"
-									width="32" height="32" />
-							</m:marker>
-
+					<div class="span9">
+				<div id="map_canvas" class="centre">
+					<h:form>
+						<m:map width="600px" latitude="37.236931" longitude="9.862813"
+							height="600px" zoom="15" autoReshape="false">
 							<c:forEach items="#{stationBean.stations}" var="station">
-								<m:marker latitude="#{station.longitude}"
-									longitude="#{station.latitude}">
-									<m:icon
-									imageURL="../../img/busstop.png"
-									width="32" height="32" />
-									<m:htmlInformationWindow
-										htmlText="#{station.latitude}-#{station.longitude}" />
+								<m:marker longitude="#{station.longitude}"
+									latitude="#{station.latitude}">
+									<m:icon imageURL="../../img/busstop.png" width="32" height="32" />
+									<m:htmlInformationWindow htmlText="#{station.nom}" />
 								</m:marker>
 							</c:forEach>
 						</m:map>
 					</h:form>
-
-
-
+				</div>
 				</div><!-- /row -->
           </section>
       </div>
     </div>
 
   </div>
-
-
 
     <!-- Footer
     ================================================== -->
