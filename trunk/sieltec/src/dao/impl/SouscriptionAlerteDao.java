@@ -25,25 +25,13 @@ public class SouscriptionAlerteDao implements ISouscriptionAlerteDao {
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
 
-	
-	
-	
-
 	public DBLoader getDbLoader() {
 		return dbLoader;
 	}
 
-
-
-
-
 	public void setDbLoader(DBLoader dbLoader) {
 		this.dbLoader = dbLoader;
 	}
-
-
-
-
 
 	@Override
 	public Long insert(SouscriptionAlerte souscription) {

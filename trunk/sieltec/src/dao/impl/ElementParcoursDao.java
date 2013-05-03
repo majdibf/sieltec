@@ -47,14 +47,17 @@ public class ElementParcoursDao implements IElementParcoursDao {
 	@Override
 	public List<ElementParcours> findAll() {
 		List<ElementParcours> elementParcours = new ArrayList<ElementParcours>();
-
+		ResultSet rs =null;
+		Statement statement =null;
+		Connection conn=null;
+		
 		try {
-			Connection ds = dbLoader.getDs().getConnection();
-			Statement statement = ds.createStatement();
+			 conn = dbLoader.getDs().getConnection();
+			 statement = conn.createStatement();
 
 			String query = "select * from element_parcours";
 
-			ResultSet rs = statement.executeQuery(query);
+			 rs = statement.executeQuery(query);
 
 			ElementParcours ep;
 
@@ -80,7 +83,21 @@ public class ElementParcoursDao implements IElementParcoursDao {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
 			System.out.println(error + this.getClass().getName());
+		}finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
 		}
+
 
 		return elementParcours;
 	}

@@ -38,13 +38,16 @@ public class ConducteurDao implements IConducteurDao {
 	@Override
 	public List<Conducteur> findAll() {
 		List<Conducteur> conducteurs = new ArrayList<Conducteur>();
+		ResultSet rs =null;
+		Statement statement =null;
+		Connection conn=null;
 		try {
-			Connection ds = dbLoader.getDs().getConnection();
-			Statement statement = ds.createStatement();
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
 
 			String query = "select * from conducteur";
 
-			ResultSet rs = statement.executeQuery(query);
+			 rs = statement.executeQuery(query);
 
 			Conducteur c;
 
@@ -63,7 +66,21 @@ public class ConducteurDao implements IConducteurDao {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
 			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
 		}
+
 
 		return conducteurs;
 	}
