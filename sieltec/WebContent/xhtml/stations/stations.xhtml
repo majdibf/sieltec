@@ -94,17 +94,15 @@
 
         <!-- Customize form
         ================================================== -->
-          <section class="download" id="components">
+          <section class="download" id="components">    
+         <div class="span9">
             <div class="title-header">
-              <h3>
-				#{stationBean.namePage}
-              </h3>
+              <h3>#{stationBean.namePage}</h3>
             </div>
-					<div class="span9">
-				<div id="map_canvas" class="centre">
+				<div id="map_canvas" >
 					<h:form>
-						<m:map width="600px" latitude="37.236931" longitude="9.862813"
-							height="600px" zoom="15" autoReshape="false">
+						<m:map width="650px" height="450px" latitude="37.236931" longitude="9.862813"
+							 zoom="15" autoReshape="false">
 							<c:forEach items="#{stationBean.stations}" var="station">
 								<m:marker longitude="#{station.longitude}"
 									latitude="#{station.latitude}">
