@@ -46,14 +46,17 @@ public class ProgrammeDao implements IProgrammeDao {
 	public List<Programme> findAll() {
 
 		List<Programme> programmes = new ArrayList<>();
-
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
 		try {
-			Connection ds = dbLoader.getDs().getConnection();
-			Statement statement = ds.createStatement();
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
 
 			String query = "select * from programme";
 
-			ResultSet rs = statement.executeQuery(query);
+			rs = statement.executeQuery(query);
 
 			Programme prog;
 
@@ -79,6 +82,19 @@ public class ProgrammeDao implements IProgrammeDao {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
 			System.out.println(error + this.getClass().getName());
+		}finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
 		}
 		return programmes;
 	}

@@ -43,13 +43,16 @@ public class ParcoursDao implements IParcoursDao {
 	@Override
 	public List<Parcours> findAll() {
 		List<Parcours> parcours = new ArrayList<Parcours>();
-
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
 		try {
-			Connection ds = dbLoader.getDs().getConnection();
-			Statement statement = ds.createStatement();
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
 
 			String query = "select * from parcours";
-			ResultSet rs = statement.executeQuery(query);
+			rs = statement.executeQuery(query);
 
 			Parcours p;
 
@@ -69,6 +72,10 @@ public class ParcoursDao implements IParcoursDao {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
 			System.out.println(error + this.getClass().getName());
+		}finally {
+			try {rs.close();} catch (Exception e){}
+			try {statement.close();} catch (Exception e){}
+			try {conn.close();} catch (Exception e){}
 		}
 
 		return parcours;
@@ -246,13 +253,16 @@ public class ParcoursDao implements IParcoursDao {
 	public Parcours findByNameParcours(String name) {
 		
 		Parcours p=null;
-		
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+
 		try {
-			Connection ds = dbLoader.getDs().getConnection();
-			Statement statement = ds.createStatement();
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
 
 			String query = "select * from parcours where nom='"+ name +"'";
-			ResultSet rs = statement.executeQuery(query);
+			rs = statement.executeQuery(query);
 
 			
 
@@ -270,6 +280,19 @@ public class ParcoursDao implements IParcoursDao {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
 			System.out.println(error + this.getClass().getName());
+		}finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
 		}
 
 		return p;

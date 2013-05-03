@@ -38,13 +38,16 @@ public class VehiculeDao implements IVehiculeDao {
 	@Override
 	public List<Vehicule> findAll() {
 		List<Vehicule> vehicules= new ArrayList<>();
-		
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+
 		try{
-			Connection ds=dbLoader.getDs().getConnection();
-			Statement statement=ds.createStatement();
+			conn=dbLoader.getDs().getConnection();
+			statement=conn.createStatement();
 			
 			String query="select * from vehicule";
-			ResultSet rs= statement.executeQuery(query);
+			rs= statement.executeQuery(query);
 			
 			Vehicule v;
 			while(rs.next()){
@@ -60,8 +63,21 @@ public class VehiculeDao implements IVehiculeDao {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
 			System.out.println(error + this.getClass().getName());
-			
+		}finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
 		}
+
 		return vehicules;
 	}
 	
