@@ -101,7 +101,7 @@
 						<h3>#{itineraireBean.namePage}</h3>
 					</div>
 
-
+					<br/>
 					<h:form>
 
 						<h:panelGrid columns="2" styleClass="panelGridItineraire"
@@ -114,7 +114,7 @@
 							<o:dropDownField id="startStation" suggestionMode="custom"
 								autoComplete="true" customValueAllowed="false"
 								value="#{itineraireBean.startStation}"
-								listItemStyle="white-space: nowrap;">
+								listItemStyle="white-space: nowrap;" >
 
 								<o:dropDownItems value="#{itineraireBean.suggestedStations}" />
 
@@ -128,6 +128,7 @@
 								<o:dropDownItems value="#{itineraireBean.suggestedStations}" />
 
 							</o:dropDownField>
+							
 							<h:outputLabel for="dateDepart" value="date de départ :"
 								styleClass="output-label" />
 							<h:outputLabel for="heureDepart" value="Heure de départ :"
@@ -149,11 +150,10 @@
 						</h:panelGrid>
 
 						<br />
-						<br />
 
 						<h:commandButton value="Recherche"
 							action="#{itineraireBean.search}"
-							styleClass="panelGridItineraire btn btn-info btn-large" />
+							styleClass="panelGridItineraire btn btn-primary" />
 					</h:form>
 
 					<div class="title-header">
