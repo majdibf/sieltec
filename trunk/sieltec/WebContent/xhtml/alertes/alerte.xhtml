@@ -99,7 +99,8 @@
 				#{alerteBean.namePage}
               </h3>
             </div>
-
+				
+				<br/>
 
 					<h:form>
 						<h:panelGrid columns="1" styleClass="panelGridItineraire"
@@ -120,11 +121,11 @@
 
 
 						</h:panelGrid>
+						<br/>
 
+						<h:commandButton value="Réinitialiser" type="reset" styleClass="panelGridItineraire btn btn-info"/>
 
-						<h:commandButton value="Réinitialiser" type="reset" styleClass="panelGridItineraire btn btn-info btn-large"/>
-
-						<h:commandButton value="Valider" action="#{alerteBean.saveSouscription}" styleClass="panelGridItineraire btn btn-info btn-large"/>
+						<h:commandButton value="Valider" action="#{alerteBean.saveSouscription}" styleClass="panelGridItineraire btn btn-info"/>
 
 					</h:form>
 
