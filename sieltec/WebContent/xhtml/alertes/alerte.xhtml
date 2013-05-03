@@ -99,9 +99,8 @@
 				#{alerteBean.namePage}
               </h3>
             </div>
-				
+	
 				<br/>
-
 					<h:form>
 						<h:panelGrid columns="1" styleClass="panelGridItineraire"
 							cellpadding="2" cellspacing="1">
@@ -123,9 +122,10 @@
 						</h:panelGrid>
 						<br/>
 
+
 						<h:commandButton value="Réinitialiser" type="reset" styleClass="panelGridItineraire btn btn-info"/>
 
-						<h:commandButton value="Valider" action="#{alerteBean.saveSouscription}" styleClass="panelGridItineraire btn btn-info"/>
+						<h:commandButton value="Valider" action="#{alerteBean.saveSouscription}" styleClass="panelGridItineraire btn btn-primary"/>
 
 					</h:form>
 
