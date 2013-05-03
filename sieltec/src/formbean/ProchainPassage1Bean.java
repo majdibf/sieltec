@@ -18,7 +18,7 @@ public class ProchainPassage1Bean {
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
 
-	private String namePage = "Prochain passae à l'arrêt";
+	private String namePage = "Prochain passage à l'arrêt";
 
 	// input
 	private String startStation = "Station1";
