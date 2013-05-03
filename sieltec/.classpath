@@ -13,5 +13,23 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/c3p0-0.9.2-pre8.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/c3p0-oracle-thin-extras-0.9.2-pre8.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cssparser.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/derbyclient.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gmaps4jsf-core-3.0.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jcommon.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jfreechart.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/joda-time-2.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsf-api.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsf-impl.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jstl-api-1.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jstl-impl-1.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mail.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mchange-commons-java-0.2.3.3.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/openfaces.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-3.5.RC1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/sac.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

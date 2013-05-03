@@ -162,7 +162,8 @@ insert into ALERTE(nom,description,id_parcours) values('Alerte rouge_aller','Bon
 
 --SOUSCRIPTIONALERTE*/
 
-
+--utilisateur*/
+insert into UTILISATEUR (LOGIN, PASSWORD, NOM, PRENOM) values('user1', 'user1', 'user1', 'user1')
 
 
 
