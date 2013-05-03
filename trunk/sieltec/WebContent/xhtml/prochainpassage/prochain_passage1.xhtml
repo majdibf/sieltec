@@ -17,6 +17,8 @@
 	<link href="../../css/docs.css" rel="stylesheet" />
 	<link href="../../js/google-code-prettify/prettify.css"
 		rel="stylesheet" />
+			<link href="../../css/style.css" rel="stylesheet" />
+		
 
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
@@ -93,64 +95,68 @@
 
 				<!-- Customize form
         ================================================== -->
-					<section class="download" id="components">
+				<section class="download" id="components">
+
+				<div class="span9">
 					<div class="title-header">
 						<h3>#{prochainPassage1Bean.namePage}</h3>
 					</div>
-					<div class="row download-builder">
 
-						<h:form>
+					<h:form>
 
-							<h:panelGrid>
-								<h:outputLabel for="startStation" value="Taper le nom de votre station :"/>
+						<h:panelGrid styleClass="panelGridItineraire"
+							cellpadding="2" cellspacing="1">
+							<h:outputLabel for="startStation"
+								value="Taper le nom de votre station :" styleClass="output-label" />
 
-									<o:dropDownField id="startStation" suggestionMode="custom"
-										autoComplete="true" customValueAllowed="false"
-										value="#{prochainPassage1Bean.startStation}"
-										listItemStyle="white-space: nowrap;" >
-										
-										<o:dropDownItems
-											value="#{prochainPassage1Bean.suggestedStations}" />
-									</o:dropDownField>
-							</h:panelGrid>
-							
-								<h:commandButton value="Recherche"
-								action="#{prochainPassage1Bean.searchLignes}" />
-								
-						</h:form>
+							<o:dropDownField id="startStation" suggestionMode="custom"
+								autoComplete="true" customValueAllowed="false"
+								value="#{prochainPassage1Bean.startStation}"
+								listItemStyle="white-space: nowrap;">
 
+								<o:dropDownItems
+									value="#{prochainPassage1Bean.suggestedStations}" />
+							</o:dropDownField>
+						</h:panelGrid>
+						<br />
+						<br />
+						<h:commandButton value="Recherche"
+							action="#{prochainPassage1Bean.searchLignes}" styleClass="panelGridItineraire btn btn-info btn-large" />
 
-									<div class="title-header">
-							<h3>Résultat de la recherche</h3>
-						</div>
+					</h:form>
 
 
+					<div class="title-header">
+						<h3>Résultat de la recherche</h3>
+					</div>
 
-						<o:dataTable var="ligne"
-									 value="#{prochainPassage1Bean.lignes}"
-									 style="min-width:20%; table-layout: fixed;">
-							
-									 <o:column style="text-align:center" >
-										<f:facet name="header">
-											<h:outputText value="Ligne" />
-										</f:facet>
-																
-								<h:form>
+
+					<div class="panelGridItineraire">
+					<o:dataTable var="ligne" value="#{prochainPassage1Bean.lignes}"
+						style="min-width:20%; table-layout: fixed;">
+
+						<o:column style="text-align:center">
+							<f:facet name="header">
+								<h:outputText value="Ligne" />
+							</f:facet>
+
+							<h:form>
 								<h:outputLink value="prochain_passage2.jsf">
 									<h:outputText value="#{ligne.getNom()}" />
-										<f:param value="#{ligne.getId()}" name="idLigne" /> 
-										<f:param value="#{ligne.getNom()}" name="nomLigne" /> 
-										<f:param value="#{prochainPassage1Bean.idStartStation}" name="idStation" /> 
-										
-	   							</h:outputLink>
-								</h:form>
-									</o:column>
+									<f:param value="#{ligne.getId()}" name="idLigne" />
+									<f:param value="#{ligne.getNom()}" name="nomLigne" />
+									<f:param value="#{prochainPassage1Bean.idStartStation}"
+										name="idStation" />
 
-						</o:dataTable>
-			
+								</h:outputLink>
+							</h:form>
+						</o:column>
 
-					</div>
-					<!-- /row --> </section>
+					</o:dataTable>
+				</div>
+
+				</div>
+				<!-- /row --> </section>
 
 			</div>
 		</div>

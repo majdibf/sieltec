@@ -1,6 +1,9 @@
 .panelGridItineraire {
     width: 550px;
-    margin: auto;
+   	margin-top:auto;
+	margin-bottom:auto;
+	margin-right:auto;
+	margin-left:3%;
 }
 
 .centre {
@@ -27,3 +30,10 @@
     line-height: 300px;
     
    }
+   
+  .radioright td {
+    text-align: left;
+}
+.radioright td input {
+    float: left;
+}

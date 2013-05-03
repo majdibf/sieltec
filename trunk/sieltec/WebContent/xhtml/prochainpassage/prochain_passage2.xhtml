@@ -18,6 +18,8 @@
 	<link href="../../css/docs.css" rel="stylesheet" />
 	<link href="../../js/google-code-prettify/prettify.css"
 		rel="stylesheet" />
+			<link href="../../css/style.css" rel="stylesheet" />
+		
 
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
@@ -94,71 +96,69 @@
 
 				<!-- Customize form
         ================================================== -->
-				<form>
-					<section class="download" id="components">
-					<div class="page-header">
+				<section class="download" id="components">
+				<div class="span9">
+					<div class="title-header">
 						<h3>#{prochainPassage2Bean.namePage}</h3>
 					</div>
-					<div class="row download-builder">
+
+					<h:form>
 
 
-						<div class="span3">
+						<h:inputHidden value="#{prochainPassage2Bean.idStation}" />
+						<h:inputHidden value="#{prochainPassage2Bean.idLigne}" />
 
-							<h:form >
+						<h:panelGrid columns="1" styleClass="panelGridItineraire"
+							cellpadding="5" cellspacing="1" >
+							<h:outputLabel value="Date :"  styleClass="output-label"/>
+							<o:dateChooser id="dateDepart"
+								value="#{prochainPassage2Bean.date}" pattern="MM/dd/yyyy"
+								styleClass="defaultWidth" dayStyle="border: 1px solid white;"
+								noneText="" />
+
+							<br />
+
 							
+							<h:outputLabel value="Destination :" styleClass="output-label"/>
 							
-							<h:inputHidden value="#{prochainPassage2Bean.idStation}" />
-							<h:inputHidden value="#{prochainPassage2Bean.idLigne}" />
-							
-								<h:panelGrid columns="2">
-									<h:outputLabel value="Date :" />
-									
-									<o:dateChooser id="dateDepart" value="#{prochainPassage2Bean.date}"
-												   pattern="MM/dd/yyyy" styleClass="defaultWidth"
-										           dayStyle="border: 1px solid white;" noneText="" />
-									
-									<h:outputLabel value="Destination :" />
-									
-									<o:selectOneRadio layout="pageDirection"  id="radio" value="#{prochainPassage2Bean.destination}">
-										<f:selectItems value="#{prochainPassage2Bean.parcoursItems}" var="parcours"
-                      							       itemLabel="#{parcours.getNom()}" itemValue="#{parcours}" />
-									</o:selectOneRadio>
-									
-									
-									
-									<h:commandButton value="Submit"
-										action="#{prochainPassage2Bean.searchPassage}" />
-								</h:panelGrid>
-							</h:form>
-														
-								<o:dataTable var="pass"
-							value="#{prochainPassage2Bean.passages}"
-							style="width: 100%; table-layout: fixed;">
-							<o:column styleClass="hintLabel_column">
-								<f:facet name="header">
-									<h:outputText value="N° passage" />
-								</f:facet>
-								<h:outputText value="#{pass.getNum()}" />
-							</o:column>
+							<o:selectOneRadio layout="pageDirection" id="radio"
+								value="#{prochainPassage2Bean.destination}" styleClass="radioright">
+								<f:selectItems value="#{prochainPassage2Bean.parcoursItems}"
+									var="parcours" itemLabel="#{parcours.getNom()}"
+									itemValue="#{parcours}" />
+							</o:selectOneRadio>
 
-							<o:column styleClass="hintLabel_column">
-								<f:facet name="header">
-									<h:outputText value="Heure" />
-								</f:facet>
-								<h:outputText value="#{pass.getDateHeure()}" >
-									<f:convertDateTime type="time" pattern="hh:mm"/>
-								</h:outputText>								
-							</o:column>
+						</h:panelGrid>
+						<br />
+						<br />
 
-						</o:dataTable>
+						<h:commandButton value="Recherche"
+								action="#{prochainPassage2Bean.searchPassage}" styleClass="panelGridItineraire btn btn-info btn-large"/>
+					</h:form>
 
-						</div>
-						<!-- /span -->
-					</div>
-					<!-- /row --> </section>
+					<o:dataTable var="pass" value="#{prochainPassage2Bean.passages}"
+						style="width: 100%; table-layout: fixed;">
+						<o:column styleClass="hintLabel_column">
+							<f:facet name="header">
+								<h:outputText value="N° passage" />
+							</f:facet>
+							<h:outputText value="#{pass.getNum()}" />
+						</o:column>
 
-				</form>
+						<o:column styleClass="hintLabel_column">
+							<f:facet name="header">
+								<h:outputText value="Heure" />
+							</f:facet>
+							<h:outputText value="#{pass.getDateHeure()}">
+								<f:convertDateTime type="time" pattern="hh:mm" />
+							</h:outputText>
+						</o:column>
 
+					</o:dataTable>
+
+
+				</div>
+				<!-- /row --> </section>
 			</div>
 		</div>
 
