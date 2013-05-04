@@ -114,20 +114,32 @@
 							<o:dropDownField id="startStation" suggestionMode="custom"
 								autoComplete="true" customValueAllowed="false"
 								value="#{itineraireBean.startStation}"
-								listItemStyle="white-space: nowrap;" >
+								listItemStyle="white-space: nowrap;" required="true"
+								validatorMessage="Vous devez choisir la station de départ"
+								requiredMessage="Vous devez choisir la station de départ">
 
 								<o:dropDownItems value="#{itineraireBean.suggestedStations}" />
-
+								
+								<f:validateRequired for="startStation" />
+								
 							</o:dropDownField>
 
 							<o:dropDownField id="endStation" suggestionMode="custom"
 								autoComplete="true" customValueAllowed="false"
 								value="#{itineraireBean.endStation}"
-								listItemStyle="white-space: nowrap;">
+								listItemStyle="white-space: nowrap;" required="true"
+								validatorMessage="Vous devez choisir la station d'arrivée"
+								requiredMessage="Vous devez choisir la station d'arrivée">
 
 								<o:dropDownItems value="#{itineraireBean.suggestedStations}" />
-
+								
+								<f:validateRequired for="endStation" />
 							</o:dropDownField>
+
+							<h:message for="startStation" errorStyle="color:red; display:block" />
+							
+							<h:message for="endStation" errorStyle="color:red; display:block" />
+							
 							
 							<h:outputLabel for="dateDepart" value="date de départ :"
 								styleClass="output-label" />
@@ -136,7 +148,9 @@
 
 							<o:dateChooser id="dateDepart" value="#{itineraireBean.date}"
 								pattern="MM/dd/yyyy" styleClass="defaultWidth"
-								dayStyle="border: 1px solid white;" noneText="" />
+								dayStyle="border: 1px solid white;" noneText="" >
+
+							</o:dateChooser>
 
 
 							<h:panelGrid id="heureDepart" columns="3">

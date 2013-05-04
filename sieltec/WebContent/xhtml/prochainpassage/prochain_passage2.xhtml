@@ -136,17 +136,17 @@
 					</h:form>
 
 					<o:dataTable var="pass" value="#{prochainPassage2Bean.passages}"
-						style="width: 100%; table-layout: fixed;">
-						<o:column styleClass="hintLabel_column">
+						style="min-width:70%; table-layout: fixed;" rolloverRowStyle="background:#F0F0F0" cellspacing="1" cellpadding="8">
+						<o:column bodyStyle="text-align: center; margin: auto; padding:auto; width: 50%;" >
 							<f:facet name="header">
 								<h:outputText value="N° passage" />
 							</f:facet>
 							<h:outputText value="#{pass.getNum()}" />
 						</o:column>
 
-						<o:column styleClass="hintLabel_column">
+						<o:column bodyStyle="text-align: center; margin: auto; padding:auto; width: 50%; " >
 							<f:facet name="header">
-								<h:outputText value="Heure" />
+								<h:outputText value="Heure du passage" />
 							</f:facet>
 							<h:outputText value="#{pass.getDateHeure()}">
 								<f:convertDateTime type="time" pattern="hh:mm" />
