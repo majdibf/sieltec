@@ -106,18 +106,33 @@
 							cellpadding="2" cellspacing="1">
 							<h:outputLabel for="ligne" value="Taper le nom de votre ligne :"
 								styleClass="output-label" />
+								
 
 							<o:dropDownField id="ligne" suggestionMode="custom"
 								autoComplete="true" customValueAllowed="false"
-								value="#{alerteBean.ligne}" listItemStyle="white-space: nowrap;">
-
+								value="#{alerteBean.ligne}" listItemStyle="white-space: nowrap;" 
+								required="true" validatorMessage="Vous devez choisir une ligne" 
+								requiredMessage="Vous devez choisir une ligne">
+								
 								<o:dropDownItems value="#{alerteBean.suggestedLignes}" />
+								
+								<f:validateRequired for="ligne" />
+								
 							</o:dropDownField>
+							<h:message for="ligne" errorStyle="color:red; display:block" />
+							
+														
 							<br />
 							<h:outputLabel for="mail" value="Votre adresse mail :"
 								styleClass="output-label" />
-							<h:inputText id="mail" value="#{alerteBean.adresseMail}" />
-
+								
+							<h:inputText id="mail" value="#{alerteBean.adresseMail}" required="true" validatorMessage="Adresse mail non valide" requiredMessage="Entrer votre adresse mail s'il vous plait.">
+							 <f:validateRegex
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+						
+							<f:validateRequired for="mail"/>
+							</h:inputText>
+							 <h:message for="mail" errorStyle="color:red; display:block" />
 
 						</h:panelGrid>
 						<br/>

@@ -132,23 +132,20 @@
 
 					<div class="panelGridItineraire">
 					<o:dataTable var="ligne" value="#{prochainPassage1Bean.lignes}"
-						style="min-width:20%; table-layout: fixed;">
+						style="min-width:20%; table-layout: fixed;" rolloverRowStyle="background:#F0F0F0" cellspacing="1" cellpadding="8">
 
-						<o:column style="text-align:center">
+						<o:column bodyStyle="text-align: center; margin: auto; padding:auto" >
 							<f:facet name="header">
 								<h:outputText value="Ligne" />
 							</f:facet>
 
-							<h:form>
 								<h:outputLink value="prochain_passage2.jsf">
 									<h:outputText value="#{ligne.getNom()}" />
 									<f:param value="#{ligne.getId()}" name="idLigne" />
 									<f:param value="#{ligne.getNom()}" name="nomLigne" />
 									<f:param value="#{prochainPassage1Bean.idStartStation}"
 										name="idStation" />
-
 								</h:outputLink>
-							</h:form>
 						</o:column>
 
 					</o:dataTable>
