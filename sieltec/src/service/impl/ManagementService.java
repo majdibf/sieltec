@@ -19,6 +19,7 @@ import service.IManagementService;
 import commun.DBLoader;
 
 import dao.IElementParcoursDao;
+import dao.IEvenementDao;
 import dao.ILigneDao;
 import dao.IParcoursDao;
 import dao.IProgrammeDao;
@@ -26,6 +27,7 @@ import dao.ISouscriptionAlerteDao;
 import dao.IStationDao;
 import db.ElementParcours;
 import db.ElementProgramme;
+import db.Evenement;
 import db.Ligne;
 import db.Parcours;
 import db.Programme;
@@ -38,6 +40,9 @@ public class ManagementService implements IManagementService, Serializable {
 
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
+
+	@ManagedProperty(value = "#{evenementDao}")
+	private IEvenementDao evenementDao;
 
 	@ManagedProperty(value = "#{stationDao}")
 	private IStationDao stationDao;
@@ -205,19 +210,17 @@ public class ManagementService implements IManagementService, Serializable {
 	@Override
 	public List<ElementProgramme> buildElementsProgrammes(DateTime jour) {
 		List<ElementProgramme> elementsProgrammes = new ArrayList<ElementProgramme>();
-		List<Programme> programmes = programmeDao.findAll();
+		List<Programme> programmes = programmeDao.findByDate(jour);
 		List<ElementParcours> elementsParcours = elementParcoursDao.findAll();
 
 		for (Programme progr : programmes) {
-			elementsProgrammes
-					.addAll(executeProgramme(progr, elementsParcours));
+			elementsProgrammes.addAll(executeProgramme(progr, elementsParcours));
 		}
 
 		return elementsProgrammes;
 	}
 
-	private List<ElementProgramme> executeProgramme(Programme prog,
-			List<ElementParcours> allElementsParcours) {
+	private List<ElementProgramme> executeProgramme(Programme prog,	List<ElementParcours> allElementsParcours) {
 		List<ElementProgramme> result = new ArrayList<ElementProgramme>();
 
 		List<ElementParcours> elementsParcours = new ArrayList<ElementParcours>();
@@ -231,12 +234,8 @@ public class ManagementService implements IManagementService, Serializable {
 
 		DateTime dateHeureDepart = prog.getDateHeureDebut();
 		for (ElementParcours elemPar : elementsParcours) {
-			ElementProgramme elPr = new ElementProgramme(
-					elemPar.getStationDepId(), elemPar.getStationArrId(),
-					dateHeureDepart, dateHeureDepart.plusMinutes(elemPar
-							.getDuree().getMinutes()), elemPar.getParcoursId());
-			dateHeureDepart = elPr.getDateHeureArrivee().plusMinutes(
-					elemPar.getDureeArret().getMinutes());
+			ElementProgramme elPr = new ElementProgramme(elemPar.getStationDepId(), elemPar.getStationArrId(), dateHeureDepart, dateHeureDepart.plusMinutes(elemPar.getDuree().getMinutes()), elemPar.getParcoursId());
+			dateHeureDepart = elPr.getDateHeureArrivee().plusMinutes(elemPar.getDureeArret().getMinutes());
 			result.add(elPr);
 		}
 
@@ -388,5 +387,14 @@ public class ManagementService implements IManagementService, Serializable {
 		return ligneDao.findByName(nomLigne);
 	}
 
-
+	@Override
+	public List<Programme> findTodaysPrograms() {
+		return programmeDao.findByDate(new DateTime());
+	}
+	
+	@Override
+	public void insertEvenement(Evenement e) {
+		evenementDao.insert(e);
+	}
+	
 }
