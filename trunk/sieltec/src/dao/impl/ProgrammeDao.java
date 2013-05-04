@@ -167,5 +167,65 @@ public class ProgrammeDao implements IProgrammeDao {
 		}
 		return programmes;
 	}
+	
+	
+	@Override
+	public List<Programme> findByDate(DateTime date) {
+		List<Programme> programmes=new ArrayList<Programme>();
+		
+		String sDate = "" + date.getYear() + "-" + date.getMonthOfYear() + "-" + date.getDayOfMonth(); 
+		
+		String query = "select * from PROGRAMME p where date(p.DATE_HEURE_DEBUT) = date('" + sDate + "')";
+		Programme prog = null;
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();			
+			
+			System.out.println("trying to execute :\n" + query);
+			rs = statement.executeQuery(query);
+			System.out.println("query executed successfuly :\n" + query);
+
+			while (rs.next()) {
+				Long id = rs.getLong("id");
+
+				Timestamp dateHeureDebutTS = rs.getTimestamp("DATE_HEURE_DEBUT");
+				
+				DateTime dateHeureDebut = new DateTime(dateHeureDebutTS.getTime());
+				Long parcoursId = rs.getLong("ID_PARCOURS");
+				
+				Vehicule vehicule = null;
+				Conducteur conducteur = null;
+				int version = rs.getInt("version");
+
+				prog = new Programme(id, dateHeureDebut, parcoursId, vehicule, conducteur, version);
+				
+				programmes.add(prog);
+
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return programmes;
+	}	
 
 }
