@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -22,6 +23,7 @@ import commun.DBLoader;
 import dao.IEvenementDao;
 import dao.IStationDao;
 import db.Evenement;
+import db.Ligne;
 import db.Station;
 
 @ManagedBean(name = "evenementDao", eager = true)
@@ -46,10 +48,56 @@ public class EvenementDao implements IEvenementDao, Serializable {
 
 	@Override
 	public Long insert(Evenement evenement) {
-		// TODO Auto-generated method stub
-		return 5l;
-	}
+		Timestamp d = new Timestamp(evenement.getDateHeure().getMillis());
+		
+		String query = "insert into sieltec.Evenement(id_programme,id_station,id_type_evenement,date_heure,version) values(" + evenement.getProgrammeId() + "," + evenement.getStationId() + "," + evenement.getTypeEvenementId() + ",'" + d + "'," + evenement.getVersion()+")";
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		Long id = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
+			rs=statement.getGeneratedKeys();
 
+			if (rs.next()) {
+			    id = rs.getLong(1);
+			} else {
+			    // do what you have to do
+			}
+			 
+			System.out.println("query executed successfuly :\n" + query);
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		
+		return id;
+	}	
+	
+	
 	@Override
 	public Long delete(Evenement Evenement) {
 		// TODO Auto-generated method stub
