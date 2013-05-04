@@ -6,6 +6,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import db.ElementProgramme;
+import db.Evenement;
 import db.Ligne;
 import db.Parcours;
 import db.Programme;
@@ -44,5 +45,8 @@ public interface IManagementService {
 
 	public Ligne findLigneByName(String ligne);
 
+	public List<Programme> findTodaysPrograms();
 	
+	public void insertEvenement(Evenement e);
+
 }
