@@ -42,14 +42,98 @@ public class StationDao implements IStationDao, Serializable {
 
 	@Override
 	public Long insert(Station station) {
-		// TODO Auto-generated method stub
-		return 5l;
+		String query = "insert into sieltec.Station(nom,longitude,latitude,version) values('"+station.getNom()+"','"+station.getLatitude()+"','"+station.getLongitude()+"',"+station.getVersion()+")";
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		long id = 0;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
+			rs=statement.getGeneratedKeys();
+
+			if (rs.next()) {
+			    id = rs.getLong(1);
+			} else {
+			    // do what you have to do
+			}
+			 
+			System.out.println("query executed successfuly :\n" + query);
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		
+		return id;
 	}
 
 	@Override
-	public Long delete(Station station) {
-		// TODO Auto-generated method stub
-		return 0l;
+	public boolean delete(Station s) {
+		boolean result = false;
+		String query = "delete from sieltec.Station where id= "+s.getId()+"and version= "+s.getVersion();
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			int rowsUpdated =statement.executeUpdate(query);
+			 
+			System.out.println("query executed successfuly :\n" + query);
+			
+			result = rowsUpdated > 0;
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+			result=false;
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return result;
+
+
+		
 	}
 
 	@Override
@@ -185,7 +269,6 @@ public class StationDao implements IStationDao, Serializable {
 			
 			System.out.println("query = "+query);
 			
-			
 			System.out.println("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
 			System.out.println("query executed successfuly :\n" + query);
@@ -221,5 +304,100 @@ public class StationDao implements IStationDao, Serializable {
 		}
 
 		return stations;
+	}
+
+	@Override
+	public Station findById(Long stationDepId) {
+		Station result = null;
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+
+			String query = "select * from station where id ="+ stationDepId;
+
+			System.out.println("trying to execute :\n" + query);
+			rs = statement.executeQuery(query);
+			System.out.println("query executed successfuly :\n" + query);
+
+			if (rs.next()) {
+				Long id = rs.getLong("id");
+				String nom = rs.getString("nom");
+				String longitude = rs.getString("longitude");
+				String latitude = rs.getString("latitude");
+				int version = rs.getInt("version");
+				result = new Station(id, nom, longitude, latitude, version);
+			} else {
+				// pas de resultat
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+
+		return result;
+
+	}
+
+	@Override
+	public boolean update(Station s) {
+		boolean result = false;
+		String query = "update sieltec.station set nom ='"+s.getNom()+"',longitude='"+s.getLongitude()+"',latitude='"+s.getLatitude()+"',version= "+(s.getVersion()+1)+" where id= "+s.getId()+"and version= "+s.getVersion();
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			int rowsUpdated =statement.executeUpdate(query);
+			 
+			System.out.println("query executed successfuly :\n" + query);
+	
+			result = rowsUpdated > 0;
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return result;
+		
 	}
 }
