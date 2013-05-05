@@ -15,6 +15,7 @@ public interface IProgrammeDao {
 	public List<Programme> findAll();
 	
 	public List<Programme> findByDateAndIdParcours(DateTime date,long idParcours);
+	public List<Programme> findByDate(DateTime date);
 
 	public Programme findById(Long idProgramme);
 
