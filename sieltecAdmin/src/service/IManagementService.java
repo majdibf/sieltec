@@ -10,6 +10,7 @@ import db.Alerte;
 import db.Conducteur;
 import db.ElementParcours;
 import db.ElementProgramme;
+import db.Evenement;
 import db.Ligne;
 import db.Parcours;
 import db.Programme;
@@ -123,5 +124,9 @@ public interface IManagementService {
 	public void insertAlerte(Alerte a);
 
 	public List<SouscriptionAlerte> getSouscriptionAlerteByIdLigne(Long ligneId);
+
+	public List<Programme> findTodaysPrograms();
+	
+	public void insertEvenement(Evenement e);
 	
 }
