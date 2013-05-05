@@ -6,69 +6,55 @@ public class Programme {
 	private Long id;
 	private DateTime dateHeureDebut;
 	private Long parcoursId;
-	private Vehicule vehicule;
-	private Conducteur conducteur;
+	private Long vehiculeId;
+	private Long conducteurId;
 	private int version;
-
-
 	public Programme(Long id, DateTime dateHeureDebut, Long parcoursId,
-			Vehicule vehicule, Conducteur conducteur, int version) {
+			Long vehiculeId, Long conducteurId, int version) {
 		super();
 		this.id = id;
 		this.dateHeureDebut = dateHeureDebut;
 		this.parcoursId = parcoursId;
-		this.vehicule = vehicule;
-		this.conducteur = conducteur;
+		this.vehiculeId = vehiculeId;
+		this.conducteurId = conducteurId;
 		this.version = version;
 	}
-
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public DateTime getDateHeureDebut() {
 		return dateHeureDebut;
 	}
-
 	public void setDateHeureDebut(DateTime dateHeureDebut) {
 		this.dateHeureDebut = dateHeureDebut;
 	}
-
-
 	public Long getParcoursId() {
 		return parcoursId;
 	}
-
 	public void setParcoursId(Long parcoursId) {
 		this.parcoursId = parcoursId;
 	}
-
-	public Vehicule getVehicule() {
-		return vehicule;
+	public Long getVehiculeId() {
+		return vehiculeId;
 	}
-
-	public void setVehicule(Vehicule vehicule) {
-		this.vehicule = vehicule;
+	public void setVehiculeId(Long vehiculeId) {
+		this.vehiculeId = vehiculeId;
 	}
-
-	public Conducteur getConducteur() {
-		return conducteur;
+	public Long getConducteurId() {
+		return conducteurId;
 	}
-
-	public void setConducteur(Conducteur conducteur) {
-		this.conducteur = conducteur;
+	public void setConducteurId(Long conducteurId) {
+		this.conducteurId = conducteurId;
 	}
-
 	public int getVersion() {
 		return version;
 	}
-
 	public void setVersion(int version) {
 		this.version = version;
 	}
+
 
 }
