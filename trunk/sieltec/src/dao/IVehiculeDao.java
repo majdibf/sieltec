@@ -8,8 +8,14 @@ public interface IVehiculeDao {
 
 	public Long insert(Vehicule vehicule);
 
-	public Long delete(Vehicule vehicule);
+	public boolean delete(Vehicule v);
 
 	public List<Vehicule> findAll();
+
+	public Vehicule findById(Long vehiculeId);
+
+	public Vehicule findByImmatriculation(String vehicule);
+
+	public boolean update(Vehicule v);
 
 }
