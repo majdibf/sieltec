@@ -1,0 +1,29 @@
+.panelGridItineraire {
+    width: 550px;
+    margin: auto;
+}
+
+.centre {
+    width: 550px;
+    margin: auto;
+}
+
+.output-label{ 
+	font-weight:bold
+}
+
+.dropDown {
+   	background-color: hsl(0, 0%, 100%);
+    border: 1px solid hsl(0, 0%, 80%);
+    width: 150px;
+    height: 30px;
+    line-height: 300px;
+    
+   }
+   
+.calendar {
+   	background-color: hsl(0, 0%, 100%);
+    border: 1px solid hsl(0, 0%, 80%);
+    line-height: 300px;
+    
+   }
