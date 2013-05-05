@@ -193,7 +193,9 @@ public class ProgrammeDao implements IProgrammeDao {
 	@Override
 	public List<Programme> findByDateAndIdParcours(DateTime date,long idParcours) {
 		List<Programme> programmes=new ArrayList<Programme>();
-		Timestamp d=new Timestamp(date.getMillis());
+		
+		DateTime date2=new DateTime(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth(), 0, 0, 0, 0);
+		Timestamp d= new Timestamp(date2.getMillis());
 		
 		String query = "select * from programme where date_heure_debut >='" + d + "' and id_parcours="+idParcours;
 		Programme prog = null;
