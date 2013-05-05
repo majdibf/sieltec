@@ -26,7 +26,7 @@ public class AlerteBean {
 	
 	//input
 	private String adresseMail;
-	private String ligne;
+	private String ligne="rouge";
 		
 
 	public AlerteBean() {
