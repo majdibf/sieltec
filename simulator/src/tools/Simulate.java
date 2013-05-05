@@ -64,7 +64,8 @@ public class Simulate {
 		try{
 			List<Evenement> evenements = new ArrayList<Evenement>();
 			List<ElementProgramme> elementsProgrammes = new ArrayList<ElementProgramme>();
-			List<Programme> programmes = programmeDao.findByDate(new DateTime());
+			List<Programme> programmes = ms.findTodaysPrograms();
+			
 			for (Programme progr : programmes) {
 				elementsProgrammes = executeProgramme(progr);
 				for(ElementProgramme elemProg : elementsProgrammes){
