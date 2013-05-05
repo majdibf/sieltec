@@ -2,6 +2,7 @@ package formbean;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class ProchainPassage2Bean {
 	private String namePage = "Prochain passae à l'arrêt";
 
 	//input
-	private Date date;
+	private Date date = new Date(new DateTime().getMillis());
 	private String destination;
 	
 
@@ -122,6 +123,33 @@ public class ProchainPassage2Bean {
 		this.passages = passages;
 	}
 
+	public int getHeure() {
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.setTime(this.date);
+		return cal.get(GregorianCalendar.HOUR_OF_DAY);
+	}
+
+	public void setHeure(int heure) {
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.setTime(this.date);
+		cal.set(GregorianCalendar.HOUR_OF_DAY, heure);
+		this.date = cal.getTime();
+	}
+
+	public int getMinute() {
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.setTime(this.date);
+		return cal.get(GregorianCalendar.MINUTE);
+	}
+
+	public void setMinute(int minute) {
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.setTime(this.date);
+		cal.set(GregorianCalendar.MINUTE, minute);
+		this.date = cal.getTime();
+		}
+	
+	
 	public String searchPassage(){
 		passages=new ArrayList<Passage>();
 		Parcours parc=managementService.getParcoursByName(destination);
