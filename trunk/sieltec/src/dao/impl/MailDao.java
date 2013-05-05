@@ -14,7 +14,7 @@ import javax.mail.internet.MimeMessage;
 
 import dao.IMailDao;
 
-@ManagedBean(name="vehiculeDao", eager=true)
+@ManagedBean(name="mailDao", eager=true)
 @ApplicationScoped
 
 public class MailDao implements IMailDao {
