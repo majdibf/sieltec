@@ -147,7 +147,7 @@
 								styleClass="output-label" />
 
 							<o:dateChooser id="dateDepart" value="#{itineraireBean.date}"
-								pattern="MM/dd/yyyy" styleClass="defaultWidth"
+								pattern="dd/MM/yyyy" styleClass="defaultWidth"
 								dayStyle="border: 1px solid white;" noneText="" >
 
 							</o:dateChooser>
@@ -201,7 +201,7 @@
 								<h:outputText value="Heure de départ" />
 							</f:facet>
 							<h:outputText value="#{elemItineraire.getDateHeureDepart()}">
-								<f:convertDateTime type="time" pattern="hh:mm" />
+								<f:convertDateTime type="time" pattern="HH:mm" timeZone="Europe/Paris"/>
 							</h:outputText>
 
 						</o:column>
@@ -220,7 +220,7 @@
 								<h:outputText value="Heure d'arrivée" />
 							</f:facet>
 							<h:outputText value="#{elemItineraire.getDateHeureArrivee()}">
-								<f:convertDateTime type="time" pattern="hh:mm" />
+								<f:convertDateTime type="time" pattern="HH:mm" timeZone="Europe/Paris"/>
 							</h:outputText>
 						</o:column>
 

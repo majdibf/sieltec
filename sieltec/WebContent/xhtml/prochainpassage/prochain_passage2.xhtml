@@ -112,12 +112,20 @@
 							cellpadding="5" cellspacing="1" >
 							<h:outputLabel value="Date :"  styleClass="output-label"/>
 							<o:dateChooser id="dateDepart"
-								value="#{prochainPassage2Bean.date}" pattern="MM/dd/yyyy"
+								value="#{prochainPassage2Bean.date}" pattern="dd/MM/yyyy"
 								styleClass="defaultWidth" dayStyle="border: 1px solid white;"
 								noneText="" />
 
-							<br />
+							<h:panelGrid id="heureDepart" columns="3">
+								<o:spinner value="#{prochainPassage2Bean.heure}" minValue="00"
+									maxValue="23" step="1" type="hour" />
+								<h:outputText value=":" />
+								<o:spinner value="#{prochainPassage2Bean.minute}" minValue="00"
+									maxValue="59" step="1" />
+							</h:panelGrid>
 
+							<br />
+							
 							
 							<h:outputLabel value="Destination :" styleClass="output-label"/>
 							
@@ -149,7 +157,7 @@
 								<h:outputText value="Heure du passage" />
 							</f:facet>
 							<h:outputText value="#{pass.getDateHeure()}">
-								<f:convertDateTime type="time" pattern="hh:mm" />
+								<f:convertDateTime type="time" pattern="HH:mm" timeZone="Europe/Paris"/>
 							</h:outputText>
 						</o:column>
 
