@@ -112,7 +112,6 @@ public class ManagementService implements IManagementService, Serializable {
 			ISouscriptionAlerteDao souscriptionAlerteDao) {
 		this.souscriptionAlerteDao = souscriptionAlerteDao;
 	}
-	
 
 	public IVehiculeDao getVehiculeDao() {
 		return vehiculeDao;
