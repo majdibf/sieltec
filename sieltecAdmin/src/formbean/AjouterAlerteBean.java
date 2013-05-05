@@ -108,7 +108,9 @@ public class AjouterAlerteBean {
 		managementService.insertAlerte(a);
 		List<SouscriptionAlerte> souscriptions = managementService.getSouscriptionAlerteByIdLigne(parc.getLigneId());
 		for (SouscriptionAlerte souscrip: souscriptions) {
-			mailService.sendMail(souscrip.getAdresseMail(), nom, description);
+			
+			mailService.sendMail(souscrip.getAdresseMail(), nom, "<html> <body> <a>lien</a>" + description + "<body/></html>");
+			
 		}
 		return "liste_alertes";
 	}
