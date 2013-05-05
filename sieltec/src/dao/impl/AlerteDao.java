@@ -13,16 +13,13 @@ import javax.faces.bean.ManagedProperty;
 
 import commun.DBLoader;
 
-import dao.ISouscriptionAlerteDao;
+import dao.IAlerteDao;
 import db.Alerte;
-import db.SouscriptionAlerte;
-import db.Ligne;
 
-@ManagedBean(name = "souscriptionAlerteDao", eager = true)
+@ManagedBean(name = "alerteDao", eager = true)
 @ApplicationScoped
+public class AlerteDao implements IAlerteDao {
 
-public class SouscriptionAlerteDao implements ISouscriptionAlerteDao {
-	
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
 
@@ -34,78 +31,30 @@ public class SouscriptionAlerteDao implements ISouscriptionAlerteDao {
 		this.dbLoader = dbLoader;
 	}
 
-
 	@Override
-	public Long insert(SouscriptionAlerte souscription) {
-		
-		String query = "insert into sieltec.SouscriptionAlerte(adresse_mail,id_ligne) values('"+souscription.getAdresseMail()+"',"+souscription.getLigneId()+")";
-		Connection conn = null;
-		Statement statement = null;
+	public List<Alerte> findAll() {
+		List<Alerte> alertes = new ArrayList<Alerte>();
 		ResultSet rs = null;
-		long id = 0;
-		
-		try {
-			conn = dbLoader.getDs().getConnection();
-			statement = conn.createStatement();
-			
-			System.out.println("query = "+query);
-			
-			System.out.println("trying to execute :\n" + query);
-			statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
-			rs=statement.getGeneratedKeys();
-
-			if (rs.next()) {
-			    id = rs.getLong(1);
-			} else {
-			    // do what you have to do
-			}
-			 
-			System.out.println("query executed successfuly :\n" + query);
-	
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
-		} finally {
-			try {
-				rs.close();
-			} catch (Exception e) {
-			}
-			try {
-				statement.close();
-			} catch (Exception e) {
-			}
-			try {
-				conn.close();
-			} catch (Exception e) {
-			}
-		}
-		
-		return id;
-	}
-
-	@Override
-	public List<SouscriptionAlerte> findByIdLigne() {
-		List<SouscriptionAlerte> souscriptions = new ArrayList<SouscriptionAlerte>();
-		ResultSet rs=null;
-		Statement statement=null;
+		Statement statement = null;
 		Connection conn = null;
 		try {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 
-			String query = "select * from sieltec.souscriptionalerte";
+			String query = "select * from sieltec.alerte";
+
 			rs = statement.executeQuery(query);
-			SouscriptionAlerte souscrip;
+
+			Alerte a;
 
 			while (rs.next()) {
 				Long id = rs.getLong("id");
-				String adresseMail = rs.getString("adresse_mail");
-				Long idLigne = rs.getLong("id_ligne");
+				String nom = rs.getString("nom");
+				String description = rs.getString("description");
+				Long idParcours = rs.getLong("id_parcours");
 
-				souscrip = new SouscriptionAlerte(id, adresseMail, idLigne);
-				souscriptions.add(souscrip);
+				a = new Alerte(id, nom, description, idParcours);
+				alertes.add(a);
 			}
 
 		} catch (SQLException e) {
@@ -127,9 +76,47 @@ public class SouscriptionAlerteDao implements ISouscriptionAlerteDao {
 			}
 		}
 
-		return souscriptions;
+		return alertes;
 
 	}
 
-	
+	@Override
+	public void insert(Alerte a) {
+		ResultSet rs = null;
+		Statement statement = null;
+		Connection conn = null;
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+
+			String query = "insert into sieltec.alerte(nom,description,id_parcours) values ('"
+					+ a.getNom()
+					+ "','"
+					+ a.getDescription()
+					+ "',"
+					+ a.getParcoursId() + ")";
+
+			statement.executeUpdate(query);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+
+	}
+
 }

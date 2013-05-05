@@ -26,23 +26,104 @@ public class LigneDao implements ILigneDao {
 
 	@Override
 	public Long insert(Ligne ligne) {
-		// TODO Auto-generated method stub
-		return 0l;
+		String query = "insert into sieltec.Ligne(nom,version) values('"+ligne.getNom()+"',"+ligne.getVersion()+")";
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		Long id = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
+			rs=statement.getGeneratedKeys();
+
+			if (rs.next()) {
+			    id = rs.getLong(1);
+			} else {
+			    // do what you have to do
+			}
+			 
+			System.out.println("query executed successfuly :\n" + query);
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		
+		return id;
 	}
 
 	@Override
-	public Long delete(Ligne ligne) {
-		// TODO Auto-generated method stub
-		return 0l;
+	public boolean delete(Ligne l) {
+		boolean result = false;
+		String query = "delete from sieltec.Ligne where id= "+l.getId()+"and version= "+l.getVersion();
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			int rowsUpdated =statement.executeUpdate(query);
+			 
+			System.out.println("query executed successfuly :\n" + query);
+			
+			result = rowsUpdated > 0;
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+			result=false;
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return result;
+
 	}
 
 	@Override
 	public List<Ligne> findAll() {
 		List<Ligne> lignes = new ArrayList<Ligne>();
-		Connection conn = null;
-		Statement statement = null;
-		ResultSet rs = null;
-		
+		Connection conn=null;
+		Statement statement=null;
+		ResultSet rs =null;
 		try {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
@@ -65,7 +146,7 @@ public class LigneDao implements ILigneDao {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
 			System.out.println(error + this.getClass().getName());
-		}finally {
+		} finally {
 			try {
 				rs.close();
 			} catch (Exception e) {
@@ -79,7 +160,7 @@ public class LigneDao implements ILigneDao {
 			} catch (Exception e) {
 			}
 		}
-
+		
 
 		return lignes;
 	}
@@ -191,6 +272,97 @@ public class LigneDao implements ILigneDao {
 		}
 		
 		return ligne;
+	}
+
+	@Override
+	public Ligne findLignesById(Long ligneId) {
+		String query = "select * from sieltec.ligne where id="+ligneId;
+		Ligne ligne = null;
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();			
+			
+			System.out.println("query = "+query);
+			
+			
+			System.out.println("trying to execute :\n" + query);
+			rs = statement.executeQuery(query);
+			System.out.println("query executed successfuly :\n" + query);
+
+			while (rs.next()) {
+				Long id = rs.getLong("ID");
+				String nom = rs.getString("NOM");
+				int version = rs.getInt("VERSION");
+				ligne = new Ligne(id, nom, version);
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		
+		return ligne;
+	}
+
+	@Override
+	public boolean update(Ligne l) {
+		boolean result = false;
+		String query = "update sieltec.Ligne set nom ='"+l.getNom()+"',version= "+(l.getVersion()+1)+" where id= "+l.getId()+"and version= "+l.getVersion();
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			int rowsUpdated =statement.executeUpdate(query);
+			 
+			System.out.println("query executed successfuly :\n" + query);
+	
+			result = rowsUpdated > 0;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return result;
+
 	}
 
 

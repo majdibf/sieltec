@@ -18,6 +18,7 @@ import javax.faces.bean.ManagedProperty;
 import commun.DBLoader;
 
 import dao.IParcoursDao;
+import db.ElementParcours;
 import db.Parcours;
 import db.Station;
 
@@ -30,23 +31,250 @@ public class ParcoursDao implements IParcoursDao {
 
 	@Override
 	public Long insert(Parcours parcours) {
-		// TODO Auto-generated method stub
-		return 0l;
+		String query = "insert into sieltec.Parcours(nom,id_ligne,version) values('"+parcours.getNom()+"',"+parcours.getLigneId()+","+parcours.getVersion()+")";
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		Long id = 0L;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			System.out.println("query = "+query);
+			
+			System.out.println("trying to execute :\n" + query);
+			statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
+			rs=statement.getGeneratedKeys();
+
+			if (rs.next()) {
+			    id = rs.getLong(1);
+			} else {
+			    // do what you have to do
+			}
+			 
+			System.out.println("query executed successfuly :\n" + query);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		
+		return id;
+	}
+	
+	
+	
+	@Override
+	public void insert(Parcours p, List<ElementParcours> elementsParcours) {
+		String queryParcours = "insert into sieltec.Parcours(nom,id_ligne,version) values('"+p.getNom()+"',"+p.getLigneId()+","+p.getVersion()+")";
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		Long idParcours = 0L;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			conn.setAutoCommit(false);
+			
+			System.out.println("query = "+queryParcours);
+			
+			System.out.println("trying to execute :\n" + queryParcours);
+			statement.executeUpdate(queryParcours,Statement.RETURN_GENERATED_KEYS);
+			rs=statement.getGeneratedKeys();
+
+			if (rs.next()) {
+			    idParcours = rs.getLong(1);
+			}
+			 
+			System.out.println("queryParcours executed successfuly :\n" + queryParcours);
+			
+			for(ElementParcours ep:elementsParcours){
+				String queryElementParcours="insert into ELEMENT_PARCOURS(id_station_dep , id_station_arr , duree , duree_arret ,id_parcours , version) values("+ep.getStationDepId()+","+ep.getStationArrId()+","+ep.getDuree().getMinutes()+","+ep.getDureeArret().getMinutes()+","+idParcours+","+ep.getVersion()+")";
+				
+				System.out.println("query = "+queryElementParcours);
+				
+				System.out.println("trying to execute :\n" + queryElementParcours);
+				statement.executeUpdate(queryElementParcours);
+			}
+			conn.commit();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		
 	}
 
+	
+	
+
 	@Override
-	public Long delete(Parcours parcours) {
-		// TODO Auto-generated method stub
-		return 0l;
+	public boolean update(Parcours p, List<ElementParcours> elementsParcours) {
+		boolean result = false;
+		String queryParcours = "update sieltec.Parcours set nom ='"+p.getNom()+"',id_ligne="+p.getLigneId()+",version= "+(p.getVersion()+1)+" where id= "+p.getId()+"and version= "+p.getVersion();
+		String queryDeleteElementParcours="delete from sieltec.element_parcours where id_parcours="+p.getId();
+		
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		Long idParcours = p.getId();
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			conn.setAutoCommit(false);
+			
+			System.out.println("query = "+queryParcours);
+			System.out.println("trying to execute :\n" + queryParcours);
+			int rowsUpdated = statement.executeUpdate(queryParcours);	 
+			System.out.println("queryParcours executed successfuly :\n" + queryParcours);
+		
+		
+			if(rowsUpdated > 0){
+				System.out.println("query = "+queryDeleteElementParcours);
+				System.out.println("trying to execute :\n" + queryDeleteElementParcours);
+				statement.executeUpdate(queryDeleteElementParcours);	 
+				System.out.println("queryParcours executed successfuly :\n" + queryDeleteElementParcours);
+				
+				
+				for(ElementParcours ep:elementsParcours){
+					String queryElementParcours="insert into ELEMENT_PARCOURS(id_station_dep , id_station_arr , duree , duree_arret ,id_parcours , version) values("+ep.getStationDepId()+","+ep.getStationArrId()+","+ep.getDuree().getMinutes()+","+ep.getDureeArret().getMinutes()+","+idParcours+","+ep.getVersion()+")";
+					
+					System.out.println("query = "+queryElementParcours);
+					
+					System.out.println("trying to execute :\n" + queryElementParcours);
+					statement.executeUpdate(queryElementParcours);
+				}
+			}
+			conn.commit();
+			result = rowsUpdated > 0;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return result;
+
+	}
+	
+	@Override
+	public boolean delete(Parcours p) {
+		boolean result = false;
+		String queryParcours = "delete from sieltec.Parcours where id= "+p.getId()+"and version= "+p.getVersion();
+		String queryDeleteElementParcours="delete from sieltec.element_parcours where id_parcours="+p.getId();
+		
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		Long idParcours = p.getId();
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();
+			conn.setAutoCommit(false);
+		
+			System.out.println("query = "+queryDeleteElementParcours);
+			System.out.println("trying to execute :\n" + queryDeleteElementParcours);
+			statement.executeUpdate(queryDeleteElementParcours);	 
+			System.out.println("queryParcours executed successfuly :\n" + queryDeleteElementParcours);
+			
+			System.out.println("query = "+queryParcours);
+			System.out.println("trying to execute :\n" + queryParcours);
+			int rowsUpdated = statement.executeUpdate(queryParcours);	 
+			System.out.println("queryParcours executed successfuly :\n" + queryParcours);
+		
+			conn.commit();
+			result = rowsUpdated > 0;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return result;
+
 	}
 
 	@Override
 	public List<Parcours> findAll() {
 		List<Parcours> parcours = new ArrayList<Parcours>();
-		Connection conn = null;
-		Statement statement = null;
-		ResultSet rs = null;
-		
+		Connection conn=null;
+		Statement statement=null;
+		ResultSet rs=null;
 		try {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
@@ -72,11 +300,21 @@ public class ParcoursDao implements IParcoursDao {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
 			System.out.println(error + this.getClass().getName());
-		}finally {
-			try {rs.close();} catch (Exception e){}
-			try {statement.close();} catch (Exception e){}
-			try {conn.close();} catch (Exception e){}
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
 		}
+		
 
 		return parcours;
 	}
@@ -90,7 +328,7 @@ public class ParcoursDao implements IParcoursDao {
 	}
 
 	@Override
-	public Parcours find(Long parcoursId) {
+	public Parcours findById(Long parcoursId) {
 
 		Parcours result = null;
 		Connection conn = null;
@@ -253,10 +491,9 @@ public class ParcoursDao implements IParcoursDao {
 	public Parcours findByNameParcours(String name) {
 		
 		Parcours p=null;
-		Connection conn = null;
-		Statement statement = null;
-		ResultSet rs = null;
-
+		Connection conn=null;
+		Statement statement=null;
+		ResultSet rs=null;
 		try {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
@@ -280,7 +517,7 @@ public class ParcoursDao implements IParcoursDao {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
 			System.out.println(error + this.getClass().getName());
-		}finally {
+		} finally {
 			try {
 				rs.close();
 			} catch (Exception e) {
@@ -294,7 +531,7 @@ public class ParcoursDao implements IParcoursDao {
 			} catch (Exception e) {
 			}
 		}
-
 		return p;
 	}
+
 }
