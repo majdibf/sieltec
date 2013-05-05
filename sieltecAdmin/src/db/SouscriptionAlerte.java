@@ -5,7 +5,6 @@ public class SouscriptionAlerte {
 	private Long id;
 	private String adresseMail;
 	private Long ligneId;
-	
 
 	public SouscriptionAlerte(Long id, String adresseMail, Long ligneId) {
 		super();
