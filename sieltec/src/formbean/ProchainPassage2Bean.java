@@ -150,18 +150,23 @@ public class ProchainPassage2Bean {
 		}
 	
 	
-	public String searchPassage(){
-		passages=new ArrayList<Passage>();
-		Parcours parc=managementService.getParcoursByName(destination);
-		List<ElementProgramme> elementProgrammes=managementService.FindProchainPassage(Long.parseLong(idStation), parc.getId(), new DateTime(date.getTime()));
-		int i=0;
-		for(ElementProgramme ep : elementProgrammes){
-			i++;
-			Date d=new  Date(ep.getDateHeureDepart().getMillis());
-			passages.add(new Passage(i,d));	
-		}
-		
-		return "prochain_passage2";
-	}
-	
+	 public String searchPassage(){
+		  passages=new ArrayList<Passage>();
+		  Parcours parc=managementService.getParcoursByName(destination);
+		  List<ElementProgramme> elementProgrammes=managementService.FindProchainPassage(Long.parseLong(idStation), parc.getId(), new DateTime(date.getTime()));
+		  int i=0;
+		  for(ElementProgramme ep : elementProgrammes){
+		   i++;
+		   Date d = null;
+		   if(ep.getStationDepId() == Long.parseLong(idStation)){
+		    d = new  Date(ep.getDateHeureDepart().getMillis());
+		   } else {
+		    d = new  Date(ep.getDateHeureArrivee().getMillis());
+		   }
+		   
+		   passages.add(new Passage(i,d)); 
+		  }
+		  
+		  return "prochain_passage2";
+		 }
 }
