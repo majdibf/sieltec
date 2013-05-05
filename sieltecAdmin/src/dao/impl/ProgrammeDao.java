@@ -252,6 +252,65 @@ public class ProgrammeDao implements IProgrammeDao {
 	}
 
 	@Override
+	public List<Programme> findByDate(DateTime date) {
+		List<Programme> programmes=new ArrayList<Programme>();
+		
+		String sDate = "" + date.getYear() + "-" + date.getMonthOfYear() + "-" + date.getDayOfMonth(); 
+		
+		String query = "select * from PROGRAMME p where date(p.DATE_HEURE_DEBUT) = date('" + sDate + "')";
+		Programme prog = null;
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dbLoader.getDs().getConnection();
+			statement = conn.createStatement();			
+			
+			System.out.println("trying to execute :\n" + query);
+			rs = statement.executeQuery(query);
+			System.out.println("query executed successfuly :\n" + query);
+
+			while (rs.next()) {
+				Long id = rs.getLong("id");
+
+				Timestamp dateHeureDebutTS = rs.getTimestamp("DATE_HEURE_DEBUT");
+				
+				DateTime dateHeureDebut = new DateTime(dateHeureDebutTS.getTime());
+				Long parcoursId = rs.getLong("ID_PARCOURS");
+				
+				Long vehiculeId = rs.getLong("ID_VEHICULE");
+				Long conducteurId = rs.getLong("ID_CONDUCTEUR");
+				int version = rs.getInt("version");
+
+				prog = new Programme(id, dateHeureDebut, parcoursId, vehiculeId, conducteurId, version);
+				
+				programmes.add(prog);
+
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String error = "erreur de connexion à la base de données";
+			System.out.println(error + this.getClass().getName());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				statement.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return programmes;
+	}
+
+	@Override
 	public Programme findById(Long idProgramme) {
 		String query = "select * from programme where id="+idProgramme;
 		Programme prog = null;
