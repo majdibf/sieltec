@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.joda.time.DateTime;
+import org.joda.time.Minutes;
 
 import service.impl.ManagementService;
 
@@ -62,6 +63,30 @@ public class Simulate {
 		ms.setEvenementDao(evenementDao);
 		
 		try{
+			int delay = 2;
+			int sleepDelay = 15000;
+			
+			DateTime now = DateTime.now();
+			Programme programme = new Programme(null, now.plus(Minutes.minutes(0 + delay)), 1L, 1L, 1L, 0);
+			ms.insertProgramme(programme);
+			
+			programme = new Programme(null, now.plus(Minutes.minutes(5 + delay)), 2L, 2L, 2L, 0);
+			ms.insertProgramme(programme);
+			
+			programme = new Programme(null, now.plus(Minutes.minutes(12 + delay)), 3L, 3L, 3L, 0);
+			ms.insertProgramme(programme);
+			
+			programme = new Programme(null, now.plus(Minutes.minutes(20 + delay)), 4L, 4L, 4L, 0);
+			ms.insertProgramme(programme);
+			
+			programme = new Programme(null, now.plus(Minutes.minutes(0 + delay)), 5L, 5L, 5L, 0);
+			ms.insertProgramme(programme);
+			
+			programme = new Programme(null, now.plus(Minutes.minutes(40 + delay)), 6L, 6L, 6L, 0);
+			ms.insertProgramme(programme);
+			
+			
+			
 			List<Evenement> evenements = new ArrayList<Evenement>();
 			List<ElementProgramme> elementsProgrammes = new ArrayList<ElementProgramme>();
 			List<Programme> programmes = ms.findTodaysPrograms();
@@ -98,15 +123,17 @@ public class Simulate {
 						} else {
 							typeEvt = "ARRIVEE";
 						}
-						System.out.println(parc.getNom() + " : " + typeEvt + " : " + station.getNom());
+						System.out.println("===========================================================");
+						System.out.println(parc.getNom() + " : " + typeEvt + " : " + station.getNom() + " : " + evt.getDateHeure());
+						System.out.println("===========================================================");
 						
 					} else {
 						evenementsTmp.add(evt);
 					}
 				}
 				evenements = evenementsTmp;
-				Thread.sleep(15000);
-				System.out.println("**********");
+				Thread.sleep(sleepDelay);
+				System.out.println("next check for events is in : " + sleepDelay/1000 + "seconds");
 			}
 			
 			
