@@ -190,7 +190,7 @@ public class ProgrammeDao implements IProgrammeDao {
 		List<Programme> programmes=new ArrayList<Programme>();		
 		String sDate = "" + date.getYear() + "-" + date.getMonthOfYear() + "-" + date.getDayOfMonth(); 
 
-		String query = "select * from PROGRAMME p where date(p.DATE_HEURE_DEBUT) = date('" + sDate + "' and id_parcours=" + idParcours;
+		String query = "select * from PROGRAMME p where date(p.DATE_HEURE_DEBUT) = date('" + sDate + "') and id_parcours = " + idParcours;
 		Programme prog = null;
 		Connection conn = null;
 		Statement statement = null;
