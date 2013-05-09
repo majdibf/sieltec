@@ -166,7 +166,7 @@ public class Simulate {
 			Long stationDepId = elemPar.getStationDepId();
 			Long stationArrId = elemPar.getStationArrId();
 			DateTime dateHeureDep = dateHeureProchainDepart;
-			DateTime dateHeureArr = dateHeureProchainDepart.plusMinutes(elemPar.getDuree().getMinutes());
+			DateTime dateHeureArr = dateHeureDep.plusMinutes(elemPar.getDuree().getMinutes());
 			//introduction d'un décalage (retard ou avance) pour la simulation
 			int maxDecalage = elemPar.getDuree().getMinutes() * tauxErreur/100;
 			int retardAvance = sign * new Random().nextInt(Math.max(1, maxDecalage));
