@@ -37,7 +37,7 @@ public interface IManagementService {
 	
 	public List<Parcours> getParcoursByIdLigne(long idLigne);
 	
-	public List<ElementProgramme>FindProchainPassage(long idStation,long idParcours,DateTime date);
+	public List<ElementProgramme>findProchainPassage(long idStation,long idParcours,DateTime date);
 
 	public Station getStationByName(String startStation);
 	
