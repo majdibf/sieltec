@@ -1,29 +1,23 @@
 package dao.impl;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.ResultSet;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
-import org.jfree.data.time.Minute;
 import org.joda.time.DateTime;
 
 import commun.DBLoader;
 
 import dao.IProgrammeDao;
-import db.Conducteur;
-import db.ElementParcours;
-import db.Ligne;
-import db.Parcours;
 import db.Programme;
-import db.Vehicule;
 
 @ManagedBean(name = "programmeDao", eager = true)
 @ApplicationScoped
@@ -193,11 +187,10 @@ public class ProgrammeDao implements IProgrammeDao {
 
 	@Override
 	public List<Programme> findByDateAndIdParcours(DateTime date,long idParcours) {
-		List<Programme> programmes=new ArrayList<Programme>();
-		DateTime date2=new DateTime(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth(), 0, 0, 0, 0);
-		Timestamp d= new Timestamp(date2.getMillis());
-		
-		String query = "select * from programme where date_heure_debut >='" + d + "' and id_parcours="+idParcours;
+		List<Programme> programmes=new ArrayList<Programme>();		
+		String sDate = "" + date.getYear() + "-" + date.getMonthOfYear() + "-" + date.getDayOfMonth(); 
+
+		String query = "select * from PROGRAMME p where date(p.DATE_HEURE_DEBUT) = date('" + sDate + "' and id_parcours=" + idParcours;
 		Programme prog = null;
 		Connection conn = null;
 		Statement statement = null;
