@@ -157,7 +157,7 @@ public class EvenementDao implements IEvenementDao, Serializable {
 	}
 
 	@Override
-	public Evenement findByIdProgrammeIdStationTypeEvenement(int idProgramme, int idStation, int typeEvenement) {
+	public Evenement find(Long idProgramme, Long idStation, Long idTypeEvenement) {
 		Evenement evenement=null ;
 		Connection conn = null;
 		Statement statement = null;
@@ -167,7 +167,7 @@ public class EvenementDao implements IEvenementDao, Serializable {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 
-			String query = "select * from evenement where(id_programme="+idProgramme+" and id_station="+idStation+"and id_type_evenement="+typeEvenement+")";
+			String query = "select * from evenement where(id_programme="+idProgramme+" and id_station="+idStation+"and id_type_evenement=" + idTypeEvenement+")";
 
 			System.out.println("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
