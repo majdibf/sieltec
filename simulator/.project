@@ -22,9 +22,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>srcsieltec</name>
+			<name>src_commun</name>
 			<type>2</type>
-			<location>D:/pfe/workspace/sieltec/src</location>
+			<location>D:/pfe/workspace/sieltec/src_commun</location>
 		</link>
 	</linkedResources>
 </projectDescription>
