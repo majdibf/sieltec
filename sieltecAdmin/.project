@@ -33,4 +33,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src_commun</name>
+			<type>2</type>
+			<location>D:/pfe/workspace/sieltec/src_commun</location>
+		</link>
+	</linkedResources>
 </projectDescription>
