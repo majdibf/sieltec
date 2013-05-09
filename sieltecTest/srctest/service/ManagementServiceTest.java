@@ -160,7 +160,7 @@ public class ManagementServiceTest {
 		DateTime date=new DateTime(2012, 1, 1,8,0) ;
 		long idParcours=1;
 	
-		List<ElementProgramme> result = ms.findElementsProgrammes(idParcours, date);
+		List<ElementProgramme> result = ms.buildUpdatedElementsProgrammes(idParcours, date);
 		assertTrue(!result.isEmpty()); 
 	}
 
@@ -179,12 +179,12 @@ public class ManagementServiceTest {
 	
 	
 	@Test
-	public void testFindByIdProgrammeIdStationTypeEvenement(){
-		int idProgramme=160;
-		int idStation=11;
-		int typeEvenement=1;
+	public void testFindEvenement(){
+		Long idProgramme=160L;
+		Long idStation=11L;
+		Long typeEvenement=1L;
 		
-		Evenement e = ms.getEvenementByIdProgrammeIdStationTypeEvenement(idProgramme, idStation, typeEvenement);
+		Evenement e = ms.getEvenement(idProgramme, idStation, typeEvenement);
 		assertTrue(e!=null);
 	}
 	
