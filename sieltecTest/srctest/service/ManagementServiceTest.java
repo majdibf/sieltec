@@ -172,7 +172,7 @@ public class ManagementServiceTest {
 		long idParcours=1;
 		long idStation=1;
 		
-		List<ElementProgramme> result = ms.FindProchainPassage(idStation, idParcours, d);
+		List<ElementProgramme> result = ms.findProchainPassage(idStation, idParcours, d);
 		assertTrue(!result.isEmpty());
 	}
 	
