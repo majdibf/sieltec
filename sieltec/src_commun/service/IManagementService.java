@@ -131,8 +131,11 @@ public interface IManagementService {
 	
 	public Evenement getEvenement(Long idProgramme, Long idStation, Long idTypeEvenement);
 	
+	public List<Evenement> getAllEvenement();
+
 	public List<ElementProgramme> executeProgramme(Programme prog);
 	
 	public List<ElementProgramme> executeUpdatedProgramme(Programme prog);
+
 
 }
