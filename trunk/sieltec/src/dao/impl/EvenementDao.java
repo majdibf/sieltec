@@ -167,7 +167,7 @@ public class EvenementDao implements IEvenementDao, Serializable {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 
-			String query = "select * from evenement where(id_programme="+idProgramme+",id_station="+idStation+",id_type_evenement="+typeEvenement+")";
+			String query = "select * from evenement where(id_programme="+idProgramme+" and id_station="+idStation+"and id_type_evenement="+typeEvenement+")";
 
 			System.out.println("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
