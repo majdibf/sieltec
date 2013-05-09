@@ -27,8 +27,8 @@ public interface IManagementService {
 	
 	public List<Station> getAllStations();
 	
-	public List<ElementProgramme> buildElementsProgrammes(DateTime jour);
-
+	public List<ElementProgramme> buildUpdatedElementsProgrammes(DateTime jour);
+	
 	public HashMap<Long, Station> getStationsByIdList(List<Long> idStations);
 
 	public HashMap<Long, Parcours> getParcoursByIdList(List<Long> idParcours);
@@ -41,7 +41,7 @@ public interface IManagementService {
 
 	public Station getStationByName(String startStation);
 	
-	public List<ElementProgramme> findElementsProgrammes(long idParcours ,DateTime date);
+	public List<ElementProgramme> buildUpdatedElementsProgrammes(long idParcours ,DateTime date);
 
 	public Parcours getParcoursByName(String destination);
 
@@ -129,6 +129,10 @@ public interface IManagementService {
 	
 	public void insertEvenement(Evenement e);
 	
-	public Evenement getEvenementByIdProgrammeIdStationTypeEvenement(int idProgramme, int idStation, int typeEvenement);
+	public Evenement getEvenement(Long idProgramme, Long idStation, Long idTypeEvenement);
+	
+	public List<ElementProgramme> executeProgramme(Programme prog);
+	
+	public List<ElementProgramme> executeUpdatedProgramme(Programme prog);
 
 }
