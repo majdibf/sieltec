@@ -128,5 +128,7 @@ public interface IManagementService {
 	public List<Programme> findTodaysPrograms();
 	
 	public void insertEvenement(Evenement e);
+	
+	public Evenement getEvenementByIdProgrammeIdStationTypeEvenement(int idProgramme, int idStation, int typeEvenement);
 
 }
