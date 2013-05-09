@@ -12,6 +12,6 @@ public interface IEvenementDao {
 
 	public List<Evenement> findAll();
 
-	public Evenement findByIdProgrammeIdStationTypeEvenement(int idProgramme, int idStation, int typeEvenement);
+	public Evenement find(Long idProgramme, Long idStation, Long typeEvenement);
 
 }
