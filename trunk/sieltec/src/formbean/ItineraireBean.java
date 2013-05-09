@@ -162,10 +162,8 @@ public class ItineraireBean {
 	public String search() {
 
 		DateTime d = new DateTime(date.getTime());
-		System.out.println(d);
 
-		List<ElementProgramme> itineraireEP = managementService.findPath(
-				startStation, endStation, d);
+		List<ElementProgramme> itineraireEP = managementService.findPath(startStation, endStation, d);
 		List<ElementItineraire> itineraireEI = new ArrayList<ElementItineraire>();
 		List<Long> idStations = new ArrayList<Long>();
 		List<Long> idParcours = new ArrayList<Long>();
