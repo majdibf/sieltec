@@ -2,6 +2,7 @@
     <wb-module deploy-name="sieltecAdmin">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src_commun"/>
         <property name="context-root" value="sieltecAdmin"/>
         <property name="java-output-path" value="/sieltecAdmin/build/classes"/>
     </wb-module>
