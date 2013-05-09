@@ -23,11 +23,13 @@ import dao.IParcoursDao;
 import dao.IProgrammeDao;
 import dao.IStationDao;
 import dao.impl.ElementParcoursDao;
+import dao.impl.EvenementDao;
 import dao.impl.LigneDao;
 import dao.impl.ParcoursDao;
 import dao.impl.ProgrammeDao;
 import dao.impl.StationDao;
 import db.ElementProgramme;
+import db.Evenement;
 import db.Ligne;
 import db.Parcours;
 import db.Station;
@@ -48,6 +50,9 @@ public class ManagementServiceTest {
 		ParcoursDao parcoursDao = new ParcoursDao();
 		parcoursDao.setDbLoader(dbLoader);
 		
+		EvenementDao evenementDao = new EvenementDao();
+		evenementDao.setDbLoader(dbLoader);
+		
 		LigneDao ligneDao = new LigneDao();
 		ligneDao.setDbLoader(dbLoader);
 		
@@ -58,7 +63,7 @@ public class ManagementServiceTest {
 		ms.setParcoursDao(parcoursDao);
 		
 		ms.setLigneDao(ligneDao);
-		
+		ms.setEvenementDao(evenementDao);
 	}
 
 	@AfterClass
@@ -170,5 +175,22 @@ public class ManagementServiceTest {
 		List<ElementProgramme> result = ms.FindProchainPassage(idStation, idParcours, d);
 		assertTrue(!result.isEmpty());
 	}
+	
+	
+	
+	@Test
+	public void testFindByIdProgrammeIdStationTypeEvenement(){
+		int idProgramme=160;
+		int idStation=11;
+		int typeEvenement=1;
+		
+		Evenement e = ms.getEvenementByIdProgrammeIdStationTypeEvenement(idProgramme, idStation, typeEvenement);
+		assertTrue(e!=null);
+	}
+	
+	
+	
+	
+	
 
 }
