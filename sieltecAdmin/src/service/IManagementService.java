@@ -131,4 +131,6 @@ public interface IManagementService {
 	
 	public Evenement getEvenementByIdProgrammeIdStationTypeEvenement(int idProgramme, int idStation, int typeEvenement);
 
+	public List<Evenement> getAllEvenement();
+
 }
