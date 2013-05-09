@@ -150,7 +150,7 @@ public class ManagementService implements IManagementService, Serializable {
 		List<Station> stations = stationDao.findAll();
 		Station staDep = stationDao.findByName(startStation);
 		Station staArr = stationDao.findByName(endStation);
-		List<ElementProgramme> elementsProgramme = buildElementsProgrammes(dateHeurDepart);
+		List<ElementProgramme> elementsProgramme = buildUpdatedElementsProgrammes(dateHeurDepart);
 
 		for (Station station : stations) {
 			if (station.getId() == staDep.getId()) {
@@ -247,34 +247,64 @@ public class ManagementService implements IManagementService, Serializable {
 	}
 
 	@Override
-	public List<ElementProgramme> buildElementsProgrammes(DateTime jour) {
+	public List<ElementProgramme> buildUpdatedElementsProgrammes(DateTime jour) {
 		List<ElementProgramme> elementsProgrammes = new ArrayList<ElementProgramme>();
+		//récupérer les programme du jour
 		List<Programme> programmes = programmeDao.findByDate(jour);
-		List<ElementParcours> elementsParcours = elementParcoursDao.findAll();
-
+		
 		for (Programme progr : programmes) {
-			elementsProgrammes.addAll(executeProgramme(progr, elementsParcours));
+			elementsProgrammes.addAll(executeUpdatedProgramme(progr));
 		}
 
 		return elementsProgrammes;
 	}
 
-	private List<ElementProgramme> executeProgramme(Programme prog,List<ElementParcours> allElementsParcours) {
+	
+	
+	@Override
+	public List<ElementProgramme> executeProgramme(Programme prog) {
 		List<ElementProgramme> result = new ArrayList<ElementProgramme>();
 
-		List<ElementParcours> elementsParcours = new ArrayList<ElementParcours>();
-		for (ElementParcours elemParc : allElementsParcours) {
-			if (elemParc.getParcoursId() == prog.getParcoursId()) {
-				elementsParcours.add(elemParc);
-			}
-		}
-
+		List<ElementParcours> elementsParcours = getElementParcoursByIdParcours(prog.getParcoursId());
 		elementsParcours = trierElementsParcours(elementsParcours);
 
 		DateTime dateHeureDepart = prog.getDateHeureDebut();
 		for (ElementParcours elemPar : elementsParcours) {
 			ElementProgramme elPr = new ElementProgramme(elemPar.getStationDepId(), elemPar.getStationArrId(), dateHeureDepart, dateHeureDepart.plusMinutes(elemPar.getDuree().getMinutes()), elemPar.getParcoursId());
 			dateHeureDepart = elPr.getDateHeureArrivee().plusMinutes(elemPar.getDureeArret().getMinutes());
+			result.add(elPr);
+		}
+
+		return result;
+	}
+
+	@Override
+	public List<ElementProgramme> executeUpdatedProgramme(Programme prog) {
+		List<ElementProgramme> result = new ArrayList<ElementProgramme>();
+		Long idParcours = prog.getParcoursId();
+
+		List<ElementParcours> elementsParcours = getElementParcoursByIdParcours(idParcours);
+		elementsParcours = trierElementsParcours(elementsParcours);
+
+		DateTime dateHeureProchainDepart = prog.getDateHeureDebut();
+		for (ElementParcours elemPar : elementsParcours) {
+			Long stationDepId = elemPar.getStationDepId();
+			Long stationArrId = elemPar.getStationArrId();
+			DateTime dateHeureDep = dateHeureProchainDepart;
+			Evenement evtDep = getEvenement(prog.getId(), elemPar.getStationDepId(), 2L);
+			if (evtDep != null){
+				dateHeureDep = evtDep.getDateHeure();
+			}
+			
+			DateTime dateHeureArr = dateHeureDep.plusMinutes(elemPar.getDuree().getMinutes());
+			Evenement evtArr = getEvenement(prog.getId(), elemPar.getStationArrId(), 1L);
+			if(evtArr != null){
+				dateHeureArr = evtArr.getDateHeure();
+			}
+			
+			ElementProgramme elPr = new ElementProgramme(stationDepId, stationArrId, dateHeureDep, dateHeureArr, idParcours);
+
+			dateHeureProchainDepart = elPr.getDateHeureArrivee().plusMinutes(elemPar.getDureeArret().getMinutes());
 			result.add(elPr);
 		}
 
@@ -393,8 +423,8 @@ public class ManagementService implements IManagementService, Serializable {
 	
 	
 	@Override
-	public List<ElementProgramme> FindProchainPassage(long idStation,long idParcours,DateTime date) {
-		List <ElementProgramme> elementProgrammes = findElementsProgrammes(idParcours, date);
+	public List<ElementProgramme> findProchainPassage(long idStation,long idParcours,DateTime date) {
+		List <ElementProgramme> elementProgrammes = buildUpdatedElementsProgrammes(idParcours, date);
 		List<ElementProgramme> result=new ArrayList<ElementProgramme>();
 		
 		for(ElementProgramme ep : elementProgrammes){
@@ -408,14 +438,13 @@ public class ManagementService implements IManagementService, Serializable {
 	}
 
 	@Override
-	public List<ElementProgramme> findElementsProgrammes(long idParcours ,DateTime date) {
+	public List<ElementProgramme> buildUpdatedElementsProgrammes(long idParcours ,DateTime date) {
 		
 		List<ElementProgramme> elementsProgrammes = new ArrayList<ElementProgramme>();
-		List<ElementParcours> elementsParcours = elementParcoursDao.findByIdParcours(idParcours);
 		List<Programme> programmes = programmeDao.findByDateAndIdParcours(date, idParcours);
 		
 		for (Programme progr : programmes) {
-			elementsProgrammes.addAll(executeProgramme(progr, elementsParcours));
+			elementsProgrammes.addAll(executeUpdatedProgramme(progr));
 		}
 
 		return elementsProgrammes;
@@ -649,8 +678,8 @@ public class ManagementService implements IManagementService, Serializable {
 	}
 
 	@Override
-	public Evenement getEvenementByIdProgrammeIdStationTypeEvenement(int idProgramme, int idStation, int typeEvenement) {
-		return evenementDao.findByIdProgrammeIdStationTypeEvenement(idProgramme,idStation,typeEvenement);
+	public Evenement getEvenement(Long idProgramme, Long idStation, Long idTypeEvenement) {
+		return evenementDao.find(idProgramme,idStation,idTypeEvenement);
 	}
 
 	@Override
