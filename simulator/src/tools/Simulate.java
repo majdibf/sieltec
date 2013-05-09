@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
@@ -41,7 +42,9 @@ public class Simulate {
 	private static EvenementDao evenementDao = new EvenementDao();
 	
 	private static ManagementService ms = new ManagementService();
-	
+
+	private static int tauxErreur =20;
+
 	/**
 	 * @param args
 	 */
@@ -63,7 +66,7 @@ public class Simulate {
 		ms.setEvenementDao(evenementDao);
 		
 		try{
-			int delay = 2;
+			int delay = 1;
 			int sleepDelay = 15000;
 			
 			DateTime now = DateTime.now();
@@ -139,6 +142,7 @@ public class Simulate {
 			
 			System.out.println("End Simulation with success");
 		}catch(Exception e){
+			e.printStackTrace();
 			System.out.println("Error: " + e);
 		}
 		
@@ -146,21 +150,30 @@ public class Simulate {
 	
 	private static List<ElementProgramme> executeProgramme(Programme prog) {
 		List<ElementProgramme> result = new ArrayList<ElementProgramme>();
+		Long parcoursId = prog.getParcoursId();
 
-		List<ElementParcours> elementsParcours = new ArrayList<ElementParcours>();
-		List<ElementParcours> allElementsParcours = elementParcoursDao.findAll();		
-		for (ElementParcours elemParc : allElementsParcours) {
-			if (elemParc.getParcoursId() == prog.getParcoursId()) {
-				elementsParcours.add(elemParc);
-			}
-		}
-
+		Random randomizer = new Random();
+		//récupération et tri des éléments parcours correspondants au programme 
+		List<ElementParcours> elementsParcours = ms.getElementParcoursByIdParcours(parcoursId);
 		elementsParcours = trierElementsParcours(elementsParcours);
 
-		DateTime dateHeureDepart = prog.getDateHeureDebut();
+		
+		DateTime dateHeureProchainDepart = prog.getDateHeureDebut();
+		//Pour chaque élément parcours calculer l'élément programme correspondant
 		for (ElementParcours elemPar : elementsParcours) {
-			ElementProgramme elPr = new ElementProgramme(elemPar.getStationDepId(), elemPar.getStationArrId(), dateHeureDepart, dateHeureDepart.plusMinutes(elemPar.getDuree().getMinutes()), elemPar.getParcoursId());
-			dateHeureDepart = elPr.getDateHeureArrivee().plusMinutes(elemPar.getDureeArret().getMinutes());
+			int sign = randomizer.nextBoolean() == true? 1 : -1;
+			
+			Long stationDepId = elemPar.getStationDepId();
+			Long stationArrId = elemPar.getStationArrId();
+			DateTime dateHeureDep = dateHeureProchainDepart;
+			DateTime dateHeureArr = dateHeureProchainDepart.plusMinutes(elemPar.getDuree().getMinutes());
+			//introduction d'un décalage (retard ou avance) pour la simulation
+			int maxDecalage = elemPar.getDuree().getMinutes() * tauxErreur/100;
+			int retardAvance = sign * new Random().nextInt(Math.max(1, maxDecalage));
+			System.out.println("décalge de " + retardAvance + " sur " + elemPar.getDuree().getMinutes());
+			dateHeureArr = dateHeureArr.plusMinutes(retardAvance);
+			ElementProgramme elPr = new ElementProgramme(stationDepId, stationArrId, dateHeureDep, dateHeureArr, parcoursId);
+			dateHeureProchainDepart = dateHeureArr.plusMinutes(elemPar.getDureeArret().getMinutes());
 			result.add(elPr);
 		}
 
