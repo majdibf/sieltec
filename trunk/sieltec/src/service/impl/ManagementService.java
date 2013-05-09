@@ -393,7 +393,7 @@ public class ManagementService implements IManagementService, Serializable {
 	
 	
 	@Override
-	public List<ElementProgramme> FindProchainPassage(long idStation,long idParcours,DateTime date) {
+	public List<ElementProgramme> findProchainPassage(long idStation,long idParcours,DateTime date) {
 		List <ElementProgramme> elementProgrammes = findElementsProgrammes(idParcours, date);
 		List<ElementProgramme> result=new ArrayList<ElementProgramme>();
 		
