@@ -2,25 +2,14 @@ package commun;
 
 
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.sql.DataSource;
 
-import org.joda.time.DateTime;
-import org.joda.time.Minutes;
-
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.mchange.v2.c3p0.DataSources;
-import com.mchange.v2.c3p0.PoolBackedDataSource;
 
 import db.ElementParcours;
 import db.ElementProgramme;
