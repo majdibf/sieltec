@@ -12,4 +12,6 @@ public interface IEvenementDao {
 
 	public List<Evenement> findAll();
 
+	public Evenement findByIdProgrammeIdStationTypeEvenement(int idProgramme, int idStation, int typeEvenement);
+
 }
