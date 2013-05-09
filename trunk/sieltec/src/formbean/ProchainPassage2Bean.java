@@ -153,7 +153,7 @@ public class ProchainPassage2Bean {
 	 public String searchPassage(){
 		  passages=new ArrayList<Passage>();
 		  Parcours parc=managementService.getParcoursByName(destination);
-		  List<ElementProgramme> elementProgrammes=managementService.FindProchainPassage(Long.parseLong(idStation), parc.getId(), new DateTime(date.getTime()));
+		  List<ElementProgramme> elementProgrammes=managementService.findProchainPassage(Long.parseLong(idStation), parc.getId(), new DateTime(date.getTime()));
 		  int i=0;
 		  for(ElementProgramme ep : elementProgrammes){
 		   i++;
