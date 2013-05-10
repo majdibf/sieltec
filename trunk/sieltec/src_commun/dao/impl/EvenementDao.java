@@ -210,7 +210,7 @@ public class EvenementDao implements IEvenementDao, Serializable {
 		
 		String sDate = "" + date.getYear() + "-" + date.getMonthOfYear() + "-" + date.getDayOfMonth(); 
 
-		String query = "select * from Evenement e where date(e.DATE_HEURE) = date('" + sDate + "')";
+		String query = "select * from Evenement e where date(e.DATE_HEURE) = date('" + sDate + "')ORDER BY DATE_HEURE DESC";
 		List<Evenement> evenements = new ArrayList<Evenement>();
 		Connection conn = null;
 		Statement statement = null;
