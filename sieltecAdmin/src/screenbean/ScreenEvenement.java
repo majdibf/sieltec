@@ -7,18 +7,28 @@ import db.Station;
 
 public class ScreenEvenement {
 
+	private Long idProgramme;
 	private Parcours parcours;
 	private String typEvt;
 	private Station station;
 	private Date dateHeureDebut;
 
-	public ScreenEvenement(Parcours parcours, String typEvt, Station station,
-			Date dateHeureDebut) {
+	public ScreenEvenement(Long idProgramme, Parcours parcours, String typEvt,
+			Station station, Date dateHeureDebut) {
 		super();
+		this.idProgramme = idProgramme;
 		this.parcours = parcours;
 		this.typEvt = typEvt;
 		this.station = station;
 		this.dateHeureDebut = dateHeureDebut;
+	}
+
+	public Long getIdProgramme() {
+		return idProgramme;
+	}
+
+	public void setIdProgramme(Long idProgramme) {
+		this.idProgramme = idProgramme;
 	}
 
 	public Parcours getParcours() {
