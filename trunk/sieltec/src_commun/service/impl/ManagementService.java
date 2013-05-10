@@ -686,5 +686,10 @@ public class ManagementService implements IManagementService, Serializable {
 	public List<Evenement> getAllEvenement() {
 		return evenementDao.findAll();
 	}
+
+	@Override
+	public List<Evenement> getEvenementByDate(DateTime date) {
+		return evenementDao.findByDate(date);
+	}
 	
 }
