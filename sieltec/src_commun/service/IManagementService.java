@@ -136,6 +136,9 @@ public interface IManagementService {
 	public List<ElementProgramme> executeProgramme(Programme prog);
 	
 	public List<ElementProgramme> executeUpdatedProgramme(Programme prog);
+	
+	public List<Evenement> getEvenementByDate(DateTime date);
+
 
 
 }
