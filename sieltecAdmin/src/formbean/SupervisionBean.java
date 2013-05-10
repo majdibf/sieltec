@@ -7,6 +7,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.joda.time.DateTime;
 import screenbean.ScreenEvenement;
 import service.IManagementService;
 import db.Evenement;
@@ -38,7 +39,7 @@ public class SupervisionBean {
 
 
 	public List<ScreenEvenement> getScreenEvenement(){
-		List<Evenement> evenements=managementService.getAllEvenement();
+		List<Evenement> evenements=managementService.getEvenementByDate(DateTime.now());
 		List <ScreenEvenement> screenEvenements=new ArrayList<ScreenEvenement>();
 			
 			for(Evenement evt : evenements){
@@ -52,7 +53,7 @@ public class SupervisionBean {
 					} else {
 						typeEvt = "ARRIVEE";
 					}
-					ScreenEvenement se=new ScreenEvenement(parc,typeEvt ,station, new Date(evt.getDateHeure().getMillis()));
+					ScreenEvenement se=new ScreenEvenement(prg.getId(),parc,typeEvt ,station, new Date(evt.getDateHeure().getMillis()));
 					screenEvenements.add(se);
 				}
 			
