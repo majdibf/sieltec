@@ -86,10 +86,11 @@
           <li ><a href="../lignes/liste_lignes.jsf"><i class="icon-chevron-right"></i> 2. Lignes</a></li>
           <li ><a href="../stations/liste_stations.jsf"><i class="icon-chevron-right"></i> 3. Stations</a></li>
           <li ><a href="../parcours/liste_parcours.jsf"><i class="icon-chevron-right"></i> 4. Parcours</a></li>
-		  <li class="active"><a href="../programmes/liste_programmes.jsf"><i class="icon-chevron-right"></i> 5.Programmes</a></li>
+		  <li ><a href="../programmes/liste_programmes.jsf"><i class="icon-chevron-right"></i> 5.Programmes</a></li>
 		  <li><a href="../vehicules/liste_vehicules.jsf"><i class="icon-chevron-right"></i> 6.Véhicules</a></li>
 		  <li ><a href="../conducteurs/liste_conducteurs.jsf"><i class="icon-chevron-right"></i> 7.Conducteur</a></li>
 		  <li ><a href="../alertes/liste_alertes.jsf"><i class="icon-chevron-right"></i> 8.Alertes</a></li>
+		  <li class="active"><a href="../supervisions/supervision.jsf"><i class="icon-chevron-right"></i> 9.Supervision</a></li>
            </ul>
       </div>
       <div class="span9">
@@ -110,6 +111,16 @@
 					<o:dataTable var="evenement"
 						value="#{supervisionBean.screenEvenement}"
 						style="width: 100%; table-layout: fixed;">
+						
+						<o:column styleClass="hintLabel_column">
+							<f:facet name="header">
+								<h:outputText value="Id programme" />
+							</f:facet>
+							
+							<h:outputText value="#{evenement.idProgramme}" />
+							
+						</o:column>
+						
 						<o:column styleClass="hintLabel_column">
 							<f:facet name="header">
 								<h:outputText value="Parcours" />
