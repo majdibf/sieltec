@@ -169,7 +169,7 @@ public class Simulate {
 			DateTime dateHeureArr = dateHeureDep.plusMinutes(elemPar.getDuree().getMinutes());
 			//introduction d'un décalage (retard ou avance) pour la simulation
 			int maxDecalage = elemPar.getDuree().getMinutes() * tauxErreur/100;
-			int retardAvance = sign * new Random().nextInt(Math.max(1, maxDecalage));
+			int retardAvance = sign * randomizer.nextInt(Math.max(1, maxDecalage) + 1);
 			System.out.println("décalge de " + retardAvance + " sur " + elemPar.getDuree().getMinutes());
 			dateHeureArr = dateHeureArr.plusMinutes(retardAvance);
 			ElementProgramme elPr = new ElementProgramme(stationDepId, stationArrId, dateHeureDep, dateHeureArr, parcoursId);
