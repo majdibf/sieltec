@@ -10,7 +10,7 @@
   <h:head>
   	<meta http-equiv="refresh" content="15" />
     <meta charset="utf-8"/>
-    <title>Alerte · SIELTEC</title>
+    <title>Supervision · SIELTEC</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
@@ -53,12 +53,10 @@
           <a class="brand" href="../itineraire/itineraire.jsf">SIEL TEC</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active">
-                <a href="../itineraire/itineraire.jsfl">Home</a>
-              </li>
-              <li class="">
-                <a href="">Contact</a>
-              </li>
+               <h:form>
+             <h:commandLink value="Deconnexion" action="#{authentificationBean.logout}" />
+            </h:form>
+           
             </ul>
           </div>
         </div>
@@ -82,7 +80,7 @@
     <div class="row">
       <div class="span3 bs-docs-sidebar">
         <ul class="nav nav-list bs-docs-sidenav">
-           <li><a href="../authentification/accueil.jsf"><i class="icon-chevron-right"></i> 1. Accueil</a></li>
+          <li class="active"><a href="../supervisions/supervision.jsf"><i class="icon-chevron-right"></i> 1. Supervision</a></li>
           <li ><a href="../lignes/liste_lignes.jsf"><i class="icon-chevron-right"></i> 2. Lignes</a></li>
           <li ><a href="../stations/liste_stations.jsf"><i class="icon-chevron-right"></i> 3. Stations</a></li>
           <li ><a href="../parcours/liste_parcours.jsf"><i class="icon-chevron-right"></i> 4. Parcours</a></li>
@@ -90,7 +88,6 @@
 		  <li><a href="../vehicules/liste_vehicules.jsf"><i class="icon-chevron-right"></i> 6.Véhicules</a></li>
 		  <li ><a href="../conducteurs/liste_conducteurs.jsf"><i class="icon-chevron-right"></i> 7.Conducteur</a></li>
 		  <li ><a href="../alertes/liste_alertes.jsf"><i class="icon-chevron-right"></i> 8.Alertes</a></li>
-		  <li class="active"><a href="../supervisions/supervision.jsf"><i class="icon-chevron-right"></i> 9.Supervision</a></li>
            </ul>
       </div>
       <div class="span9">
@@ -108,14 +105,18 @@
             
 				<br/>
 				
-					<o:dataTable var="evenement"
+				
+					<o:dataTable id="evenements" var="evenement"
 						value="#{supervisionBean.screenEvenement}"
-						style="width: 100%; table-layout: fixed;"
+						style="width: 100%; height:300px; table-layout: fixed;"
 						rolloverRowStyle="background:#F0F0F0">
+						<o:scrolling Vertical="true" autoScrollbars="true"/>
 						
-						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center; margin: auto; padding:auto; width: 10%;">
+						
+						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;">
 							<f:facet name="header">
-								<h:outputText value="Id programme" />
+								<h:outputText value="Id programme" /><br/>
+								<o:inputTextFilter condition="contains" expression="#{evenement.idProgramme}" autoFilterDelay="1000" autocomplete="true"/>								
 							</f:facet>
 							
 							<h:outputText value="#{evenement.idProgramme}" />
@@ -124,7 +125,8 @@
 						
 						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;">
 							<f:facet name="header">
-								<h:outputText value="Parcours" />
+								<h:outputText value="Parcours" /><br/>
+								<o:inputTextFilter condition="contains" expression="#{evenement.parcours.nom}"/>
 							</f:facet>
 							
 							<h:outputText value="#{evenement.parcours.nom}" />
@@ -133,7 +135,8 @@
 
 						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;">
 							<f:facet name="header">
-								<h:outputText value="Départ/Arrivée" />
+								<h:outputText value="Départ/Arrivée" /><br/>
+								<o:inputTextFilter condition="contains" expression="#{evenement.typEvt}"/>
 							</f:facet>
 						
 						<h:outputText value="#{evenement.typEvt}"/>
@@ -143,7 +146,8 @@
 
 						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;">
 							<f:facet name="header">
-								<h:outputText value="Station" />
+								<h:outputText value="Station" /><br/>
+								<o:inputTextFilter condition="contains" expression="#{evenement.station.nom}"/>
 							</f:facet>
 							
 							<h:outputText value="#{evenement.station.nom}"/>
@@ -152,7 +156,8 @@
 
 						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;">
 							<f:facet name="header">
-								<h:outputText value="Heure" />
+								<h:outputText value="Heure" /><br/>
+								<o:inputTextFilter condition="contains" expression="#{evenement.dateHeureDebut}"/>
 							</f:facet>
 
 							<h:outputText value="#{evenement.dateHeureDebut}">
@@ -162,7 +167,6 @@
 						</o:column>
 
 					</o:dataTable>
-
 
 				</div><!-- /row -->
           </section>
