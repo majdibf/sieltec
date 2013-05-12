@@ -83,7 +83,7 @@ public class AuthentificationBean {
 		String nomPage;
 		Utilisateur utilisateur = managementService.getUtilisateurByUserNameAndPassword(login,password);
 		if(utilisateur != null){
-			 nomPage="accueil";
+			 nomPage="/xhtml/supervisions/supervision";
 			 FacesContext facesContext = FacesContext.getCurrentInstance();
 			 HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
 			 session.setAttribute("userConnected", utilisateur);

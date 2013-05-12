@@ -38,7 +38,7 @@ public class RestrictionFilter implements Filter {
 				&& pageRequested.contains("authentification.jsf")) {
 			// Redirection vers la page publique
 			response.sendRedirect(request.getContextPath()
-					+ "/xhtml/authentification/accueil.jsf");
+					+ "/xhtml/supervisions/supervision.jsf");
 		} else if (session.getAttribute("userConnected") == null
 				&& !pageRequested.contains("authentification.jsf")
 				&& !pageRequested.endsWith(".css")
