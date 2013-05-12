@@ -9,7 +9,7 @@
   
   <h:head>
     <meta charset="utf-8"/>
-    <title>Liste alertes · SIELTEC Admin</title>
+    <title>Liste des alertes · SIELTEC Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
@@ -106,58 +106,48 @@
 				<h:form>
 						<o:dataTable var="alerte"
 							value="#{listeAlerteBean.screenAlertes}"
-							style="width: 100%; table-layout: fixed;">
-							<o:column styleClass="hintLabel_column">
+							style="min-width:70%; ; height:300px; table-layout: fixed;"
+						rolloverRowStyle="background:#F0F0F0">
+							
+							<o:scrolling Vertical="true" autoScrollbars="true"/>
+							
+							
+							<o:column styleClass="hintLabel_column" bodyStyle="text-align: center; width: ;">
 								<f:facet name="header">
 									<h:outputText value="id" />
 								</f:facet>
-										
-								<h:commandLink action="#{detailAlerteBean.afficherDetailAlerte}">
+			
 								<h:outputText value="#{alerte.getId()}" />
-								<f:param name="idAlerte" value="#{alerte.getId()}"/>
-								</h:commandLink>
 							</o:column>
 
-							<o:column styleClass="hintLabel_column">
+							<o:column styleClass="hintLabel_column" bodyStyle="text-align: center; margin: auto; padding:auto; width: 20%;">
 								<f:facet name="header">
 									<h:outputText value="Nom" />
 								</f:facet>
 							
-								<h:commandLink action="#{detailAlerteBean.afficherDetailAlerte}">
 									<h:outputText value="#{alerte.getNom()}" />
-									<f:param name="idAlerte" value="#{alerte.getId()}"/>
-								</h:commandLink>
 							</o:column>
 
-							<o:column styleClass="hintLabel_column">
+							<o:column styleClass="hintLabel_column" bodyStyle="text-align: center; margin: auto; padding:auto; width: 20%;">
 								<f:facet name="header">
 									<h:outputText value="Parcours" />
 								</f:facet>
-								<h:commandLink action="#{detailAlerteBean.afficherDetailAlerte}">
 									<h:outputText value="#{alerte.getParcours().getNom()}" />
-									<f:param name="idAlerte" value="#{alerte.getId()}"/>
-								</h:commandLink>
 							</o:column>
 
-							<o:column styleClass="hintLabel_column">
+							<o:column styleClass="hintLabel_column" bodyStyle="text-align: center; margin: auto; padding:auto; width: 20%;">
 								<f:facet name="header">
 									<h:outputText value="Ligne" />
 								</f:facet>
-							<h:commandLink action="#{detailAlerteBean.afficherDetailAlerte}">
 								<h:outputText value="#{alerte.getLigne().getNom()}" />
-								<f:param name="idAlerte" value="#{alerte.getId()}"/>
-							</h:commandLink>
 							</o:column>
 							
 							
-							<o:column styleClass="hintLabel_column">
+							<o:column styleClass="hintLabel_column" bodyStyle="text-align: center; margin: auto; padding:auto; width: 35%;">
 								<f:facet name="header">
 									<h:outputText value="Description" />
 								</f:facet>
-							<h:commandLink action="#{detailAlerteBean.afficherDetailAlerte}">
 								<h:outputText value="#{alerte.getDescription()}" />
-								<f:param name="idAlerte" value="#{alerte.getId()}"/>
-							</h:commandLink>
 							</o:column>
 							
 							
