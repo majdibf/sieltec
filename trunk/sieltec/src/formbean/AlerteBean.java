@@ -29,6 +29,7 @@ public class AlerteBean {
 	private String ligne="rouge";
 		
 
+	
 	public AlerteBean() {
 		super();
 		System.out.println("AlerteBen instanciated");
