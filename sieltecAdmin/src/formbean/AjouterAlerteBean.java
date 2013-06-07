@@ -33,7 +33,7 @@ public class AjouterAlerteBean {
 	// input
 	private String nom;
 	private String parcours;
-	private String description="Bonjour chers voyageurs,nous vous informons qu un problème à eu sur le parcours <. . . . . . . . >";
+	private String description="Bonjour chers voyageurs,nous vous informons qu un problème a eu sur le parcours <. . . . . . . . >";
 
 	public IManagementService getManagementService() {
 		return managementService;
@@ -109,7 +109,10 @@ public class AjouterAlerteBean {
 		List<SouscriptionAlerte> souscriptions = managementService.getSouscriptionAlerteByIdLigne(parc.getLigneId());
 		for (SouscriptionAlerte souscrip: souscriptions) {
 			
-			mailService.sendMail(souscrip.getAdresseMail(), nom, "<html> <body> <a>lien</a>" + description + "<body/></html>");
+			String urlRemove="http://localhost:8282/sieltec/xhtml/alertes/remove_alerte.jsf?idligne="+parc.getLigneId()+"&adr="+souscrip.getAdresseMail(); 
+			System.out.println();
+
+			mailService.sendMail(souscrip.getAdresseMail(), nom, "<html> <body> " + description + " <br/> <br/> <a href="+ urlRemove +">Supprimer la souscription pour cette ligne </a><body/></html>");
 			
 		}
 		return "liste_alertes";

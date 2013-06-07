@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 
 import org.joda.time.DateTime;
 import screenbean.ScreenEvenement;
@@ -15,7 +16,8 @@ import db.Parcours;
 import db.Programme;
 import db.Station;
 
-@ManagedBean
+@ManagedBean(name="supervisionBean")
+@SessionScoped
 public class SupervisionBean {
 
 	@ManagedProperty(value = "#{managementService}")
