@@ -8,7 +8,7 @@
 	
   
   <h:head>
-  	<meta http-equiv="refresh" content="15" />
+  	<meta http-equiv="refresh" content="600" />
     <meta charset="utf-8"/>
     <title>Supervision · SIELTEC</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -67,8 +67,8 @@
 ================================================== -->
 <header class="jumbotron subhead" id="overview">
   <div class="container">
-    <h1>SIEL TEC</h1>
-    <p class="lead">Système d'information en ligne pour transport en commun.</p>
+     <h1>SIEL TEC Admin</h1>
+    <p class="lead">Système d'information en ligne pour transport en commun Admin.</p>
   </div>
 </header>
 
@@ -105,7 +105,6 @@
             
 				<br/>
 				
-				
 					<o:dataTable id="evenements" var="evenement"
 						value="#{supervisionBean.screenEvenement}"
 						style="width: 100%; height:300px; table-layout: fixed;"
@@ -113,30 +112,35 @@
 						<o:scrolling Vertical="true" autoScrollbars="true"/>
 						
 						
-						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;">
-							<f:facet name="header">
-								<h:outputText value="Id programme" /><br/>
-								<o:inputTextFilter condition="contains" expression="#{evenement.idProgramme}" autoFilterDelay="1000" autocomplete="true"/>								
+						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;"
+						          sortingExpression="#{evenement.idProgramme}"
+								  header="Id programme">
+								  
+							<f:facet name="subHeader">
+								<o:inputTextFilter />
+								
 							</f:facet>
 							
 							<h:outputText value="#{evenement.idProgramme}" />
 							
 						</o:column>
 						
-						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;">
-							<f:facet name="header">
-								<h:outputText value="Parcours" /><br/>
-								<o:inputTextFilter condition="contains" expression="#{evenement.parcours.nom}"/>
+						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;"
+						 sortingExpression="#{evenement.parcours.nom}"
+								  header="Parcours">
+							<f:facet name="subHeader">
+								<o:inputTextFilter/>
 							</f:facet>
 							
 							<h:outputText value="#{evenement.parcours.nom}" />
 							
 						</o:column>
 
-						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;">
-							<f:facet name="header">
-								<h:outputText value="Départ/Arrivée" /><br/>
-								<o:inputTextFilter condition="contains" expression="#{evenement.typEvt}"/>
+						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;"
+						sortingExpression="#{evenement.typEvt}"
+								  header="Départ/Arrivée">
+							<f:facet name="subHeader">
+								<o:inputTextFilter/>
 							</f:facet>
 						
 						<h:outputText value="#{evenement.typEvt}"/>
@@ -144,20 +148,23 @@
 							
 						</o:column>
 
-						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;">
-							<f:facet name="header">
-								<h:outputText value="Station" /><br/>
-								<o:inputTextFilter condition="contains" expression="#{evenement.station.nom}"/>
+						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;"
+						sortingExpression="#{evenement.station.nom}"
+								  header="Départ/Arrivée">
+							<f:facet name="subHeader">
+								<o:inputTextFilter  />
 							</f:facet>
 							
 							<h:outputText value="#{evenement.station.nom}"/>
 							
 						</o:column>
 
-						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;">
-							<f:facet name="header">
-								<h:outputText value="Heure" /><br/>
-								<o:inputTextFilter condition="contains" expression="#{evenement.dateHeureDebut}"/>
+						<o:column styleClass="hintLabel_column" bodyStyle="text-align: center;"
+						sortingExpression="#{evenement.dateHeureDebut}"
+								  header="Heure">
+						
+							<f:facet name="subHeader">
+								<o:inputTextFilter  expression="#{evenement.dateHeureDebut}"/>
 							</f:facet>
 
 							<h:outputText value="#{evenement.dateHeureDebut}">
@@ -183,10 +190,8 @@
     ================================================== -->
     <footer class="footer">
       <div class="container">
-        <p>Designed and built by <a href="http://twitter.com/mdo" target="_blank">@mdo</a> and <a href="http://twitter.com/fat" target="_blank">@fat</a>.</p>
-        <p>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>, documentation under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
-        <p><a href="http://glyphicons.com">Glyphicons Free</a> licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
-        
+        <p>Designed and built by Majdi BEN FREDJ</p>
+		<p>2013</p>
       </div>
     </footer>
 

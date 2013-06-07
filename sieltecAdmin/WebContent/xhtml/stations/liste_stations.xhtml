@@ -105,6 +105,9 @@
 						<o:dataTable var="station"
 							value="#{listeStationBean.stations}"
 							style="width: 100%; table-layout: fixed;">
+							
+							<o:scrolling Vertical="true" autoScrollbars="true"/>
+							
 							<o:column styleClass="hintLabel_column">
 								<f:facet name="header">
 									<h:outputText value="id" />
@@ -149,7 +152,11 @@
 							</o:column>
 							
 							<o:column styleClass="hintLabel_column">
-								<h:commandLink action="#{listeStationBean.remove}">
+							
+								<o:confirmation id="conf" for="removeLink" width="250px"
+									alignToInvoker="true" draggable="true" hideOnOuterClick="true" />
+									
+								<h:commandLink id="removeLink" action="#{listeStationBean.remove}">
 									<i class="icon-trash"></i>
 									<f:param name="idStation" value="#{station.getId()}"/>
 								</h:commandLink>

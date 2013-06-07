@@ -110,6 +110,9 @@
 						<o:dataTable var="cond"
 							value="#{listeConducteurBean.conducteurs}"
 							style="width: 100%; table-layout: fixed;">
+							
+							<o:scrolling Vertical="true" autoScrollbars="true"/>
+							
 							<o:column styleClass="hintLabel_column">
 								<f:facet name="header">
 									<h:outputText value="id" />
