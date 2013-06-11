@@ -110,13 +110,13 @@
 						<o:dropDownField id="ligne" suggestionMode="custom"
 										autoComplete="true" customValueAllowed="false"
 										value="#{ajouterParcours1Bean.ligne}"
-										listItemStyle="white-space: nowrap;">
+										listItemStyle="white-space: nowrap;" required="true">
 
 									<o:dropDownItems value="#{ajouterParcours1Bean.suggestedLignes}" />
 						</o:dropDownField>
 						
 						<h:outputLabel for="nomParcours" value="Nom du parcours"/>
-						<h:inputText id="nomParcours" value="#{ajouterParcours1Bean.nomParcours}"  />
+						<h:inputText id="nomParcours" value="#{ajouterParcours1Bean.nomParcours}" required="true" />
                 	</h:panelGrid>
                 	
                 	<br/>
@@ -130,7 +130,7 @@
 						leftListboxHeader="Stations disponibles"
 						rightListboxHeader="Stations sélectionnées" 
 						allowSorting="true"
-						value="#{ajouterParcours1Bean.selectedStations}" >
+						value="#{ajouterParcours1Bean.selectedStations}">
 						
 						<f:selectItems value="#{ajouterParcours1Bean.stationsItems}"/>
 					</o:twoListSelection>
