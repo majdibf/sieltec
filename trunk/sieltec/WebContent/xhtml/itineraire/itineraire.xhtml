@@ -135,10 +135,6 @@
 								<f:validateRequired for="endStation" />
 							</o:dropDownField>
 
-							<h:message for="startStation" errorStyle="color:red; display:block" />
-							
-							<h:message for="endStation" errorStyle="color:red; display:block" />
-							
 							
 							<h:outputLabel for="dateDepart" value="date de départ :"
 								styleClass="output-label" />
@@ -147,17 +143,21 @@
 
 							<o:dateChooser id="dateDepart" value="#{itineraireBean.date}"
 								pattern="dd/MM/yyyy" styleClass="defaultWidth"
-								dayStyle="border: 1px solid white;" noneText="" >
+								dayStyle="border: 1px solid white;" noneText=""  required="true"
+								validatorMessage="Saisir la date de départ"
+								requiredMessage="Saisir la date de départ">
+								
+								<f:validateRequired for="dateDepart" />
 
 							</o:dateChooser>
 
 
 							<h:panelGrid id="heureDepart" columns="3">
 								<o:spinner value="#{itineraireBean.heur}" minValue="00"
-									maxValue="23" step="1" type="hour" />
+									maxValue="23" step="1" type="hour"  required="true"/>
 								<h:outputText value=":" />
 								<o:spinner value="#{itineraireBean.minute}" minValue="00"
-									maxValue="59" step="1" />
+									maxValue="59" step="1" required="true"/>
 							</h:panelGrid>
 
 						</h:panelGrid>
