@@ -98,7 +98,7 @@ public class AlerteBean {
 	public String saveSouscription(){
 		Ligne l = managementService.findLigneByName(ligne);
 		managementService.insertSouscriptionAlerte(new SouscriptionAlerte(null, adresseMail, l.getId()));
-		return "alerte";
+		return "succes_inscription";
 	}
 	
 	
