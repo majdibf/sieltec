@@ -54,10 +54,10 @@
         <h2 class="form-signin-heading">Se connecter</h2>
         
         <h:outputLabel for="log" value="Nom d'utilisateur"/>
-        <h:inputText id="log" class="input-block-level" placeholder="Nom d'utilisateur" value="#{authentificationBean.login}"/>
+        <h:inputText id="log" class="input-block-level" placeholder="Nom d'utilisateur" value="#{authentificationBean.login}" required="true"/>
         
       	<h:outputLabel for="pwd" value="Mot de passe"/>
-        <h:inputSecret id="pwd" class="input-block-level" placeholder="Mot de passe" value="#{authentificationBean.password}"/>
+        <h:inputSecret id="pwd" class="input-block-level" placeholder="Mot de passe" value="#{authentificationBean.password}" required="true"/>
         
         <h:commandButton class="btn btn-large btn-primary" value="Connexion" action="#{authentificationBean.connexion}"/>    
         
