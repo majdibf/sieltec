@@ -42,9 +42,6 @@ public class ModifierParcours2Bean {
 	
 	//output
 	
-	public ModifierParcours2Bean() {
-		errorBean.setMessage(null);
-	}
 	
 	public HtmlPanelGrid getGrid() {
 		List<Station> stations = getStations();
@@ -220,7 +217,6 @@ public class ModifierParcours2Bean {
 		boolean updated= managementService.updateParcours(p,elementsParcours);
 		
 		if(updated==false){
-			errorBean.setMessage("error lors de modification du parcours!!");
 		}
 		
 		FacesContext facesContext = FacesContext.getCurrentInstance();
