@@ -131,7 +131,7 @@
 					
 								<h:commandLink action="#{detailProgrammeBean.afficherDetailProgramme}">
 								<h:outputText value="#{programme.getDateHeureDebut()}" >
-									<f:convertDateTime type="both" pattern="dd-MM-YYYY HH:mm" timeZone="Europe/Paris"/>
+									<f:convertDateTime type="both" pattern="dd-MM-YYYY HH:mm" timeZone="Africa/Tunis"/>
 								</h:outputText>
 								<f:param name="idProgramme" value="#{programme.getId()}"/>
 								</h:commandLink>
