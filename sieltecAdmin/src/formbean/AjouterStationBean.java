@@ -18,8 +18,8 @@ public class AjouterStationBean {
 
 	//input
 	private String nomStation;
-	private String longitude="10";
-	private String latitude="10";
+	private String longitude="48.835797";
+	private String latitude="2.369384";
 	private List<Station>stations;
 
 	
