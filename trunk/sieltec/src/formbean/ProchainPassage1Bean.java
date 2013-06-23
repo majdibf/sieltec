@@ -6,6 +6,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openfaces.util.Faces;
 
 import db.Ligne;
@@ -26,7 +28,9 @@ public class ProchainPassage1Bean {
 	// output
 	private List<Ligne> lignes;
 	private long idStartStation;
-	
+
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+
 	
 	public long getIdStartStation() {
 		Station s =managementService.getStationByName(startStation);
@@ -40,7 +44,7 @@ public class ProchainPassage1Bean {
 
 	public ProchainPassage1Bean() {
 		super();
-		System.out.println("ProchainPassageBean instanciated");
+		logger.debug("ProchainPassageBean instanciated");
 	}
 
 	public String getStartStation() {
