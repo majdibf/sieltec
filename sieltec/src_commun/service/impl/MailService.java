@@ -6,6 +6,9 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import service.IMailService;
 import dao.IMailDao;
 
@@ -13,6 +16,8 @@ import dao.IMailDao;
 @ApplicationScoped
 public class MailService implements IMailService, Serializable {
 
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	
 	@ManagedProperty(value = "#{mailDao}")
 	private IMailDao mailDao;
 
@@ -26,7 +31,7 @@ public class MailService implements IMailService, Serializable {
 	
 	public MailService() {
 		super();
-		System.out.println("MailService instanciated");
+		logger.trace("MailService instanciated");
 	}
 
 	@Override

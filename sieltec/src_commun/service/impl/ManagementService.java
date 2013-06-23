@@ -12,6 +12,8 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 
@@ -47,6 +49,8 @@ import db.Vehicule;
 @ApplicationScoped
 public class ManagementService implements IManagementService, Serializable {
 
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
 
@@ -85,7 +89,7 @@ public class ManagementService implements IManagementService, Serializable {
 
 	public ManagementService() {
 		super();
-		System.out.println("ManagementService instanciated");
+		logger.trace("ManagementService instanciated");
 	}
 			
 	public IAlerteDao getAlerteDao() {
@@ -188,7 +192,7 @@ public class ManagementService implements IManagementService, Serializable {
 			}
 		}
 
-		System.out.println(finalStationsMap.get(staArr));
+		logger.trace(finalStationsMap.get(staArr));
 		return result;
 	}
 

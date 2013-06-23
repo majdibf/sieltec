@@ -16,6 +16,8 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 
 import commun.DBLoader;
@@ -30,12 +32,14 @@ import db.Station;
 @ApplicationScoped
 public class EvenementDao implements IEvenementDao, Serializable {
 
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
 
 	public EvenementDao() {
 		super();
-		System.out.println("EvenementDao instanciated");
+		logger.trace("EvenementDao instanciated");
 	}
 
 	public DBLoader getDbLoader() {
@@ -60,9 +64,9 @@ public class EvenementDao implements IEvenementDao, Serializable {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 			
-			System.out.println("query = "+query);
+			logger.trace("query = "+query);
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
 			rs=statement.getGeneratedKeys();
 
@@ -72,13 +76,13 @@ public class EvenementDao implements IEvenementDao, Serializable {
 			    // do what you have to do
 			}
 			 
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -118,9 +122,9 @@ public class EvenementDao implements IEvenementDao, Serializable {
 
 			String query = "select * from evenement";
 
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 
 			Evenement e;
 			while (rs.next()) {
@@ -137,7 +141,7 @@ public class EvenementDao implements IEvenementDao, Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -169,9 +173,9 @@ public class EvenementDao implements IEvenementDao, Serializable {
 
 			String query = "select * from evenement where(id_programme="+idProgramme+" and id_station="+idStation+"and id_type_evenement=" + idTypeEvenement+")";
 
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 
 			while (rs.next()) {
 				Long id = rs.getLong("id");
@@ -186,7 +190,7 @@ public class EvenementDao implements IEvenementDao, Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -220,9 +224,9 @@ public class EvenementDao implements IEvenementDao, Serializable {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 
 			Evenement e;
 			while (rs.next()) {
@@ -239,7 +243,7 @@ public class EvenementDao implements IEvenementDao, Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();

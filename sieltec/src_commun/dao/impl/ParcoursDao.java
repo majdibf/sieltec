@@ -15,6 +15,9 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import commun.DBLoader;
 
 import dao.IParcoursDao;
@@ -26,6 +29,8 @@ import db.Station;
 @ApplicationScoped
 public class ParcoursDao implements IParcoursDao {
 
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
 
@@ -40,9 +45,9 @@ public class ParcoursDao implements IParcoursDao {
 		try {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
-			System.out.println("query = "+query);
+			logger.trace("query = "+query);
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
 			rs=statement.getGeneratedKeys();
 
@@ -52,12 +57,12 @@ public class ParcoursDao implements IParcoursDao {
 			    // do what you have to do
 			}
 			 
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -91,9 +96,9 @@ public class ParcoursDao implements IParcoursDao {
 			statement = conn.createStatement();
 			conn.setAutoCommit(false);
 			
-			System.out.println("query = "+queryParcours);
+			logger.trace("query = "+queryParcours);
 			
-			System.out.println("trying to execute :\n" + queryParcours);
+			logger.trace("trying to execute :\n" + queryParcours);
 			statement.executeUpdate(queryParcours,Statement.RETURN_GENERATED_KEYS);
 			rs=statement.getGeneratedKeys();
 
@@ -101,14 +106,14 @@ public class ParcoursDao implements IParcoursDao {
 			    idParcours = rs.getLong(1);
 			}
 			 
-			System.out.println("queryParcours executed successfuly :\n" + queryParcours);
+			logger.trace("queryParcours executed successfuly :\n" + queryParcours);
 			
 			for(ElementParcours ep:elementsParcours){
 				String queryElementParcours="insert into ELEMENT_PARCOURS(id_station_dep , id_station_arr , duree , duree_arret ,id_parcours , version) values("+ep.getStationDepId()+","+ep.getStationArrId()+","+ep.getDuree().getMinutes()+","+ep.getDureeArret().getMinutes()+","+idParcours+","+ep.getVersion()+")";
 				
-				System.out.println("query = "+queryElementParcours);
+				logger.trace("query = "+queryElementParcours);
 				
-				System.out.println("trying to execute :\n" + queryElementParcours);
+				logger.trace("trying to execute :\n" + queryElementParcours);
 				statement.executeUpdate(queryElementParcours);
 			}
 			conn.commit();
@@ -116,7 +121,7 @@ public class ParcoursDao implements IParcoursDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
@@ -159,25 +164,25 @@ public class ParcoursDao implements IParcoursDao {
 			statement = conn.createStatement();
 			conn.setAutoCommit(false);
 			
-			System.out.println("query = "+queryParcours);
-			System.out.println("trying to execute :\n" + queryParcours);
+			logger.trace("query = "+queryParcours);
+			logger.trace("trying to execute :\n" + queryParcours);
 			int rowsUpdated = statement.executeUpdate(queryParcours);	 
-			System.out.println("queryParcours executed successfuly :\n" + queryParcours);
+			logger.trace("queryParcours executed successfuly :\n" + queryParcours);
 		
 		
 			if(rowsUpdated > 0){
-				System.out.println("query = "+queryDeleteElementParcours);
-				System.out.println("trying to execute :\n" + queryDeleteElementParcours);
+				logger.trace("query = "+queryDeleteElementParcours);
+				logger.trace("trying to execute :\n" + queryDeleteElementParcours);
 				statement.executeUpdate(queryDeleteElementParcours);	 
-				System.out.println("queryParcours executed successfuly :\n" + queryDeleteElementParcours);
+				logger.trace("queryParcours executed successfuly :\n" + queryDeleteElementParcours);
 				
 				
 				for(ElementParcours ep:elementsParcours){
 					String queryElementParcours="insert into ELEMENT_PARCOURS(id_station_dep , id_station_arr , duree , duree_arret ,id_parcours , version) values("+ep.getStationDepId()+","+ep.getStationArrId()+","+ep.getDuree().getMinutes()+","+ep.getDureeArret().getMinutes()+","+idParcours+","+ep.getVersion()+")";
 					
-					System.out.println("query = "+queryElementParcours);
+					logger.trace("query = "+queryElementParcours);
 					
-					System.out.println("trying to execute :\n" + queryElementParcours);
+					logger.trace("trying to execute :\n" + queryElementParcours);
 					statement.executeUpdate(queryElementParcours);
 				}
 			}
@@ -187,7 +192,7 @@ public class ParcoursDao implements IParcoursDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
@@ -228,15 +233,15 @@ public class ParcoursDao implements IParcoursDao {
 			statement = conn.createStatement();
 			conn.setAutoCommit(false);
 		
-			System.out.println("query = "+queryDeleteElementParcours);
-			System.out.println("trying to execute :\n" + queryDeleteElementParcours);
+			logger.trace("query = "+queryDeleteElementParcours);
+			logger.trace("trying to execute :\n" + queryDeleteElementParcours);
 			statement.executeUpdate(queryDeleteElementParcours);	 
-			System.out.println("queryParcours executed successfuly :\n" + queryDeleteElementParcours);
+			logger.trace("queryParcours executed successfuly :\n" + queryDeleteElementParcours);
 			
-			System.out.println("query = "+queryParcours);
-			System.out.println("trying to execute :\n" + queryParcours);
+			logger.trace("query = "+queryParcours);
+			logger.trace("trying to execute :\n" + queryParcours);
 			int rowsUpdated = statement.executeUpdate(queryParcours);	 
-			System.out.println("queryParcours executed successfuly :\n" + queryParcours);
+			logger.trace("queryParcours executed successfuly :\n" + queryParcours);
 		
 			conn.commit();
 			result = rowsUpdated > 0;
@@ -244,7 +249,7 @@ public class ParcoursDao implements IParcoursDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
@@ -299,7 +304,7 @@ public class ParcoursDao implements IParcoursDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -341,11 +346,11 @@ public class ParcoursDao implements IParcoursDao {
 			statement = conn.prepareStatement(query);
 			statement.setLong(1, parcoursId);
 			
-			System.out.println("trying to execute :\n" + query);
-			System.out.println(parcoursId);
+			logger.trace("trying to execute :\n" + query);
+			logger.trace(parcoursId);
 			rs = statement.executeQuery();
-			System.out.println("query executed successfuly :\n" + query);
-			System.out.println(parcoursId);
+			logger.trace("query executed successfuly :\n" + query);
+			logger.trace(parcoursId);
 
 			if (rs.next()) {
 				Long id = rs.getLong("ID");
@@ -360,7 +365,7 @@ public class ParcoursDao implements IParcoursDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error+this.getClass().getName());
+			logger.trace(error+this.getClass().getName());
 		} finally {
 			try {rs.close();} catch (Exception e){}
 			try {statement.close();} catch (Exception e){}
@@ -393,12 +398,12 @@ public class ParcoursDao implements IParcoursDao {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();			
 			
-			System.out.println("query = "+query);
+			logger.trace("query = "+query);
 			
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 
 			while (rs.next()) {
 				Long id = rs.getLong("ID");
@@ -412,7 +417,7 @@ public class ParcoursDao implements IParcoursDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -448,12 +453,12 @@ public class ParcoursDao implements IParcoursDao {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();			
 			
-			System.out.println("query = "+query);
+			logger.trace("query = "+query);
 			
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 
 			while (rs.next()) {
 				Long id = rs.getLong("ID");
@@ -467,7 +472,7 @@ public class ParcoursDao implements IParcoursDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -516,7 +521,7 @@ public class ParcoursDao implements IParcoursDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();

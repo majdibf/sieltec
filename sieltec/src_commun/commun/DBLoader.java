@@ -9,6 +9,9 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.mchange.v2.c3p0.DataSources;
 
 import db.ElementParcours;
@@ -21,6 +24,8 @@ import db.Station;
 @ManagedBean(name="dbloader", eager=true)
 @ApplicationScoped
 public class DBLoader {
+
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
 
 	private  List<Station> stations = new ArrayList<Station>();
 	private  List<Ligne> lignes = new ArrayList<Ligne>();
@@ -94,7 +99,7 @@ public class DBLoader {
 			DataSource unpooled = DataSources.unpooledDataSource("jdbc:derby://localhost:1527/sieltecdb","sieltec","sieltec");
 			ds = DataSources.pooledDataSource( unpooled );		
 		} catch (Exception e) {
-			System.out.println("Problème d'initialisation du pool de connexion : " + e);
+			logger.error("Problème d'initialisation du pool de connexion : " + e);
 			e.printStackTrace();
 		} finally {
 			// todo : ???
