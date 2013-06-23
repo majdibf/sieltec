@@ -1,21 +1,18 @@
 package formbean;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.model.SelectItem;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openfaces.util.Faces;
 
+import service.IManagementService;
 import db.Ligne;
 import db.SouscriptionAlerte;
-import db.Station;
-
-import screenbean.Passage;
-import service.IManagementService;
 
 @ManagedBean
 public class AlerteBean {
@@ -27,12 +24,14 @@ public class AlerteBean {
 	//input
 	private String adresseMail;
 	private String ligne="rouge";
+
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
 		
 
 	
 	public AlerteBean() {
 		super();
-		System.out.println("AlerteBen instanciated");
+		logger.debug("AlerteBen instanciated");
 	}
 	
 	public String getAdresseMail() {
@@ -98,7 +97,7 @@ public class AlerteBean {
 	public String saveSouscription(){
 		Ligne l = managementService.findLigneByName(ligne);
 		managementService.insertSouscriptionAlerte(new SouscriptionAlerte(null, adresseMail, l.getId()));
-		return "succes_inscription";
+		return "alerte";
 	}
 	
 	
