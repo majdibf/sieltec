@@ -11,6 +11,9 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import commun.DBLoader;
 
 import dao.ISouscriptionAlerteDao;
@@ -22,6 +25,8 @@ import db.Ligne;
 @ApplicationScoped
 
 public class SouscriptionAlerteDao implements ISouscriptionAlerteDao {
+	
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
 	
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
@@ -48,9 +53,9 @@ public class SouscriptionAlerteDao implements ISouscriptionAlerteDao {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 			
-			System.out.println("query = "+query);
+			logger.trace("query = "+query);
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
 			rs=statement.getGeneratedKeys();
 
@@ -60,13 +65,13 @@ public class SouscriptionAlerteDao implements ISouscriptionAlerteDao {
 			    // do what you have to do
 			}
 			 
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -111,7 +116,7 @@ public class SouscriptionAlerteDao implements ISouscriptionAlerteDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();

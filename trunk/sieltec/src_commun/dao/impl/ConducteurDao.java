@@ -12,6 +12,9 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import commun.DBLoader;
 
 import dao.IConducteurDao;
@@ -21,6 +24,8 @@ import db.Parcours;
 @ManagedBean(name = "conducteurDao", eager = true)
 @ApplicationScoped
 public class ConducteurDao implements IConducteurDao {
+
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
 
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
@@ -37,9 +42,9 @@ public class ConducteurDao implements IConducteurDao {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 			
-			System.out.println("query = "+query);
+			logger.trace("query = "+query);
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
 			rs=statement.getGeneratedKeys();
 
@@ -49,13 +54,13 @@ public class ConducteurDao implements IConducteurDao {
 			    // do what you have to do
 			}
 			 
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.error(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -87,12 +92,12 @@ public class ConducteurDao implements IConducteurDao {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 			
-			System.out.println("query = "+query);
+			logger.trace("query = "+query);
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			int rowsUpdated =statement.executeUpdate(query);
 			 
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 			
 			result = rowsUpdated > 0;
 
@@ -100,7 +105,7 @@ public class ConducteurDao implements IConducteurDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.error(error + this.getClass().getName());
 			result=false;
 		} finally {
 			try {
@@ -150,7 +155,7 @@ public class ConducteurDao implements IConducteurDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.error(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -190,11 +195,11 @@ public class ConducteurDao implements IConducteurDao {
 			statement = conn.prepareStatement(query);
 			statement.setLong(1, conducteurId);
 			
-			System.out.println("trying to execute :\n" + query);
-			System.out.println(conducteurId);
+			logger.trace("trying to execute :\n" + query);
+			logger.trace(conducteurId);
 			rs = statement.executeQuery();
-			System.out.println("query executed successfuly :\n" + query);
-			System.out.println(conducteurId);
+			logger.trace("query executed successfuly :\n" + query);
+			logger.trace(conducteurId);
 
 			if (rs.next()) {
 				Long id = rs.getLong("ID");
@@ -210,7 +215,7 @@ public class ConducteurDao implements IConducteurDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error+this.getClass().getName());
+			logger.error(error+this.getClass().getName());
 		} finally {
 			try {rs.close();} catch (Exception e){}
 			try {statement.close();} catch (Exception e){}
@@ -233,9 +238,9 @@ public class ConducteurDao implements IConducteurDao {
 			String query = "select * from conducteur where nom='"+nom+"' and prenom='"+prenom+"'";
 			statement = conn.createStatement();
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 			
 			if (rs.next()) {
 				Long id = rs.getLong("ID");
@@ -251,7 +256,7 @@ public class ConducteurDao implements IConducteurDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error+this.getClass().getName());
+			logger.error(error+this.getClass().getName());
 		} finally {
 			try {rs.close();} catch (Exception e){}
 			try {statement.close();} catch (Exception e){}
@@ -274,12 +279,12 @@ public class ConducteurDao implements IConducteurDao {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 			
-			System.out.println("query = "+query);
+			logger.trace("query = "+query);
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			int rowsUpdated =statement.executeUpdate(query);
 			 
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 			
 			result = rowsUpdated > 0;
 
@@ -287,7 +292,7 @@ public class ConducteurDao implements IConducteurDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();

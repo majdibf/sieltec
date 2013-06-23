@@ -9,6 +9,9 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import commun.DBLoader;
 import dao.IUtilisateurDao;
 import db.Ligne;
@@ -19,6 +22,8 @@ import db.Utilisateur;
 @ApplicationScoped
 
 public class UtilisateurDao implements IUtilisateurDao{
+	
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
 	
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
@@ -44,12 +49,12 @@ public class UtilisateurDao implements IUtilisateurDao{
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();			
 			
-			System.out.println("query = "+query);
+			logger.trace("query = "+query);
 			
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 
 			if (rs.next()) {
 			    long id = rs.getLong(1);
@@ -66,7 +71,7 @@ public class UtilisateurDao implements IUtilisateurDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();

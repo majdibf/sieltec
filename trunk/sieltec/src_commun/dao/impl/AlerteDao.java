@@ -11,14 +11,19 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import commun.DBLoader;
 
 import dao.IAlerteDao;
 import db.Alerte;
 
+
 @ManagedBean(name = "alerteDao", eager = true)
 @ApplicationScoped
 public class AlerteDao implements IAlerteDao {
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
 
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
@@ -60,7 +65,7 @@ public class AlerteDao implements IAlerteDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.error(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -101,7 +106,7 @@ public class AlerteDao implements IAlerteDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.error(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();

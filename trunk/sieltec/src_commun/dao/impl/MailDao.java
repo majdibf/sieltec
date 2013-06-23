@@ -12,12 +12,17 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import dao.IMailDao;
 
 @ManagedBean(name="mailDao", eager=true)
 @ApplicationScoped
 
 public class MailDao implements IMailDao {
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	
     String host, port, username, password;
     Properties props = System.getProperties();
     Session l_session = null;
@@ -52,7 +57,7 @@ public class MailDao implements IMailDao {
             message.setSubject(subject);
             message.setContent(body, "text/html");
             Transport.send(message);
-            System.out.println("Message Sent");
+            logger.trace("Message Sent");
         } catch (MessagingException mex) {
             mex.printStackTrace();
         } catch (Exception e) {

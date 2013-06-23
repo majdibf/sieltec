@@ -15,6 +15,9 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import commun.DBLoader;
 
 import dao.IStationDao;
@@ -24,12 +27,14 @@ import db.Station;
 @ApplicationScoped
 public class StationDao implements IStationDao, Serializable {
 
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	
 	@ManagedProperty(value = "#{dbloader}")
 	private DBLoader dbLoader;
 
 	public StationDao() {
 		super();
-		System.out.println("ManagementService instanciated");
+		logger.trace("ManagementService instanciated");
 	}
 
 	public DBLoader getDbLoader() {
@@ -52,9 +57,9 @@ public class StationDao implements IStationDao, Serializable {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 			
-			System.out.println("query = "+query);
+			logger.trace("query = "+query);
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
 			rs=statement.getGeneratedKeys();
 
@@ -64,13 +69,13 @@ public class StationDao implements IStationDao, Serializable {
 			    // do what you have to do
 			}
 			 
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -101,12 +106,12 @@ public class StationDao implements IStationDao, Serializable {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 			
-			System.out.println("query = "+query);
+			logger.trace("query = "+query);
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			int rowsUpdated =statement.executeUpdate(query);
 			 
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 			
 			result = rowsUpdated > 0;
 
@@ -114,7 +119,7 @@ public class StationDao implements IStationDao, Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 			result=false;
 		} finally {
 			try {
@@ -150,9 +155,9 @@ public class StationDao implements IStationDao, Serializable {
 
 			String query = "select * from station";
 
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 
 			Station s;
 			while (rs.next()) {
@@ -168,7 +173,7 @@ public class StationDao implements IStationDao, Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -201,9 +206,9 @@ public class StationDao implements IStationDao, Serializable {
 			String query = "select * from station where lower(nom) = lower('"
 					+ name + "')";
 
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 
 			if (rs.next()) {
 				Long id = rs.getLong("id");
@@ -219,7 +224,7 @@ public class StationDao implements IStationDao, Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -267,11 +272,11 @@ public class StationDao implements IStationDao, Serializable {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 			
-			System.out.println("query = "+query);
+			logger.trace("query = "+query);
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 
 			while (rs.next()) {
 				Long id = rs.getLong("id");
@@ -287,7 +292,7 @@ public class StationDao implements IStationDao, Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -319,9 +324,9 @@ public class StationDao implements IStationDao, Serializable {
 
 			String query = "select * from station where id ="+ stationDepId;
 
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			rs = statement.executeQuery(query);
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 
 			if (rs.next()) {
 				Long id = rs.getLong("id");
@@ -337,7 +342,7 @@ public class StationDao implements IStationDao, Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
@@ -369,12 +374,12 @@ public class StationDao implements IStationDao, Serializable {
 			conn = dbLoader.getDs().getConnection();
 			statement = conn.createStatement();
 			
-			System.out.println("query = "+query);
+			logger.trace("query = "+query);
 			
-			System.out.println("trying to execute :\n" + query);
+			logger.trace("trying to execute :\n" + query);
 			int rowsUpdated =statement.executeUpdate(query);
 			 
-			System.out.println("query executed successfuly :\n" + query);
+			logger.trace("query executed successfuly :\n" + query);
 	
 			result = rowsUpdated > 0;
 
@@ -382,7 +387,7 @@ public class StationDao implements IStationDao, Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String error = "erreur de connexion à la base de données";
-			System.out.println(error + this.getClass().getName());
+			logger.trace(error + this.getClass().getName());
 		} finally {
 			try {
 				rs.close();
