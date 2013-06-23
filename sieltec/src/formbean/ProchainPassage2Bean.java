@@ -12,6 +12,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 
 import db.ElementProgramme;
@@ -24,6 +26,8 @@ import service.IManagementService;
 public class ProchainPassage2Bean {
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
+
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
 
 	private String namePage = "Prochain passae à l'arrêt";
 
@@ -44,7 +48,7 @@ public class ProchainPassage2Bean {
 		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
 		String idStation =  (params.get("idStation")); 
 		String idLigne =  (params.get("idLigne")); 
-		System.out.println("idStation="+idStation);
+		logger.debug("idStation="+idStation);
 		this.idStation=idStation;
 		this.idLigne=idLigne;
 		

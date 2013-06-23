@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.openfaces.util.Faces;
 
@@ -28,6 +30,8 @@ import service.IManagementService;
 
 @ManagedBean
 public class ItineraireBean {
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
 
@@ -48,7 +52,7 @@ public class ItineraireBean {
 
 	public ItineraireBean() {
 		super();
-		System.out.println("ItineraireBean instanciated");
+		logger.debug("ItineraireBean instanciated");
 	}
 
 	public IManagementService getManagementService() {
