@@ -1,16 +1,11 @@
 package tools;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.Random;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 
@@ -32,7 +27,8 @@ import db.Programme;
 import db.Station;
 
 public class Simulate {
-		
+
+	private static Logger logger = LogManager.getLogger("simulator");
 	private static DBLoader dbLoader = new DBLoader();
 	private static StationDao stationDao = new StationDao();
 	private static ProgrammeDao programmeDao = new ProgrammeDao();
@@ -126,9 +122,8 @@ public class Simulate {
 						} else {
 							typeEvt = "ARRIVEE";
 						}
-						System.out.println("===========================================================");
-						System.out.println(parc.getNom() + " : " + typeEvt + " : " + station.getNom() + " : " + evt.getDateHeure());
-						System.out.println("===========================================================");
+						
+						logger.info(parc.getNom() + " : " + typeEvt + " : " + station.getNom() + " : " + evt.getDateHeure());
 						
 					} else {
 						evenementsTmp.add(evt);
@@ -136,14 +131,13 @@ public class Simulate {
 				}
 				evenements = evenementsTmp;
 				Thread.sleep(sleepDelay);
-				System.out.println("next check for events is in : " + sleepDelay/1000 + "seconds");
+				logger.debug("next check for events is in : " + sleepDelay/1000 + "seconds");
 			}
 			
 			
-			System.out.println("End Simulation with success");
+			logger.info("End Simulation with success");
 		}catch(Exception e){
-			e.printStackTrace();
-			System.out.println("Error: " + e);
+			logger.error("Error: " + e.getStackTrace());
 		}
 		
 	}
@@ -170,7 +164,7 @@ public class Simulate {
 			//introduction d'un décalage (retard ou avance) pour la simulation
 			int maxDecalage = elemPar.getDuree().getMinutes() * tauxErreur/100;
 			int retardAvance = sign * randomizer.nextInt(Math.max(1, maxDecalage) + 1);
-			System.out.println("décalge de " + retardAvance + " sur " + elemPar.getDuree().getMinutes());
+			logger.debug("décalge de " + retardAvance + " sur " + elemPar.getDuree().getMinutes());
 			dateHeureArr = dateHeureArr.plusMinutes(retardAvance);
 			ElementProgramme elPr = new ElementProgramme(stationDepId, stationArrId, dateHeureDep, dateHeureArr, parcoursId);
 			dateHeureProchainDepart = dateHeureArr.plusMinutes(elemPar.getDureeArret().getMinutes());
