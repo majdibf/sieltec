@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 
 import screenbean.ScreenProgramme;
@@ -22,6 +24,8 @@ import db.Vehicule;
 @ManagedBean
 public class ListeProgrammeBean {
 
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
 	
@@ -66,7 +70,7 @@ public class ListeProgrammeBean {
 		Programme p = managementService.getProgrammeById(idProgramme);
 		
 		boolean result=managementService.removeProgramme(p);
-		System.out.println(result);
+		logger.trace(result);
 		//
 		//
 		return "liste_programmes";

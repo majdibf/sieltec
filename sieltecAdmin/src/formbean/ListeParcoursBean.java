@@ -9,6 +9,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import db.Conducteur;
 import db.Ligne;
 import db.Parcours;
@@ -21,6 +24,8 @@ import service.IManagementService;
 @ManagedBean
 public class ListeParcoursBean {
 
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
 	
@@ -63,7 +68,7 @@ public class ListeParcoursBean {
 		Parcours p = managementService.getParcoursById(idParcours);
 		
 		boolean result=managementService.removeParcours(p);
-		System.out.println(result);
+		logger.trace(result);
 		//
 		//
 		return "liste_parcours";

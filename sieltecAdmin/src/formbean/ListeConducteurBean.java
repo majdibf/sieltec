@@ -7,6 +7,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import service.IManagementService;
 import db.Conducteur;
 import db.Station;
@@ -14,6 +17,8 @@ import db.Station;
 @ManagedBean
 public class ListeConducteurBean {
 
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
 
@@ -56,7 +61,7 @@ public class ListeConducteurBean {
 		Conducteur c = managementService.getConducteurById(idConducteur);
 		
 		boolean result=managementService.removeConducteur(c);
-		System.out.println(result);
+		logger.trace(result);
 		//
 		//
 		return "liste_conducteurs";

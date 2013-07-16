@@ -7,6 +7,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import db.Programme;
 import db.Station;
 
@@ -15,6 +18,8 @@ import service.IManagementService;
 @ManagedBean
 public class ListeStationBean {
 
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
 	
@@ -47,7 +52,7 @@ public class ListeStationBean {
 		Station s = managementService.getStationsById(idStation);
 		
 		boolean result=managementService.removeStation(s);
-		System.out.println(result);
+		logger.trace(result);
 		//
 		//
 		return "liste_stations";

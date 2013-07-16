@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.openfaces.util.Faces;
 
@@ -30,6 +32,8 @@ import service.IManagementService;
 
 @ManagedBean
 public class AuthentificationBean {
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
 
@@ -43,7 +47,7 @@ public class AuthentificationBean {
 
 	public AuthentificationBean() {
 		super();
-		System.out.println("AuthentificationBean instanciated");
+		logger.trace("AuthentificationBean instanciated");
 	}
 
 	public IManagementService getManagementService() {

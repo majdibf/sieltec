@@ -8,6 +8,8 @@ import java.util.StringTokenizer;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.openfaces.util.Faces;
 
@@ -23,6 +25,8 @@ import db.Vehicule;
 
 @ManagedBean
 public class AjouterAlerteBean {
+
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
 
 	@ManagedProperty(value = "#{managementService}")
 	private IManagementService managementService;
@@ -110,7 +114,7 @@ public class AjouterAlerteBean {
 		for (SouscriptionAlerte souscrip: souscriptions) {
 			
 			String urlRemove="http://localhost:8282/sieltec/xhtml/alertes/remove_alerte.jsf?idligne="+parc.getLigneId()+"&adr="+souscrip.getAdresseMail(); 
-			System.out.println();
+			logger.trace("");
 
 			mailService.sendMail(souscrip.getAdresseMail(), nom, "<html> <body> " + description + " <br/> <br/> <a href="+ urlRemove +">Supprimer la souscription pour cette ligne </a><body/></html>");
 			
