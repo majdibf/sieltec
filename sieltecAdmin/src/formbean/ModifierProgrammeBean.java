@@ -8,6 +8,8 @@ import java.util.StringTokenizer;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.openfaces.util.Faces;
 
@@ -21,6 +23,8 @@ import service.IManagementService;
 
 @ManagedBean
 public class ModifierProgrammeBean {
+
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
 	
 	// input
 	private Date date;
@@ -197,7 +201,7 @@ public class ModifierProgrammeBean {
 			String prenom;
 			date.setHours(heure);
 			date.setMinutes(minute);
-			System.out.println(date);
+			logger.trace(date);
 			DateTime d =new DateTime(date.getTime());
 			Parcours parc=managementService.getParcoursByName(parcours);
 			Vehicule vehic=managementService.getVehiculeByImmatriculation(vehicule);
