@@ -8,7 +8,7 @@
       <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
     </Console>
     <File name="sieltecLogFile" fileName="./sieltec.log" append="false">
-      <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+      <PatternLayout pattern="%d{dd/MM/yyyy HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
     </File>
   </appenders>
   <loggers>
