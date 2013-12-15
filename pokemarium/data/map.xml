@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<map nbLigne="5" nbColonne="5">
+	<ligne>
+  		<case zone="TERRE" ligne="1" colonne="1"></case>
+ 		<case zone="HERBE" ligne="1" colonne="2"></case>
+ 		<case zone="HERBE" ligne="1" colonne="3"></case>
+  		<case zone="VIDE" ligne="1" colonne="4"></case>
+  		<case zone="NEUTRE" ligne="1" colonne="5"></case>
+ 	</ligne>
+	
+	<ligne>
+  		<case zone="TERRE" ligne="2" colonne="1"></case>
+ 		<case zone="EAU" ligne="2" colonne="2"></case>
+ 		<case zone="NEUTRE" ligne="2" colonne="3"></case>
+  		<case zone="EAU" ligne="2" colonne="4"></case>
+  		<case zone="EAU" ligne="2" colonne="5"></case>
+ 	</ligne>
+	
+	<ligne>
+  		<case zone="TERRE" ligne="3" colonne="1"></case>
+ 		<case zone="NEUTRE" ligne="3" colonne="2"></case>
+ 		<case zone="HERBE" ligne="3" colonne="3"></case>
+  		<case zone="FEU" ligne="3" colonne="4"></case>
+  		<case zone="NEUTRE" ligne="3" colonne="5"></case>
+ 	</ligne>
+	
+	<ligne>
+  		<case zone="NEUTRE" ligne="4" colonne="1"></case>
+ 		<case zone="FEU" ligne="4" colonne="2"></case>
+ 		<case zone="HERBE" ligne="4" colonne="3"></case>
+  		<case zone="VIDE" ligne="4" colonne="4"></case>
+  		<case zone="NEUTRE" ligne="4" colonne="5"></case>
+ 	</ligne>
+ 	
+ 	<ligne>
+  		<case zone="TERRE" ligne="5" colonne="1"></case>
+ 		<case zone="HERBE" ligne="5" colonne="2"></case>
+ 		<case zone="NEUTRE" ligne="5" colonne="3"></case>
+  		<case zone="VIDE" ligne="5" colonne="4"></case>
+  		<case zone="NEUTRE" ligne="5" colonne="5"></case>
+ 	</ligne>
+	</map>
